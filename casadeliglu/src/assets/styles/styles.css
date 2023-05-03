@@ -73,3 +73,40 @@ a{
 .header__menu div a{
     font-size: 16px;
 }
+
+
+/*FOOTER*/
+
+.footer{
+    background: var(--color-primario);
+    color: #ffffff ;
+}
+
+.footer__contacto h3{
+    font-size: 20px;
+}
+
+.footer__contacto p{
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.footer__contacto--datos p{
+    margin-bottom: 0;
+
+}
+
+.footer__grilla__contacto{
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 50%;
+}
+
+.footer__caja__contacto h3{
+    margin-bottom: 20px;
+}
+
+.footer__contacto__logo{
+    height: 200px;
+}

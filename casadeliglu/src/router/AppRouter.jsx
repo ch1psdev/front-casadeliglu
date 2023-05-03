@@ -5,6 +5,7 @@ import { Header } from '../app/components/Header'
 import { Productos } from '../app/modules/Productos/Productos'
 import { Nosotros } from '../app/modules/Nosotros/Nosotros'
 import { Contacto } from '../app/modules/contacto/Contacto'
+import { Footer } from '../app/components/Footer'
 
 export const AppRouter = () => {
   return (
@@ -18,6 +19,7 @@ export const AppRouter = () => {
 
             <Route path='/' element={<Navigate to='/inicio' />} />
         </Routes>
+      <Footer />
     </>
   )
 }
