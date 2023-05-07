@@ -1,3 +1,4 @@
+import { InstagramIcon } from '../../assets/Icons'
 import footer_logo from '../../assets/img/footer_logo.webp'
 
 export const Footer = () => {
@@ -24,7 +25,7 @@ export const Footer = () => {
                                 </div>
                             </div>
                             <div className="footer__contacto__iconos">
-                                
+                                <InstagramIcon />
                             </div>
                         </div>
                         <div className="col-6">

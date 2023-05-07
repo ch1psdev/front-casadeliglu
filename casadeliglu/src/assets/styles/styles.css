@@ -19,6 +19,22 @@ a{
     text-decoration: none;
 }
 
+.boton{
+    color: #ffffff;
+    background-color: var(--color-primario);
+    border: 0;
+    padding: 7px 30px;
+    border-radius: 8px;
+}
+
+.mostrar{
+    display:block
+}
+
+.ocultar{
+    display: none;
+}
+
 .contenedor-header{
     background: #ffffff;
     max-height: 100px;
@@ -44,6 +60,17 @@ a{
     justify-content: space-between;
 }
 
+.header__subMenu{
+    display: grid;
+    grid-auto-flow: column;
+    height: 100%;
+    grid-template-rows: auto;
+    align-content: end;
+    align-items: center;
+    grid-template-columns: 120px 360px 120px 120px;
+    justify-content: space-between;
+}
+
 .header__menu a{
     height: 100%;
     display: grid;
@@ -55,7 +82,9 @@ a{
 }
 
 .header__menu__item:hover{
+    border-bottom: 3px solid var(--color-primario);
     color: var(--color-primario);
+    font-weight: bold;
 }
 
 .header__menu--non-active{
@@ -74,6 +103,50 @@ a{
     font-size: 16px;
 }
 
+.contenedor-subheader{
+    position: absolute;
+    width: 100%;
+}
+
+.header__subMenuProductos{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+}
+
+.header__subMenuProductos__maincat{
+    background-color: #ffffff;
+    border: 1px solid #8C8C8C;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.header__subMenuProductos__maincat div:hover{
+    color: var(--color-primario);
+    border: 2px solid var(--color-primario);
+    cursor: pointer;
+}
+
+.header__subMenuProductos__maincat div{
+    padding: 6px 0px 6px 10px;
+}
+
+.header__subMenuProductos__maincat div p{
+    margin-bottom: 0;
+}
+
+.header__subMenuProductos__subcat div{
+    background: #FFFFFF;
+    border: 1px solid #8C8C8C;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.header__subMenuProductos__subcat div div p{
+    margin-bottom: 0;
+}
+
+.header__subMenuProductos__subcat div div{
+    padding: 6px 0px 6px 10px;
+}
 
 /*FOOTER*/
 
@@ -101,6 +174,11 @@ a{
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 50%;
+    margin-bottom: 10px;
+}
+
+.footer__caja__contacto{
+    padding: 15px 0;
 }
 
 .footer__caja__contacto h3{
@@ -109,4 +187,35 @@ a{
 
 .footer__contacto__logo{
     height: 200px;
+}
+
+.home__nosotros__img{
+    display: flex;
+}
+
+.home__nosotros__img img{
+    width: 100%;
+    align-self: normal;
+}
+
+.home__nosotros__texto{
+    padding: 20px 60px;
+    display: grid;
+    grid-template-rows: max-content;
+}
+
+.home__nosotros__texto h2{
+    margin-bottom: 40px;
+}
+
+.home__nosotros__boton{
+    align-self: center;
+    justify-self: end;
+}
+
+
+
+.home__nosotros__caja{
+    max-height: 400px;
+    flex-wrap: nowrap;
 }
