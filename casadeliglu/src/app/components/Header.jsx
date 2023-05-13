@@ -24,7 +24,7 @@ export const Header = () => {
 
   return (
     <>
-        <div className="container-fluid">
+        <div className="container-fluid header">
             <div className='row contenedor-header'>
                 <div className="col-1"></div>
                 <div className="col-2">
@@ -46,7 +46,8 @@ export const Header = () => {
                         <NavLink
                             to="/productos" 
                             className={({isActive}) => `header__menu__item ${isActive ? 'header__menu--active' : 'header__menu--non-active'}`}>
-                                <div onMouseOver={() => mostrarSubmenu('contenedor-subheader')} onMouseOut={() => ocultarSubmenu('contenedor-subheader')}>
+                                <div onMouseOver={() => mostrarSubmenu('contenedor-subheader')}>
+                                {/* onMouseOut={() => ocultarSubmenu('contenedor-subheader')} */}
                                     Productos
                                 </div>
                         </NavLink>
