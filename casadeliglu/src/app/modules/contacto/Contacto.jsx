@@ -18,7 +18,8 @@ export const Contacto = () => {
             </div>
             <div className="d-grid">
               <h3>Horario:</h3>
-              <p>Lunes a Viernes: 11:00 am - 19:30 pm<br/>Sábados y domingos: 11:00 am - 15:00 pm</p>
+              <p>Lunes a Viernes: 11:00 am - 19:30 pm
+                <br/>Sábados y domingos: 11:00 am - 15:00 pm</p>
             </div>
             <div className="d-grid">
               <h3>Teléfono:</h3>
