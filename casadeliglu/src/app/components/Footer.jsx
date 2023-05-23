@@ -7,7 +7,34 @@ export const Footer = () => {
         <div className="container-fluid footer">
             <div className="row">
                 <div className="col-1"></div>
-                <div className="col-5"></div>
+                <div className="col-5">
+                    <div className='footer__menus' style={{display:'grid', gridAutoFlow:'column'}}>
+                        <div>
+                            <p>Fiambres</p>
+                        </div>
+                        <div>
+                            <p>Fruta congelada</p>
+                        </div>
+                        <div>
+                            <p>Hamburguesas y nuggets</p>
+                        </div>
+                        <div>
+                            <p>Líquidos</p>
+                        </div>
+                        <div>
+                            <p>Mariscos y pescados</p>
+                        </div>
+                        <div>
+                            <p>Postres</p>
+                        </div>
+                        <div>
+                            <p>Snacks</p>
+                        </div>
+                        <div>
+                            <p>Verdura congelada</p>
+                        </div>
+                    </div>
+                </div>
                 <div className="col-5">
                     <div className="row">
                         <div className="col-6 footer__caja__contacto">

@@ -3,6 +3,8 @@ import plato_mariscos from '../../../assets/img/plato_mariscos.webp'
 import { Carousel } from 'primereact/carousel';
 import { Galleria } from 'primereact/galleria';
 import salmon from '../../../assets/img/productos/salmon.jpg'
+import { ProductosHome } from '../../components/ProductosHome';
+// import { Banner } from '../../components/Banner';
 
 export const Home = () => {
 
@@ -40,7 +42,7 @@ export const Home = () => {
       return (
           <div className="">
               <div className="mb-3 d-grid">
-                  <img src={product.imagen} alt="" style={{maxHeight:'300px', margin:'auto', width:'100%'}} />
+                  <img src={product.imagen} alt="" style={{maxHeight:'500px', margin:'auto', width:'100%'}} />
               </div>
           </div>
       );
@@ -48,7 +50,7 @@ export const Home = () => {
 
   return (
     <>
-      <div className="container-fluid home">
+      <div className="container-fluid home p-0">
         <div className="row pb-5">
           <div className="col-12" style={{padding:'0'}}>
             <div className="card" style={{border: '0'}}>
@@ -68,127 +70,8 @@ export const Home = () => {
           </div>
         </div>
 
-        <div className="row pb-5">
-          <div className="col-1"></div>
-          <div className="col-10" style={{display: 'grid'}}>
-            <div>
-              <h1 style={{marginBottom: '40px'}}>Nuestros productos</h1>
-            </div>
-            <div className='cards-group' style={{display:'grid', gridAutoFlow:'column', justifyItems: 'center'}}>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            <div class="card card-producto">
-              <img src={salmon} class="card-img-top" alt="foto producto" />
-              <div class="card-body">
-                <span className='card-categoria'>Pescados</span>
-                <h5 class="card-title">Nombre <br /> producto</h5>
-                <br />
-                <p class="card-text">$ 2000</p>
-              </div>
-            </div>
-            </div>
-            
-            <button className='boton home__nosotros__boton' style={{alignSelf: 'end', marginTop:'40px'}}>Ver más productos</button>
-          </div>
-          <div className="col-1"></div>
-        </div>
+        {/* <Banner /> */}
+        <ProductosHome />
 
         <div className='row pb-5'>
           <div className="col-1"></div>
@@ -203,7 +86,7 @@ export const Home = () => {
                 The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form
               </p>
               <button className='boton home__nosotros__boton'>
-                Ver productos
+                Más sobre nosotros
               </button>
             </div>
           </div>

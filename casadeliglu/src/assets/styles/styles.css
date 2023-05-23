@@ -1,18 +1,29 @@
+@import './header.css';
+@import './productos.css';
+@import './nosotros.css';
+
 :root{
     --color-primario: #0C2695;
+
+    --small: '576px';
+    --medium: '768px';
+    --large: '992px';
+    --ex-large: '1200px';
 }
 
-.body{
-    margin: 0px;
-}
-
-ul{
+.cuerpo{
     display: grid;
-    grid-auto-flow: column;
+    height: 100vh;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px 1fr 243px;
 }
 
 ul li{
     list-style: none;
+}
+
+ol, ul{
+    padding: 0;
 }
 
 a{
@@ -55,14 +66,51 @@ a{
 }
 
 .header__menu{
-    display: grid;
+    DISPLAY: GRID;
+    justify-content: end;
     grid-auto-flow: column;
-    height: 100%;
-    grid-auto-rows: 48px;
+    grid-auto-columns: 1fr;
     align-content: end;
-    align-items: center;
-    grid-auto-columns: 120px;
-    justify-content: space-between;
+    height: 100%;
+}
+
+.header__menu li a{
+    background-color: #FFFFFF;
+    color: #000;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+.header__menu > li{
+    float: left;
+}
+
+.header__menu li a:hover {
+    color: #0C2695;
+    font-weight: bold;
+}
+
+.header__menu li ul{
+    display:none;
+    position: absolute;
+    min-width: 180px
+}
+
+.header__menu li:hover > ul{
+    display: block;
+}
+
+.header__menu li ul li{
+    position: relative
+}
+
+.header__menu li ul li:hover{
+}
+
+.header__menu li ul li ul{
+    right: -180px;
+    top: 0px;
 }
 
 .header__subMenu{
@@ -74,11 +122,6 @@ a{
     align-items: center;
     grid-template-columns: 120px 360px 120px 120px;
     justify-content: space-between;
-}
-
-.header__menu a{
-    height: 100%;
-    display: grid;
 }
 
 .header__menu__item{
@@ -239,27 +282,68 @@ a{
 
 /* CARD */
 
-.card-producto{
-    width: 200px;
-    border: 1px solid #19A7CE;
+.contacto__caja__info{
+    display: grid;
+    padding: 20px;
 }
 
-.card-img-top{
-    width: 100%;
-    height: 150px;
+.contacto__caja__info div{
+    align-items: center;
+    grid-auto-flow: column;
+    grid-template-columns: 50% 50%;
+    margin-bottom: 20px;
 }
 
-.card-categoria{
-    color: #727574;
-    font-size: 13px;
+.contacto__caja__info div p{
+    margin-bottom: 0;
 }
 
-.cards-group{
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap:20px
+.contacto__caja__info div h3{
+    font-size: 20px;
 }
 
-.card-body{
+.contacto__caja{
+    border: 2px solid #19A7CE;
     background: #ECF9FF;
+    border-radius: 15px;
+}
+
+.contacto{
+    background-image: url('../img/background.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    display: grid;
+}
+
+.contacto div{
+    align-self: center;
+}
+
+.banner__radio{
+    cursor: pointer; 
+    background: #fff; 
+    height: 20px; 
+    width: 20px; 
+    border-radius: 15px;
+}
+
+input[type=radio]:checked + .banner__radio{
+    background-color: var(--color-primario);
+}
+
+.arrow{
+    height: 30px;
+    width: 30px;
+    transform: rotate(90deg);
+}
+
+.manito{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 728px) {
+    .header__caja__menu{
+        display: none;
+    }
 }
