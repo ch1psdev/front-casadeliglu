@@ -1,18 +1,27 @@
-import { NavLink } from 'react-router-dom'
-import { CarritoIcon } from '../../assets/Icons'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { CarritoIcon, MenuIcon } from '../../assets/Icons'
 import logo from '../../assets/img/logo.webp'
+import { useState } from 'react';
+import 'animate.css';
 
 export const Header = () => {
+
+    const navigate = useNavigate();
+    const [mostrarMenu, setmostrarMenu] = useState(false);
+
 
   return (
     <>
         <div className="container-fluid header">
             <div className='row contenedor-header'>
                 <div className="col-1 d-none d-lg-block"></div>
-                <div className="col-2">
-                    <img src={logo} alt="Logo tienda" className='header-logo' />
+                <div className="col-6 col-md-2">
+                    <img src={logo} alt="Logo tienda" className='header-logo manito' onClick={() => navigate('/')} />
                 </div>
-                <div className="col-10 col-md-8">
+                <div className="col-6 col-md-8">
+                    <div className="col-12 d-lg-none header__menu__icono" onClick={() => setmostrarMenu(!mostrarMenu)}>
+                        <MenuIcon />
+                    </div>
                     <div className="row header__caja__menu" style={{height:'100%'}}>
                         <div className="col-3"></div>
                         <div className="col-9">
@@ -266,7 +275,25 @@ export const Header = () => {
                 </div>
                 <div className="col-1 d-none d-lg-block"></div>
             </div>
+            
         </div>
+
+        {
+            mostrarMenu &&
+            <div className='menu__mobile animate__animated animate__fadeInRight animate__faster' id='menuMobile'>
+                <div>Hamburguesas y nuggets</div>
+                <div>Verduras</div>
+                <div>Frutas y pulpas</div>
+                <div>Veggan food</div>
+                <div>Carnes</div>
+                <div>Pescados y mariscos</div>
+                <div>Pizzas y platos listos</div>
+                <div>Conservas y salsas</div>
+                <div>Masa, coocktail y snack</div>
+                <div>Postres y bebidas</div>
+            </div>
+        }
+        
     </>
   )
 }

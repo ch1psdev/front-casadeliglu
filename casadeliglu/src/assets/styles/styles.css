@@ -1,6 +1,9 @@
 @import './header.css';
 @import './productos.css';
 @import './nosotros.css';
+@import './home.css';
+@import './footer.css';
+@import './banner.css';
 
 :root{
     --color-primario: #0C2695;
@@ -15,8 +18,15 @@
     display: grid;
     height: 100vh;
     grid-template-columns: 100%;
-    grid-template-rows: 100px 1fr 243px;
+    grid-template-rows: 100px 1fr 273px;
 }
+
+@media screen and (min-width:768px) {
+    .cuerpo{
+        grid-template-rows: 100px 1fr 243px;
+    }
+}
+
 
 ul li{
     list-style: none;
@@ -225,18 +235,6 @@ a{
     margin-bottom: 10px;
 }
 
-.footer__caja__contacto{
-    padding: 15px 0;
-}
-
-.footer__caja__contacto h3{
-    margin-bottom: 20px;
-}
-
-.footer__contacto__logo{
-    height: 200px;
-}
-
 .home{
     background-image: url('../img/background.webp');
     background-repeat: no-repeat;
@@ -251,19 +249,6 @@ a{
     padding: 0;
 }
 
-.home__nosotros__img img{
-    width: 100%;
-    align-self: normal;
-    border-radius: 13px 0px 0px 13px;
-}
-
-.home__nosotros__texto{
-    padding: 20px 60px;
-    display: grid;
-    grid-template-rows: max-content;
-    background: #ECF9FF;
-}
-
 .home__nosotros__texto h2{
     margin-bottom: 40px;
 }
@@ -271,13 +256,6 @@ a{
 .home__nosotros__boton{
     align-self: center;
     justify-self: end;
-}
-
-
-
-.home__nosotros__caja{
-    max-height: 400px;
-    flex-wrap: nowrap;
 }
 
 /* CARD */
@@ -340,10 +318,4 @@ input[type=radio]:checked + .banner__radio{
 
 .manito{
     cursor: pointer;
-}
-
-@media screen and (max-width: 728px) {
-    .header__caja__menu{
-        display: none;
-    }
 }

@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import salmon from '../../assets/img/productos/salmon.jpg'
 
 export const ProductosHome = () => {
+
+  const navigate = useNavigate();
 
     const template = () => {
         let tm = [];
@@ -24,7 +27,7 @@ export const ProductosHome = () => {
 
   return (
     <>
-        <div className="row pb-5">
+        <div className="row pb-5" style={{maxWidth:'100%', marginLeft:'0',marginRight:'0'}}>
           <div className="col-1 d-none d-lg-block"></div>
           <div className="col-md-10 col-12" style={{display: 'grid'}}>
             <div>
@@ -36,7 +39,7 @@ export const ProductosHome = () => {
                 }
             </div>
             
-            <button className='boton home__nosotros__boton' style={{alignSelf: 'end', marginTop:'40px'}}>Ver más productos</button>
+            <button className='boton home__nosotros__boton' style={{alignSelf: 'end', marginTop:'40px'}} onClick={() => navigate('/productos')}>Ver más productos</button>
           </div>
           <div className="col-1 d-none d-lg-block"></div>
         </div>

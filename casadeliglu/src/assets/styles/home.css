@@ -1,0 +1,31 @@
+
+.home__nosotros__texto{
+    padding: 20px 15px;
+    display: grid;
+    grid-template-rows: max-content;
+    background: #ECF9FF;
+}
+
+.home__nosotros__img img{
+    width: 100%;
+    align-self: normal;
+    border-radius: 13px 13px 0px 0px;
+}
+
+@media screen and (min-width: 768px ) {
+    .home__nosotros__caja{
+        flex-wrap: nowrap;
+        max-height: 400px;
+    }
+
+    .home__nosotros__texto{
+        padding: 20px 60px;
+        display: grid;
+        grid-template-rows: max-content;
+        background: #ECF9FF;
+    }
+
+    .home__nosotros__img img{
+        border-radius: 13px 0px 0px 13px;
+    }
+}
