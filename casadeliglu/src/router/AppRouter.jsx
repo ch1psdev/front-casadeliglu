@@ -18,6 +18,7 @@ export const AppRouter = () => {
             <Route path='/contacto' element={<Contacto />} />
 
             <Route path='/' element={<Navigate to='/inicio' />} />
+            <Route path='/*' element={<Navigate to='/inicio' />} />
         </Routes>
       <Footer />
     </>
