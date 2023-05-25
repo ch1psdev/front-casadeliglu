@@ -4,9 +4,12 @@ import { Carousel } from 'primereact/carousel';
 import { Galleria } from 'primereact/galleria';
 import salmon from '../../../assets/img/productos/salmon.jpg'
 import { ProductosHome } from '../../components/ProductosHome';
+import { useNavigate } from 'react-router-dom';
 // import { Banner } from '../../components/Banner';
 
 export const Home = () => {
+
+  const navigate = useNavigate();
 
   const [products, setProducts] = useState([
     {
@@ -42,7 +45,7 @@ export const Home = () => {
       return (
           <div className="">
               <div className="mb-3 d-grid">
-                  <img src={product.imagen} alt="" style={{maxHeight:'500px', margin:'auto', width:'100%'}} />
+                  <img src={product.imagen} alt="" className='banner__img' />
               </div>
           </div>
       );
@@ -51,7 +54,7 @@ export const Home = () => {
   return (
     <>
       <div className="container-fluid home p-0">
-        <div className="row pb-5">
+        <div className="row pb-5 m-0">
           <div className="col-12" style={{padding:'0'}}>
             <div className="card" style={{border: '0'}}>
                 {/* <Carousel value={products} numVisible={1} numScroll={3} showIndicatorsOnItem={true} responsiveOptions={responsiveOptions} className="custom-carousel" circular autoplayInterval={3000} itemTemplate={productTemplate} /> */}
@@ -73,19 +76,19 @@ export const Home = () => {
         {/* <Banner /> */}
         <ProductosHome />
 
-        <div className='row pb-5'>
+        <div className='row pb-5 m-0'>
           <div className="col-1"></div>
           <div className="col-10">
             <div className="row home__nosotros__caja" style={{border:'2px solid #19A7CE', borderRadius:'15px'}}>
-            <div className="col-6 home__nosotros__img">
+            <div className="col-12 col-md-6 home__nosotros__img">
               <img src={ plato_mariscos } alt="" />
             </div>
-            <div className="col-6 home__nosotros__texto" style={{borderRadius:'15px'}}>
+            <div className="col-12 col-md-6 home__nosotros__texto" style={{borderRadius:'15px'}}>
               <h2>Congelados "Casa del Iglú"</h2>
               <p>
                 The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form
               </p>
-              <button className='boton home__nosotros__boton'>
+              <button className='boton home__nosotros__boton' onClick={() => navigate('/quienes-somos')}>
                 Más sobre nosotros
               </button>
             </div>

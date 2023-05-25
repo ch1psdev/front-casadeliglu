@@ -2,8 +2,42 @@
     display: none;
 }
 
+.header__menu__icono{
+    display: grid;
+    height: 100%;
+    place-content: center end;
+    padding-right: 10px;
+}
+
+.header__menu__icono svg path{
+    fill: var(--color-primario);
+}
+
+.menu__mobile{
+    background: #fff;
+    width: 200px;
+    position: absolute;
+    z-index: 1;
+    margin-top: 100px;
+    right: 0;
+}
+
+.menu__mobile div{
+    padding: 10px;
+}
+
+
 @media screen and (min-width:768px) {
     .header__caja__menu{
         display: flex;
+    }
+    .menu__mobile{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 728px) {
+    .header__caja__menu{
+        display: none;
     }
 }

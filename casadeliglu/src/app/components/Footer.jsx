@@ -7,8 +7,10 @@ export const Footer = () => {
         <div className="container-fluid footer">
             <div className="row">
                 <div className="col-1"></div>
-                <div className="col-5">
-                    <div className='footer__menus' style={{display:'grid', gridAutoFlow:'column'}}>
+                <div className="col-12 col-md-5">
+                    
+                    <div className='footer__menus d-lg-grid d-none' style={{display:'grid', gridAutoFlow:'row'}}>
+                    <h3>Productos</h3>
                         <div>
                             <p>Fiambres</p>
                         </div>
@@ -35,9 +37,9 @@ export const Footer = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-5">
+                <div className="col-12 col-md-5">
                     <div className="row">
-                        <div className="col-6 footer__caja__contacto">
+                        <div className="col-8 col-md-6 footer__caja__contacto">
                             <h3>Contáctanos</h3>
                             <div className="footer__grilla__contacto">
                                 <div className="footer__contacto">
@@ -55,7 +57,7 @@ export const Footer = () => {
                                 <InstagramIcon />
                             </div>
                         </div>
-                        <div className="col-6">
+                        <div className="col-4 col-md-6 footer__caja__logo">
                             <img src={footer_logo} alt="" className='footer__contacto__logo' />
                         </div>
                     </div>
