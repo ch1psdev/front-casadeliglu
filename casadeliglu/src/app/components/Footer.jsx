@@ -49,8 +49,8 @@ export const Footer = () => {
                                 </div>
                                 <div className="footer__contacto--datos">
                                     <p>Av. Domingo santa maria 3595, LOCAL 3, RENCA</p>
-                                    <p>+56987067940</p>
-                                    <p>casadeliglu@correo.cl</p>
+                                    <a href='tel:+56984491140'>+56984491140</a><br />   
+                                    <a href="mailto:congeladoshg@gmail.com">congeladoshg@gmail.com</a>
                                 </div>
                             </div>
                             <div className="footer__contacto__iconos">

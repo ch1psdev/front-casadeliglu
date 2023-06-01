@@ -228,6 +228,11 @@ a{
 
 }
 
+.footer__contacto--datos a{
+    text-decoration: none;
+    color: white;
+}
+
 .footer__grilla__contacto{
     display: grid;
     grid-auto-flow: column;

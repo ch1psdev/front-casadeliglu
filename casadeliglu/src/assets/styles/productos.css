@@ -5,11 +5,21 @@
 
 .card-body{
     background: #ECF9FF;
+    border-radius: 0px 0px 7px 7px;
+    padding: 0;
+}
+
+.card__cuerpo__textos{
+    padding: 1rem 1rem 0 1rem;
 }
 
 .card-categoria{
     color: #727574;
     font-size: 13px;
+}
+
+.card-categoria:hover{
+    text-decoration: underline;
 }
 
 .card-producto{
@@ -23,6 +33,44 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap:20px
+}
+
+.card__opciones{
+display: grid;
+grid-auto-flow: column;
+grid-template-columns: 60% 40%;
+}
+
+.card__opc__ver{
+    background-color: var(--color-primario);
+    display: grid;
+    border-radius: 0 0 0 5px;
+}
+
+.card__opc__ver p{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
+    align-self: center;
+}
+
+.card__img__cart{
+    background: #ffdf00;
+    display: grid;
+    border-radius: 0 0 5px 0;
+}
+
+.card__img__cart svg{
+    justify-self: center;
+}
+
+.card__img__cart svg path{
+    fill: white;
+}
+
+.card-title:hover{
+    text-decoration: underline;
 }
 
 @media screen and (min-width:1570px) {

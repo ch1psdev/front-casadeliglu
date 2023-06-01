@@ -1,22 +1,51 @@
 import { useNavigate } from 'react-router-dom';
 import salmon from '../../assets/img/productos/salmon.jpg'
+import { AddCart } from '../../assets/Icons';
+import Swal from 'sweetalert2'
 
 export const ProductosHome = () => {
 
   const navigate = useNavigate();
+
+  const irProducto = () =>{
+    navigate('/productos')
+  }
+
+  const irCategoria = () =>{
+    navigate('/productos')
+  }
+
+  const addProducto = () =>{
+    Swal.fire({
+      title: 'Producto añadido al carrito de compras!',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#0C2695'
+    })
+  }
 
     const template = () => {
         let tm = [];
 
         for (let i = 0; i < 12; i++) {
            
-            tm.push(<div key={i} className="card card-producto manito">
+            tm.push(<div key={i} className="card card-producto">
             <img src={salmon} className="card-img-top" alt="foto producto" />
             <div className="card-body">
-              <span className='card-categoria'>Pescados</span>
-              <h5 className="card-title">Nombre <br /> producto</h5>
-              <br />
-              <p className="card-text">$ 2000</p>
+              <div className='card__cuerpo__textos'>
+                <span className='card-categoria manito' onClick={irCategoria} >Pescados</span>
+                <h5 className="card-title manito" onClick={irProducto} >Nombre <br /> producto</h5>
+                <br />
+                <p className="card-text">$ 2000</p>
+              </div>
+              <div className='card__opciones manito'>
+                <div className='card__opc__ver'>
+                  <p>Ver</p>
+                </div>
+                <div className='card__img__cart' onClick={addProducto}>
+                  <AddCart />
+                </div>
+              </div>
             </div>
           </div>)
             

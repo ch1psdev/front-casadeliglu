@@ -5,7 +5,10 @@ import { Galleria } from 'primereact/galleria';
 import salmon from '../../../assets/img/productos/salmon.jpg'
 import { ProductosHome } from '../../components/ProductosHome';
 import { useNavigate } from 'react-router-dom';
+import { FloatingWhatsApp } from 'react-floating-whatsapp';
+import logo_whatsapp from '../../../assets/img/logo_whatsapp.png'
 // import { Banner } from '../../components/Banner';
+import Swal from 'sweetalert2'
 
 export const Home = () => {
 
@@ -41,6 +44,11 @@ export const Home = () => {
         }
     ]
 
+    // window.onscroll = () => {
+    //   var y = window.scrollY;
+    //   console.log(y)
+    // }
+
     const productTemplate = (product) => {
       return (
           <div className="">
@@ -54,7 +62,17 @@ export const Home = () => {
   return (
     <>
       <div className="container-fluid home p-0">
+      
         <div className="row pb-5 m-0">
+        <FloatingWhatsApp phoneNumber="+56954042922"
+        accountName="Casa del iglú"
+        allowEsc
+        allowClickAway
+        notification
+        notificationSound
+        statusMessage="Disponible"
+        chatMessage="Hola, ¿en qué puedo ayudarte?"
+        avatar={logo_whatsapp} />
           <div className="col-12" style={{padding:'0'}}>
             <div className="card" style={{border: '0'}}>
                 {/* <Carousel value={products} numVisible={1} numScroll={3} showIndicatorsOnItem={true} responsiveOptions={responsiveOptions} className="custom-carousel" circular autoplayInterval={3000} itemTemplate={productTemplate} /> */}
