@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Home } from '../app/modules/home/Home'
 import { Header } from '../app/components/Header'
 import { Productos } from '../app/modules/Productos/Productos'
@@ -11,7 +11,7 @@ export const AppRouter = () => {
   return (
     <>
     <Header />
-        <Routes>
+      <Routes>
             <Route path='/inicio' element={<Home />} />
             <Route path='/productos' element={<Productos />} />
             <Route path='/quienes-somos' element={<Nosotros />} />
@@ -20,7 +20,8 @@ export const AppRouter = () => {
             <Route path='/' element={<Navigate to='/inicio' />} />
             <Route path='/*' element={<Navigate to='/inicio' />} />
             <Route path='*' element={<Navigate to='/inicio' />} />
-        </Routes>
+      </Routes>
+        
       <Footer /> 
     </>
   )
