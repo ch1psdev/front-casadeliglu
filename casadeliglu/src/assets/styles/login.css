@@ -1,0 +1,33 @@
+.login{
+    margin-top: 100px;
+}
+
+.login div:nth-child(2){
+    text-align: center;
+}
+
+.caja__login{
+    display: grid;
+    width: 400px;
+    border: 2px solid var(--color-primario);
+    padding: 30px 20px;
+    border-radius: 15px;
+    justify-items: center;
+    margin: auto;
+}
+
+.caja__login h1{
+    margin-bottom: 0;
+}
+
+.caja__inputs{
+    display: grid;
+    grid-auto-flow: row;
+    gap: 20px;
+    width: 250px;
+    padding: 40px 0;
+}
+
+.caja__login button{
+    width: 250px;
+}

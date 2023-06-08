@@ -4,6 +4,7 @@
 @import './home.css';
 @import './footer.css';
 @import './banner.css';
+@import './login.css';
 
 :root{
     --color-primario: #0C2695;
@@ -323,4 +324,40 @@ input[type=radio]:checked + .banner__radio{
 
 .manito{
     cursor: pointer;
+}
+
+.caja__trabajando{
+    background-image: url('../img/background.webp');
+    background-size: cover;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    grid-auto-flow: row;
+    height: 100vh;
+    grid-template-rows: 50% 10% 1fr;
+    grid-template-columns: 100%;
+}
+
+.caja__trabajando img{
+    width: 300px;
+    height: 300px;
+}
+
+.caja__trabajando h1{
+    text-align: center;
+}
+
+.caja__trabajando a{
+    place-self: end;
+}
+
+@media screen and (min-width:768px) {
+    .caja__trabajando img{
+        width: 500px;
+        height: 500px;
+    }
+
+    .caja__trabajando{
+        grid-template-rows: 60% 10% 1fr;
+    }
 }

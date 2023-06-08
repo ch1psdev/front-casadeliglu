@@ -64,7 +64,7 @@ export const Home = () => {
       <div className="container-fluid home p-0">
       
         <div className="row pb-5 m-0">
-        <FloatingWhatsApp phoneNumber="+56954042922"
+        <FloatingWhatsApp phoneNumber="+56984491140"
         accountName="Casa del iglú"
         allowEsc
         allowClickAway

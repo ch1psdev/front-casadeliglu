@@ -28,11 +28,17 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.card-producto:hover{
+    animation: bounce;
+    animation-duration: .8s;
+}
+
 .cards-group{
     overflow: auto;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    gap:20px
+    gap:20px;
+    padding-top: 20px
 }
 
 .card__opciones{

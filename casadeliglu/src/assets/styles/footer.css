@@ -16,6 +16,8 @@
     display: grid;
 }
 
+
+
 @media screen and (min-width: 768px ) {
     .footer__contacto__logo{
         height: 200px;
@@ -37,5 +39,19 @@
 
     .footer__menus div p{
         margin-bottom: 0px;
+    }
+
+    .footer__menus__productos{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer__caja__logo{
+        justify-content: start;
+    }
+
+    .footer__contacto__iconos{
+        display: grid;
+        justify-content: center;
     }
 }
