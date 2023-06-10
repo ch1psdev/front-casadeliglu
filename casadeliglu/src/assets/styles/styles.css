@@ -207,40 +207,6 @@ a{
     padding: 6px 0px 6px 10px;
 }
 
-/*FOOTER*/
-
-.footer{
-    background: var(--color-primario);
-    color: #ffffff ;
-}
-
-.footer__contacto h3{
-    font-size: 20px;
-}
-
-.footer__contacto p{
-    margin-bottom: 0;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.footer__contacto--datos p{
-    margin-bottom: 0;
-
-}
-
-.footer__contacto--datos a{
-    text-decoration: none;
-    color: white;
-}
-
-.footer__grilla__contacto{
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 50%;
-    margin-bottom: 10px;
-}
-
 .home{
     background-image: url('../img/background.webp');
     background-repeat: no-repeat;

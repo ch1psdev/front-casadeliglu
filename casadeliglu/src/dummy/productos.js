@@ -2,7 +2,7 @@ export const productos = [
     {
         id:1,
         nombre:'Jamón serrano',
-        precio:2000,
+        precio:2500,
         foto:'',
         categoria:'Fiambres',
         subcategoria:'Jamón'
@@ -18,7 +18,7 @@ export const productos = [
     {
         id:3,
         nombre:'Jamón de bellota',
-        precio:2000,
+        precio:2500,
         foto:'',
         categoria:'Fiambres',
         subcategoria:'Jamón'
@@ -26,7 +26,7 @@ export const productos = [
     {
         id:4,
         nombre:'Pulpa de frutilla',
-        precio:2000,
+        precio:6000,
         foto:'',
         categoria:'Fruta congelada',
         subcategoria:'Pulpas'
@@ -34,7 +34,7 @@ export const productos = [
     {
         id:5,
         nombre:'Pulpa de mango',
-        precio:2000,
+        precio:3000,
         foto:'',
         categoria:'Fruta congelada',
         subcategoria:'Pulpas'
@@ -42,7 +42,7 @@ export const productos = [
     {
         id:6,
         nombre:'Pulpa de arándano',
-        precio:2000,
+        precio:3000,
         foto:'',
         categoria:'Fruta congelada',
         subcategoria:'Pulpas'
@@ -50,7 +50,7 @@ export const productos = [
     {
         id:7,
         nombre:'Pulpa de lúcuma',
-        precio:2000,
+        precio:7000,
         foto:'',
         categoria:'Fruta congelada',
         subcategoria:'Pulpas'
@@ -58,7 +58,7 @@ export const productos = [
     {
         id:8,
         nombre:'Mangos en trozos',
-        precio:2000,
+        precio:8000,
         foto:'',
         categoria:'Fruta congelada',
         subcategoria:'Fruta en trozos'
@@ -66,7 +66,7 @@ export const productos = [
     {
         id:9,
         nombre:'Mix de frutas',
-        precio:2000,
+        precio:26000,
         foto:'',
         categoria:'Fruta congelada',
         subcategoria:'Fruta en trozos'
@@ -74,7 +74,7 @@ export const productos = [
     {
         id:10,
         nombre:'Piña en trozos',
-        precio:2000,
+        precio:26000,
         foto:'',
         categoria:'Fruta congelada',
         subcategoria:'Fruta en trozos'
@@ -82,7 +82,7 @@ export const productos = [
     {
         id:11,
         nombre:'Melón tuna en trozos',
-        precio:2000,
+        precio:47000,
         foto:'',
         categoria:'Fruta congelada',
         subcategoria:'Fruta en trozos'
@@ -90,7 +90,7 @@ export const productos = [
     {
         id:12,
         nombre:'Camote en trozos',
-        precio:2000,
+        precio:5000,
         foto:'',
         categoria:'Fruta congelada',
         subcategoria:'Fruta en trozos'
@@ -98,7 +98,7 @@ export const productos = [
     {
         id:13,
         nombre:'Hamburguesa vacuno Mastodonte',
-        precio:2000,
+        precio:9000,
         foto:'',
         categoria:'Hamburguesas y nuggets',
         subcategoria:'Vacuno'

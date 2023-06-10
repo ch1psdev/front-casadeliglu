@@ -16,11 +16,48 @@
     display: grid;
 }
 
+.footer{
+    background: var(--color-primario);
+    color: #ffffff ;
+}
 
+.footer__contacto h3{
+    font-size: 20px;
+}
+
+.footer__contacto p{
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.footer__contacto--datos p{
+    margin-bottom: 0;
+
+}
+
+.footer__contacto--datos a{
+    text-decoration: none;
+    color: white;
+}
+
+.footer__grilla__contacto{
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: min-content 1fr;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.footer .row{
+    height: 100%;
+    align-items: center;
+    padding: 10px 0px;
+}
 
 @media screen and (min-width: 768px ) {
     .footer__contacto__logo{
-        height: 200px;
+        height: 190px;
     }
 
     .footer__caja__contacto{
@@ -53,5 +90,7 @@
     .footer__contacto__iconos{
         display: grid;
         justify-content: center;
+        grid-auto-flow: column;
+        gap: 7px;
     }
 }

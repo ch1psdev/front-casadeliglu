@@ -9,6 +9,8 @@ import { Footer } from '../app/components/Footer'
 import { Trabajando } from '../app/components/Trabajando'
 import { Login } from '../app/modules/auth/pages/Login'
 import { useSelector } from 'react-redux'
+import { Producto } from '../app/modules/Productos/Producto'
+import { InRoutes } from '../app/routes/InRoutes'
 
 export const AppRouter = () => {
 
@@ -30,16 +32,7 @@ export const AppRouter = () => {
       ):(
         <>
           <Header />
-            <Routes>
-              <Route path='/inicio' element={<Home />} />
-              <Route path='/productos' element={<Productos />} />
-              <Route path='/quienes-somos' element={<Nosotros />} />
-              <Route path='/contacto' element={<Contacto />} />
-
-              <Route path='/' element={<Navigate to='/inicio' />} />
-              <Route path='/*' element={<Navigate to='/inicio' />} />
-              <Route path='*' element={<Navigate to='/inicio' />} />
-            </Routes>
+              <InRoutes />
           <Footer /> 
         </>
         

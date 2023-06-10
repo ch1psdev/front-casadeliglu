@@ -7,13 +7,14 @@ import { ProductosHome } from '../../components/ProductosHome';
 import { useNavigate } from 'react-router-dom';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import logo_whatsapp from '../../../assets/img/logo_whatsapp.png'
+import { productos } from '../../../dummy/productos.js';
 // import { Banner } from '../../components/Banner';
 import Swal from 'sweetalert2'
 
 export const Home = () => {
 
   const navigate = useNavigate();
-
+  const [pr, setPr] = useState();
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -26,24 +27,12 @@ export const Home = () => {
       imagen: 'https://previews.123rf.com/images/almoond/almoond1208/almoond120800060/14897448-banner-hecho-de-ilustración-colorida-verduras-frescas.jpg'
     }
   ]);
-    const responsiveOptions = [
-        {
-            breakpoint: '1199px',
-            numVisible: 1,
-            numScroll: 1
-        },
-        {
-            breakpoint: '991px',
-            numVisible: 2,
-            numScroll: 1
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 1,
-            numScroll: 1
-        }
-    ]
 
+  let prods;
+  const obtenerProductos = async() => {
+    setPr(productos);
+    console.log(pr)
+  }
     // window.onscroll = () => {
     //   var y = window.scrollY;
     //   console.log(y)
@@ -58,6 +47,12 @@ export const Home = () => {
           </div>
       );
   };
+
+  useEffect(() => {
+    obtenerProductos();
+    console.log(pr)
+  }, [pr])
+  
 
   return (
     <>
@@ -75,7 +70,6 @@ export const Home = () => {
         avatar={logo_whatsapp} />
           <div className="col-12" style={{padding:'0'}}>
             <div className="card" style={{border: '0'}}>
-                {/* <Carousel value={products} numVisible={1} numScroll={3} showIndicatorsOnItem={true} responsiveOptions={responsiveOptions} className="custom-carousel" circular autoplayInterval={3000} itemTemplate={productTemplate} /> */}
                 <Galleria 
                   value={products} 
                   showItemNavigators={true} 
@@ -92,7 +86,10 @@ export const Home = () => {
         </div>
 
         {/* <Banner /> */}
-        <ProductosHome />
+        {
+          pr != undefined &&
+            <ProductosHome datos={pr} />
+      }
 
         <div className='row pb-5 m-0'>
           <div className="col-1"></div>

@@ -2,13 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import salmon from '../../assets/img/productos/salmon.jpg'
 import { AddCart } from '../../assets/Icons';
 import Swal from 'sweetalert2'
+import { useEffect } from 'react';
 
-export const ProductosHome = () => {
+export const ProductosHome = ({datos}) => {
 
   const navigate = useNavigate();
 
   const irProducto = () =>{
-    navigate('/productos')
+    navigate('/productos/producto')
   }
 
   const irCategoria = () =>{
@@ -23,7 +24,6 @@ export const ProductosHome = () => {
       confirmButtonColor: '#0C2695'
     })
   }
-
     const template = () => {
         let tm = [];
 
@@ -33,10 +33,10 @@ export const ProductosHome = () => {
             <img src={salmon} className="card-img-top" alt="foto producto" />
             <div className="card-body">
               <div className='card__cuerpo__textos'>
-                <span className='card-categoria manito' onClick={irCategoria} >Pescados</span>
-                <h5 className="card-title manito" onClick={irProducto} >Nombre <br /> producto</h5>
+                <span className='card-categoria manito' onClick={irCategoria} >{datos[i].categoria}</span>
+                <h5 className="card-title manito" onClick={irProducto} >{datos[i].nombre}</h5>
                 <br />
-                <p className="card-text">$ 2000</p>
+                <p className="card-text">$ {datos[i].precio}</p>
               </div>
               <div className='card__opciones manito'>
                 <div className='card__opc__ver'>
@@ -53,6 +53,11 @@ export const ProductosHome = () => {
 
         return tm;
     }
+
+    useEffect(() => {
+      console.log(datos)
+    }, [datos])
+    
 
   return (
     <>
