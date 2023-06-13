@@ -50,7 +50,6 @@ export const Home = () => {
 
   useEffect(() => {
     obtenerProductos();
-    console.log(pr)
   }, [pr])
   
 

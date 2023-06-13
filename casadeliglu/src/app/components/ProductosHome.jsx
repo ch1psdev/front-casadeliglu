@@ -3,6 +3,7 @@ import salmon from '../../assets/img/productos/salmon.jpg'
 import { AddCart } from '../../assets/Icons';
 import Swal from 'sweetalert2'
 import { useEffect } from 'react';
+import { CardProducto } from './CardProducto';
 
 export const ProductosHome = ({datos}) => {
 
@@ -28,36 +29,15 @@ export const ProductosHome = ({datos}) => {
         let tm = [];
 
         for (let i = 0; i < 12; i++) {
-           
-            tm.push(<div key={i} className="card card-producto">
-            <img src={salmon} className="card-img-top" alt="foto producto" />
-            <div className="card-body">
-              <div className='card__cuerpo__textos'>
-                <span className='card-categoria manito' onClick={irCategoria} >{datos[i].categoria}</span>
-                <h5 className="card-title manito" onClick={irProducto} >{datos[i].nombre}</h5>
-                <br />
-                <p className="card-text">$ {datos[i].precio}</p>
-              </div>
-              <div className='card__opciones manito'>
-                <div className='card__opc__ver'>
-                  <p>Ver</p>
-                </div>
-                <div className='card__img__cart' onClick={addProducto}>
-                  <AddCart />
-                </div>
-              </div>
+          tm.push(
+            <div key={i}>
+              <CardProducto producto={datos[i]} />
             </div>
-          </div>)
-            
+          )
         }
 
         return tm;
     }
-
-    useEffect(() => {
-      console.log(datos)
-    }, [datos])
-    
 
   return (
     <>
@@ -69,6 +49,7 @@ export const ProductosHome = ({datos}) => {
             </div>
             <div className='cards-group' style={{display:'grid', gridAutoFlow:'column', justifyItems: 'center'}}>
                 {
+                  datos!=undefined &&
                     template()
                 }
             </div>

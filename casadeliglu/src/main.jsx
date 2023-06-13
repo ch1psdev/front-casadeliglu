@@ -14,7 +14,7 @@ import "primereact/resources/primereact.min.css";
 const persistor = persistStore(store);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <PersistGate persistor={ persistor }>
     <Provider store = {store}>
     <HashRouter>
@@ -22,5 +22,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </HashRouter>
     </Provider>
     </PersistGate>
-  </React.StrictMode>,
+  //</React.StrictMode>,
 )
