@@ -10,11 +10,14 @@ import logo_whatsapp from '../../../assets/img/logo_whatsapp.png'
 import { productos } from '../../../dummy/productos.js';
 // import { Banner } from '../../components/Banner';
 import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux';
+import { cargarProductos } from '../../store/auth/authSlice';
 
 export const Home = () => {
 
   const navigate = useNavigate();
   const [pr, setPr] = useState();
+  const dispatch = useDispatch();
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -31,7 +34,8 @@ export const Home = () => {
   let prods;
   const obtenerProductos = async() => {
     setPr(productos);
-    console.log(pr)
+    
+  
   }
     // window.onscroll = () => {
     //   var y = window.scrollY;
@@ -50,6 +54,9 @@ export const Home = () => {
 
   useEffect(() => {
     obtenerProductos();
+      if (pr!=undefined) {
+        dispatch(cargarProductos(pr));
+      }
   }, [pr])
   
 

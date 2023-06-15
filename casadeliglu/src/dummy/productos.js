@@ -239,7 +239,6 @@ export const productos = [
         categoria:'Líquidos',
         subcategoria:'Energéticas'
     },
-    ,
     {
         id:31,
         nombre:'Monster mango loco',
