@@ -16,7 +16,6 @@ export const AppRouter = () => {
 
   const num = 1
   const { status} = useSelector( (state) => state.usuarioState);
-  console.log(status)
   return (
     <>
     

@@ -26,6 +26,26 @@
     padding: 10px;
 }
 
+.header{
+    height: 150px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.header2__grilla{
+    height: 100%;
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.header2__grilla__contenido{
+    display: grid; 
+    grid-auto-flow: row;
+    grid-template-rows: 50%;
+}
+
+.header2__grilla__contenido div img{
+    height: 75px;
+}
 
 @media screen and (min-width:768px) {
     .header__caja__menu{
@@ -33,6 +53,11 @@
     }
     .menu__mobile{
         display: none;
+    }
+
+    .header2__grilla__contenido div{
+        display: grid;
+        justify-content: center;
     }
 }
 

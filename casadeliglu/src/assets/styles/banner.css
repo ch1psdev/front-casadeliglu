@@ -7,6 +7,6 @@
 
 @media screen and (min-width: 768px ) {
     .banner__img{
-        height: auto;
+        height: 300px;
     }
 }

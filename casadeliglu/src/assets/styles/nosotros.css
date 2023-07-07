@@ -1,0 +1,25 @@
+.nosotros__caja{
+    background-image: url('../img/background.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.nosotros{
+    display: grid;
+    grid-auto-flow: row;
+}
+
+.nosotros__logo{
+    justify-items: center;
+    display: grid;
+}
+
+.nosotros__logo img{
+    width: 400px;
+}
+
+.nosotros__texto{
+    text-align: justify;
+    font-size: 20px;
+}

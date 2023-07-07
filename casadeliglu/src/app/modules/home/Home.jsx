@@ -12,6 +12,10 @@ import { productos } from '../../../dummy/productos.js';
 import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux';
 import { cargarProductos } from '../../store/auth/authSlice';
+import banner1 from '../../../assets/img/home/banner1.webp';
+import banner2 from '../../../assets/img/home/banner2.webp';
+import banner3 from '../../../assets/img/home/banner3.webp';
+import banner4 from '../../../assets/img/home/banner4.webp';
 
 export const Home = () => {
 
@@ -21,13 +25,23 @@ export const Home = () => {
   const [products, setProducts] = useState([
     {
       id: 1,
-      nombre: 'uno',
-      imagen: 'https://m.media-amazon.com/images/I/517MRPeJfKL._AC_UF894,1000_QL80_.jpg'
+      nombre: 'banner1',
+      imagen: banner1
     },
     {
       id: 2,
-      nombre: 'dos',
-      imagen: 'https://previews.123rf.com/images/almoond/almoond1208/almoond120800060/14897448-banner-hecho-de-ilustración-colorida-verduras-frescas.jpg'
+      nombre: 'banner2',
+      imagen: banner2
+    },
+    {
+      id: 3,
+      nombre: 'banner3',
+      imagen: banner3
+    },
+    {
+      id: 4,
+      nombre: 'banner4',
+      imagen: banner4
     }
   ]);
 
@@ -107,7 +121,8 @@ export const Home = () => {
             <div className="col-12 col-md-6 home__nosotros__texto" style={{borderRadius:'15px'}}>
               <h2>Congelados "Casa del Iglú"</h2>
               <p>
-                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form
+              Somos Congelados HG limitada una empresa dedicada a la venta y distribución de alimentos congelados de  calidad y por sobretodo precios accesibles. Con casa matriz  en la comuna de renca. <br />
+              Constituida y formada durante la pandemia con el nombre de fantasía  “Casa del iglú” para ayudar a las familias a la adquisición de alimentos con entrega directa a sus hogares ayudando a disminuir la exposición de las personas. 
               </p>
               <button className='boton home__nosotros__boton' onClick={() => navigate('/quienes-somos')}>
                 Más sobre nosotros

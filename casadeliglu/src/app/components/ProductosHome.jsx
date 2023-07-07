@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import salmon from '../../assets/img/productos/salmon.jpg'
 import { AddCart } from '../../assets/Icons';
-import Swal from 'sweetalert2'
 import { useEffect } from 'react';
 import { CardProducto } from './CardProducto';
 
@@ -9,22 +8,6 @@ export const ProductosHome = ({datos}) => {
 
   const navigate = useNavigate();
 
-  const irProducto = () =>{
-    navigate('/productos/producto')
-  }
-
-  const irCategoria = () =>{
-    navigate('/productos')
-  }
-
-  const addProducto = () =>{
-    Swal.fire({
-      title: 'Producto añadido al carrito de compras!',
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-      confirmButtonColor: '#0C2695'
-    })
-  }
     const template = () => {
         let tm = [];
 

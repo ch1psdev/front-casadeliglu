@@ -65,7 +65,6 @@ export const Login = () => {
         // }
 
         let data = await iniciarSesion(input);
-        console.log(data.data);
         
     }
 

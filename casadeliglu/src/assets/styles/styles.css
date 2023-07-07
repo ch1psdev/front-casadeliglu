@@ -24,7 +24,7 @@
 
 @media screen and (min-width:768px) {
     .cuerpo{
-        grid-template-rows: 100px 1fr 243px;
+        grid-template-rows: 150px 1fr 243px;
     }
 }
 
@@ -211,6 +211,7 @@ a{
     background-image: url('../img/background.webp');
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 .p-galleria-item div{
     width: 100%;

@@ -1,27 +1,55 @@
 import { useSelector } from "react-redux"
 import { FilterIcon, LupaIcon } from "../../../assets/Icons"
-import { useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { CardProducto } from "../../components/CardProducto";
-
+import { useLocation } from "react-router-dom";
 
 export const Productos = () => {
 
-  const { products } = useSelector( (state) => state.usuarioState);
+  const [busqueda, setBusqueda] = useState('');
+  const [datos, setDatos] = useState();
+  const location = useLocation();
+  const productos = useSelector( (state) => state.usuarioState.products.payload);
 
-  let template = (products) => {
-    let tm = [];
-    for (let i = 0; i < products.payload.length; i++) {
-      tm.push(
-        <div key={i}>
-          <CardProducto producto={products.payload[i]} />
-        </div>
-      )
-      
-    }
-    return tm;
+  const handleBusqueda = (e) => {
+    setBusqueda(e.target.value);
   }
-  
 
+  const onBusqueda = (e) => {
+    setDatos(productos.filter( (data) => data.nombre.includes(busqueda)));
+  }
+
+  const filtrarDatos = () => {
+
+    if(location.state != undefined || location.state != null){
+      setDatos(productos.filter( (data) => data.categoria.includes(location.state) ))
+    }else{
+      setDatos(productos);
+    }
+  }
+
+  // const template = (products) => {
+  //   let tm = [];
+  //   for (let i = 0; i < products.payload.length; i++) {
+  //     tm.push(
+  //       <div key={i}>
+  //         <CardProducto producto={products.payload[i]} />
+  //       </div>
+  //     )
+      
+  //   }
+  //   return tm;
+  // }
+
+  // useEffect(() => {
+  //   template(products);
+  // }, [products.payload])
+
+  useEffect(() => {
+    // setDatos(productos);
+    filtrarDatos();
+  }, [location.state])
+  
   return (
     <>
       <div className="container-fluid" style={{padding:'0'}}>
@@ -50,16 +78,26 @@ export const Productos = () => {
               </div>
               <div className="productos__cuerpo__caja">
                   <div className="productos__barraBusqueda">
-                    <input type="text" placeholder="¿Qué estás buscando?" />
-                    <button className="botonLupa"><LupaIcon/></button>
+                    <form onSubmit={onBusqueda}>
+                      <input type="text" placeholder="¿Qué estás buscando?" value={busqueda} onChange={handleBusqueda} />
+                      <button className="botonLupa" type="submit" onClick={() => {onBusqueda()}}><LupaIcon/></button>
+                    </form>
+                    
                     <div className="filtrar">
                       <button className="filtro__btn__filtrar">Filtrar <FilterIcon/></button>
                     </div>
                   </div>
                   <div>
                       <div className="productos__lista">
-                        {
-                          template(products)
+                          {
+                          // template(products)
+                          datos!=undefined &&
+                          datos.map((data, i) =>(
+                            
+                              <div key={i}>
+                                <CardProducto producto={data} />
+                              </div>
+                            ))
                         }
                         {/* <button onClick={()=>console.log(products.payload)}></button> */}
                       </div>

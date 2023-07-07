@@ -81,6 +81,14 @@ align-self: end;
     text-decoration: underline;
 }
 
+.productos__cuerpo{
+    background-image: url('../img/background.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    background-attachment: fixed;
+}
+
 .productos__banner{
     height: 175px;
     place-content: center;
@@ -270,10 +278,16 @@ align-self: end;
     .productos__barraBusqueda{
         display: grid;
         grid-auto-flow: column;
-        grid-template-columns: 60% 10% 1fr;
+        grid-template-columns: 70% 1fr;
     }
 
-    .productos__barraBusqueda input{
+    .productos__barraBusqueda form{
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 85% 1fr;
+    }
+
+    .productos__barraBusqueda form input{
         height: 45px;
         background: rgba(140, 140, 140, 0.2);
         border-radius: 6px 0px 0px 6px;
