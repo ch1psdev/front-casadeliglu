@@ -2,6 +2,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import salmon from '../../../assets/img/productos/salmon.jpg'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 export const Producto = () => {
 
@@ -10,6 +11,7 @@ export const Producto = () => {
     const [detalleProducto, setDetalleProducto] = useState();
     const [total, setTotal] = useState(location.state.precio);
     const [cantidad, setCantidad] = useState(1);
+    const dispatch = useDispatch();
 
     const irCategoria = () => {
         navigate('/productos', {state: detalleProducto.categoria})

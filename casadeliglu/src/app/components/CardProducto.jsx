@@ -2,11 +2,16 @@ import { useEffect } from 'react';
 import { AddCart } from '../../assets/Icons'
 import salmon from '../../assets/img/productos/salmon.jpg'
 import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom';import Swal from 'sweetalert2'
+import { useDispatch, useSelector } from 'react-redux';
+import { actualizarProducto, agregarProducto } from '../store/shop/shopSlice';
 
 export const CardProducto = ({producto}) => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const { products } = useSelector((state) => state.carritoState);
   
   const irProducto = () => {
 
@@ -18,6 +23,23 @@ export const CardProducto = ({producto}) => {
   }
 
   const addProducto = () =>{
+    const existe = products.find(data => data.payload.id == producto.id);
+    // console.log(existe)
+
+    if(existe != undefined){
+      let prod = {...existe.payload,
+        cantidad : existe.payload.cantidad + 1
+      }
+      console.log(prod)
+      dispatch(actualizarProducto(prod));
+      return;
+    }
+
+    
+    const productos = {...producto,
+      cantidad: 1  
+    }
+    dispatch(agregarProducto(productos));
     Swal.fire({
       title: 'Producto añadido al carrito de compras!',
       icon: 'success',

@@ -5,6 +5,7 @@
 @import './footer.css';
 @import './banner.css';
 @import './login.css';
+@import './panelCarrito.css';
 
 :root{
     --color-primario: #0C2695;
