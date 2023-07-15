@@ -85,8 +85,14 @@ export const PanelCarrito = ({setMostrarCarrito, mostrarCarrito}) => {
           </div>          
         )
       }
-      <h2>Total: $ 0</h2>
-      <button className="boton" onClick={pagar}>Ir a Pagar</button>
+      {
+        products.length != 0 &&
+        <>
+          <h2>Total: $ 0</h2>
+          <button className="boton" onClick={pagar}>Ir a Pagar</button>
+        </>
+      }
+      
     </div>
   )
 }

@@ -1,0 +1,9 @@
+.pagar{
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.pagar__tabla{
+    display: grid;
+    grid-auto-flow: column;
+}
