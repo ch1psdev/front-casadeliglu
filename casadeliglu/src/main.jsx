@@ -7,9 +7,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { store } from './app/store/store';
 import "bootstrap/dist/css/bootstrap.min.css";
-import './assets/styles/styles.css'
+import './assets/styles/styles.scss'
 import "primereact/resources/themes/lara-light-indigo/theme.css"; 
-import "primereact/resources/primereact.min.css";  
+import "primereact/resources/primereact.min.css";
 
 const persistor = persistStore(store);
 

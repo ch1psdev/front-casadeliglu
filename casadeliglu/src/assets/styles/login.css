@@ -31,3 +31,32 @@
 .caja__login button{
     width: 250px;
 }
+
+.contenedor__login{
+    position: absolute;
+    margin-top: 10px;
+    background-color: white;
+    width: 300px;
+    padding: 20px;
+    display: grid;
+    border-radius: 0px 0px 10px 10px;
+} 
+
+.contenedor__login__group{
+    margin-bottom: 20px;
+}
+
+.contenedor__login__button{
+    margin: auto;
+}
+
+.contenedor__login__titulo{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.contenedor__login__registrar{
+    text-align: center;
+    font-size: 14px!important;
+}

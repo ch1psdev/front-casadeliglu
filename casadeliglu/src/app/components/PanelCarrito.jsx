@@ -1,6 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
 import { actualizarProducto, eliminarProducto, vaciarCarrito } from "../store/shop/shopSlice";
+import { ImgNotFound } from "../../assets/Icons";
 
 export const PanelCarrito = ({setMostrarCarrito, mostrarCarrito}) => {
 
@@ -8,7 +9,6 @@ export const PanelCarrito = ({setMostrarCarrito, mostrarCarrito}) => {
   const dispatch = useDispatch();
 
   const { products } = useSelector((state) => state.carritoState);
-  console.log(products)
 
   const pagar = () => {
     setMostrarCarrito(!mostrarCarrito)
@@ -48,6 +48,18 @@ export const PanelCarrito = ({setMostrarCarrito, mostrarCarrito}) => {
     dispatch(eliminarProducto(index));
   }
 
+  const calcularTotal = () =>{
+
+    let totales = [];
+    for (let i = 0; i < products.length; i++) {
+      totales.push(products[i].precioBruto * products[i].cantidad)
+    }
+
+    const acumProductos = totales.reduce((acumulador, prd) => acumulador + prd, 0)
+
+    return acumProductos
+  }
+
   return (
     <div className="carrito">
       <h1>Carro de compras</h1>
@@ -61,21 +73,28 @@ export const PanelCarrito = ({setMostrarCarrito, mostrarCarrito}) => {
               products.map((data, i) => (
                 <div key={i} className="carrito__productos">
                   <div>
-                    <img src={data.payload.foto} alt="" className="carrito__productos__foto" />
+                    {
+                      data.foto ? 
+                      (
+                        <img src={data?.foto} alt="" className="carrito__productos__foto" />
+                      ):(
+                        <ImgNotFound />
+                      )
+                    }
                   </div>
                   <div>
-                    <p className="carrito__productos__titulo"><b>{data.payload.nombre}</b></p>
-                    <span>$ {data.payload.precio}</span>
+                    <p className="carrito__productos__titulo"><b>{data.nombre}</b></p>
+                    <span>$ {data.precioBruto}</span>
                     <br /><a className="manito carrito__productos__eliminar" onClick={() => eliminarElemento(i)}>Eliminar</a>
                   </div>
                   <div>
-                    <b className="carrito__productos__titulo">$ {data.payload.precio * data.payload.cantidad}</b>
+                    <b className="carrito__productos__titulo">$ {data.precioBruto * data.cantidad}</b>
                     <div className="carrito__productos__contador">
-                      <button onClick={() => btnRestar(i, data.payload)}>-</button>
+                      <button onClick={() => btnRestar(i, data)}>-</button>
                       <div>
-                        <input type="number" id={`cantidad${i}`} name="cantidad" className="carrito__cantidad" value={data.payload.cantidad} onChange={(e) => handleCantidad(data.payload, e)} />
+                        <input type="number" id={`cantidad${i}`} name="cantidad" className="carrito__cantidad" value={data.cantidad} onChange={(e) => handleCantidad(data, e)} />
                       </div>
-                      <button onClick={() => btnSumar(i, data.payload)}>+</button>
+                      <button onClick={() => btnSumar(i, data)}>+</button>
                     </div>
                   </div>
                 </div>
@@ -88,7 +107,7 @@ export const PanelCarrito = ({setMostrarCarrito, mostrarCarrito}) => {
       {
         products.length != 0 &&
         <>
-          <h2>Total: $ 0</h2>
+          <h2>Total: $ {calcularTotal()}</h2>
           <button className="boton" onClick={pagar}>Ir a Pagar</button>
         </>
       }

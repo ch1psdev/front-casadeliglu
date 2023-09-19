@@ -1,0 +1,14 @@
+.miga{
+    &__activo{
+        color: var(--color-primario);
+        font-weight: bold;
+    }
+
+    &__ruta{
+        cursor: pointer;
+        
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}

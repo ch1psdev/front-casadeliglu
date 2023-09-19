@@ -5,16 +5,18 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
 import shopSlice from "./shop/shopSlice";
+import productSlice from "./product/productSilce";
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['usuarioState', 'carritoState']
+    whitelist: ['usuarioState', 'carritoState', 'productoState']
 }
 
 const rootReducer = combineReducers({
     usuarioState: authReducer,
-    carritoState: shopSlice
+    carritoState: shopSlice,
+    productoState: productSlice
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

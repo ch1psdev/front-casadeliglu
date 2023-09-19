@@ -177,3 +177,161 @@ export const FilterIcon = () => {
     </svg>
   )
 }
+
+export const UserIcon = () => {
+  return (
+    <svg height="24" id="svg8" version="1.1" viewBox="0 0 6.3499998 6.3500002" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
+      <defs id="defs2"/>
+      <g id="layer1">
+        <path 
+          d="M 3.1708661,3.2974124 C 1.907863,3.2997936 0.86304935,4.299744 0.79995125,5.5634239 A 0.26460945,0.26460945 0 0 0 1.0655682,5.8404096 H 5.2864993 A 0.26460945,0.26460945 0 0 0 5.5500489,5.5634239 C 5.48687,4.2981438 4.4396051,3.2975523 3.1750001,3.2974124 Z" 
+          id="path1332" 
+          style={{
+            color:'#000000', 
+            fontStyle:'normal',
+            fontVariant:'normal',
+            fontWeight:'normal',
+            fontStretch:'normal',
+            fontSize:'medium',
+            lineHeight:'normal',
+            fontFamily:'sans-serif',
+            fontVariantLigatures:'normal',
+            fontVariantPosition:'normal',
+            fontVariantCaps:'normal',
+            fontVariantNumeric:'normal',
+            fontVariantSlternates:'normal',
+            fontVariantEastAsian:'normal',
+            fontFeatureSettings:'normal',
+            fontVariationSettings:'normal',
+            textIndent:0,
+            textAlign:'start',
+            textDecoration:'none',
+            textDecorationLine:'none',
+            textDecorationStyle:'solid',
+            textDecorationColor:'#000000',
+            letterSpacing:'normal',
+            wordSpacing:'normal',
+            textTransform:'none',
+            writingMode:'lr-tb',
+            direction:'ltr',
+            textOrientation:'mixed',
+            dominantBaseline:'auto',
+            baselineShift:'baseline',
+            textAnchor:'start',
+            whiteSpace:'normal',
+            shapePadding:0,
+            shapeMargin:0,
+            inlineSize:0,
+            clipRule:'nonzero',
+            display:'inline',
+            overflow:'visible',
+            visibility:'visible',
+            isolation:'auto',
+            mixBlendMode:'normal',
+            colorInterpolation:'sRGB',
+            colorInterpolationFilters:'linearRGB',
+            solidColor:'#000000',
+            solidOpacity:1,
+            vectorEffect:'none',
+            fill:'#000000',
+            fillOpacity:1,
+            fillRule:'nonzero',
+            stroke:'none',
+            strokeWidth:0.529167,
+            strokeLinecap:'butt',
+            strokeLinejoin:'round',
+            strokeMiterlimit:4,
+            strokeDasharray:'none',
+            strokeDashoffset:0,
+            strokeOpacity:1,
+            paintOrder:'stroke fill markers',
+            colorRendering:'auto',
+            imageRendering:'auto',
+            shapeRendering:'auto',
+            textRendering:'auto',
+            enableBackground:'accumulate',
+            stopColor:'#000000'
+          }}/>
+        <path 
+          d="m 3.1750901,0.5095872 c -0.669506,0 -1.2153281,0.54839 -1.2153321,1.21864 -1.9e-6,0.6702501 0.5458221,1.2205301 1.2153321,1.2205301 0.6695099,0 1.217222,-0.55028 1.2172191,-1.2205301 -4e-6,-0.67025 -0.5477132,-1.21864 -1.2172191,-1.21864 z" 
+          id="path1292" 
+          style={{
+            color:'#000000',
+            fontStyle:'normal',
+            fontVariant:'normal',
+            fontWeight:'normal',
+            fontStretch:'normal',
+            fontSize:'medium',
+            lineHeight:'normal',
+            fontFamily:'sans-serif',
+            fontVariantLigatures:'normal',
+            fontVariantPosition:'normal',
+            fontVariantCaps:'normal',
+            fontVariantNumeric:'normal',
+            fontVariantAlternates:'normal',
+            fontVariantEastAsian:'normal',
+            fontFeatureSettings:'normal',
+            fontVariationSettings:'normal',
+            textIndent:0,
+            textAlign:'start',
+            textDecoration:'none',
+            textDecorationLine:'none',
+            textDecorationStyle:'solid',
+            textDecorationColor:'#000000',
+            letterSpacing:'normal',
+            wordSpacing:'normal',
+            textTransform:'none',
+            writingMode:'lr-tb',
+            direction:'ltr',
+            textOrientation:'mixed',
+            dominantBaseline:'auto',
+            baselineShift:'baseline',
+            textAnchor:'start',
+            whiteSpace:'normal',
+            shapePadding:0,
+            shapeMargin:0,
+            inlineSize:0,
+            clipRule:'nonzero',
+            display:'inline',
+            overflow:'visible',
+            visibility:'visible',
+            isolation:'auto',
+            mixBlendMode:'normal',
+            colorInterpolation:'sRGB',
+            colorInterpolationFilters:'linearRGB',
+            solidColor:'#000000',
+            solidOpacity:1,
+            vectorEffect:'none',
+            fill:'#000000',
+            fillOpacity:1,
+            fillRule:'nonzero',
+            stroke:'none',
+            strokeWidth:0.529167,
+            strokeLinecap:'butt',
+            strokeLinejoin:'round',
+            strokeMiterlimit:4,
+            strokeDasharray:'none',
+            strokeDashoffset:0,
+            strokeOpacity:1,
+            paintOrder:'stroke fill markers',
+            colorRendering:'auto',
+            imageRendering:'auto',
+            shapeRendering:'auto',
+            textRendering:'auto',
+            enableBackground:'accumulate',
+            stopColor:'#000000'
+          }}/>
+      </g>
+    </svg>
+  )
+}
+
+export const ImgNotFound = () => {
+  return(
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{placeSelf: 'center', width: '60px'}}>
+      <g data-name="5. No Camera" id="_5._No_Camera">
+        <path d="M21.208,4.207l2.5-2.5A1,1,0,0,0,22.293.293L18.586,4h-.865L17.4,3.051A3,3,0,0,0,14.559,1H9.441A2.994,2.994,0,0,0,6.6,3.052L6.279,4H4A4,4,0,0,0,0,8V19a3.963,3.963,0,0,0,.986,2.6l-.693.693a1,1,0,1,0,1.414,1.414l.954-.954A3.971,3.971,0,0,0,4,23H20a4,4,0,0,0,4-4V8A3.991,3.991,0,0,0,21.208,4.207ZM2,19V8A2,2,0,0,1,4,6H7a1,1,0,0,0,.948-.684l.544-1.632A1,1,0,0,1,9.441,3h5.118a1,1,0,0,1,.949.684l.544,1.632a.992.992,0,0,0,.6.616L14.86,7.726A6,6,0,0,0,6.726,15.86L2.4,20.187A1.985,1.985,0,0,1,2,19Zm14-6a4,4,0,0,1-4,4,3.963,3.963,0,0,1-2.6-.986L15.014,10.4A3.963,3.963,0,0,1,16,13ZM8,13a3.962,3.962,0,0,1,5.339-3.753L8.247,14.339A3.971,3.971,0,0,1,8,13Zm14,6a2,2,0,0,1-2,2H4.414l3.562-3.562a5.99,5.99,0,0,0,8.462-8.462L19.414,6H20a2,2,0,0,1,2,2Z"/>
+      </g>
+    </svg>
+  )
+}

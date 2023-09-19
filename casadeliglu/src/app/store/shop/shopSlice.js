@@ -8,12 +8,12 @@ export const shopSlice = createSlice({
 },
     reducers: {
         agregarProducto: ( state, payload ) => {
-            state.products.push(payload);
+            state.products.push(payload.payload);
         },
 
         actualizarProducto: ( state, payload ) => {
-            const index = state.products.findIndex(data => data.payload.id == payload.payload.id);
-            state.products[index] = payload;
+            const index = state.products.findIndex(data => data.idProducto == payload.payload.idProducto);
+            state.products[index] = payload.payload;
         },
 
         eliminarProducto: ( state, payload ) => {

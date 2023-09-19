@@ -19,6 +19,7 @@
 .footer{
     background: var(--color-primario);
     color: #ffffff ;
+    padding: 10px 180px;
 }
 
 .footer__contacto h3{
@@ -53,6 +54,38 @@
     height: 100%;
     align-items: center;
     padding: 10px 0px;
+}
+
+.caja__footer{
+    display: grid;
+    grid-template-columns: auto;
+    grid-auto-flow: column;
+    align-items: center;
+    gap:10px
+}
+
+@media screen and (max-width: 1450px){
+    .footer__contenedor__goolemap{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    
+    .footer__columna__menus{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 991px){
+    .footer{
+        padding: 10px 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    
+    
 }
 
 @media screen and (min-width: 768px ) {

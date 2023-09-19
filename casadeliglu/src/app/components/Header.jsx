@@ -1,18 +1,51 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { CarritoIcon, MenuIcon } from '../../assets/Icons'
-import logo from '../../assets/img/logo.webp'
+import { CarritoIcon, MenuIcon, UserIcon } from '../../assets/Icons'
 import { useState } from 'react';
 import 'animate.css';
 import iglu_header from '../../assets/img/iglu_header.png'
 import { PanelCarrito } from './panelCarrito';
+import { useRef } from 'react';
+import { Login } from '../modules/auth/pages/Login';
+import { Register } from '../modules/auth/pages/Register';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { ThreeCircles } from 'react-loader-spinner';
+import { capitalizar } from '../helpers/textos';
 
 export const Header = () => {
 
     const navigate = useNavigate();
-    const [mostrarMenu, setmostrarMenu] = useState(false);
+    const [mostrarMenu, setMostrarMenu] = useState(false);
     const [mostrarCarrito, setMostrarCarrito] = useState(false);
+    const [mostrarRegistro, setMostrarRegistro] = useState(false);
+    const [familias, setFamilias] = useState();
 
+    const usuario = useSelector( state => state.usuarioState);
+    const productos = useSelector( state => state.productoState);
+    
+    const login = useRef();
 
+    const onShowLogin = () => {
+        login.current.classList.toggle('d-none');
+    }
+    
+    const mapFamilias = (arr) =>{
+        const familias = (productos.data.map( data => data.familia));
+        let res = new Array();
+
+        for (let i = 0; i < familias.length; i++) {
+            if(!res.includes(familias[i])){
+                res.push(familias[i]);
+            }
+        }
+
+        return res;
+    }
+
+    const irProductos = (data) => {
+        navigate('/productos', {state: data})
+    }
+    
   return (
     <>
         {/*HEADER NUEVO*/}
@@ -20,10 +53,10 @@ export const Header = () => {
             <div className='header2__grilla'>
                 <div></div>
                 <div className='header2__grilla__contenido'>
-                    <div>
+                    <div className='header2__grilla__contenido__div'>
                         <img src={iglu_header} alt="" className='manito' onClick={() => navigate('/')} />
                     </div>
-                    <div>
+                    <div className='header2__grilla__contenido__div'>
                     <nav style={{height:'100%'}}>
                                 <ul className='header__menu'>
                                     <li>
@@ -41,204 +74,14 @@ export const Header = () => {
                                                 Productos
                                         </NavLink>
                                         <ul>
-                                            <li>
-                                                <NavLink
-                                                    to="/productos"
-                                                    className=''>
-                                                        Fiambres
-                                                </NavLink>
-                                                <ul>
-                                                    <li>
-                                                    <NavLink
-                                                        to="/productos" 
-                                                        className=''>
-                                                            Jamón
-                                                    </NavLink>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    to="/productos" 
-                                                    className=''>
-                                                        Fruta congelada
-                                                </NavLink>
-                                                <ul>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Pulpas
-                                                        </NavLink>
-                                                    </li>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Fruta en trozos
-                                                        </NavLink>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    to="/productos" 
-                                                    className=''>
-                                                        Hamburguesas y nuggets
-                                                </NavLink>
-                                                <ul>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Vacuno
-                                                        </NavLink>
-                                                    </li>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Pollo
-                                                        </NavLink>
-                                                    </li>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Vegetarianos
-                                                        </NavLink>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    to="/productos" 
-                                                    className=''>
-                                                        Líquidos
-                                                </NavLink>
-                                                <ul>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Bebidas
-                                                        </NavLink>
-                                                    </li>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Energéticas
-                                                        </NavLink>
-                                                    </li>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Aguas
-                                                        </NavLink>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    to="/productos" 
-                                                    className=''>
-                                                        Mariscos y pescados
-                                                </NavLink>
-                                                <ul>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Pescados
-                                                        </NavLink>
-                                                    </li>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Camarones
-                                                        </NavLink>
-                                                    </li>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Otros
-                                                        </NavLink>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    to="/productos" 
-                                                    className=''>
-                                                        Postres
-                                                </NavLink>
-                                                <ul>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Helados
-                                                        </NavLink>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    to="/productos" 
-                                                    className=''>
-                                                        Snacks
-                                                </NavLink>
-                                                <ul>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Arrollados
-                                                        </NavLink>
-                                                    </li>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Pizzas
-                                                        </NavLink>
-                                                    </li>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Empanadas
-                                                        </NavLink>
-                                                    </li>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Otros
-                                                        </NavLink>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    to="/productos" 
-                                                    className=''>
-                                                        Verdura congelada
-                                                </NavLink>
-                                                <ul>
-                                                    <li>
-                                                        <NavLink
-                                                            to="/productos" 
-                                                            className=''>
-                                                                Papas
-                                                        </NavLink>
-                                                    </li>
-                                                </ul>
-                                            </li>
+                                            {
+                                                productos.data.length > 0 &&
+                                                mapFamilias(productos.data).map((data,i)=>(
+                                                    <a className='manito' onClick={() =>irProductos(data)} key={i}>
+                                                        {capitalizar(data)}
+                                                    </a>
+                                                ))
+                                            }
                                         </ul>
                                     </li>
 
@@ -246,7 +89,7 @@ export const Header = () => {
                                         <NavLink
                                             to="/quienes-somos" 
                                             className={({isActive}) => `header__menu__item ${isActive ? 'header__menu--active' : 'header__menu--non-active'}`}>
-                                                ¿Quiénes somos?
+                                                Nosotros
                                         </NavLink>
                                     </li>
 
@@ -259,11 +102,35 @@ export const Header = () => {
                                     </li>
 
                                     <li>
-                                        <a className='manito' onClick={() => setMostrarCarrito(!mostrarCarrito)}>
+                                        <a className='manito nav__icon' onClick={() => setMostrarCarrito(!mostrarCarrito)}>
                                                 <div>
                                                     <CarritoIcon />    
                                                 </div>
                                         </a>
+                                    </li>
+                                    <li className='nav__login'>
+                                        
+                                            {
+                                                usuario.status == 'identificado' ? (
+                                                    <span style={{cursor:'initial'}}>
+                                                        <div>
+                                                            <UserIcon />
+                                                            <span className='nav__login__texto' style={{cursor:'initial'}}>Hola {usuario.info.nombre}!</span>
+                                                        </div>
+                                                    </span>
+                                                ):(
+                                                    <>
+                                                    <span>
+                                                        <div onClick={() => onShowLogin()}>
+                                                            <UserIcon />
+                                                            <span className='nav__login__texto'>Log In</span>
+                                                        </div>
+                                                        <Login referencia={login} setMostrarRegistro={setMostrarRegistro} />
+                                                        </span>
+                                                    </>
+                                                )
+                                            }
+                                            
                                     </li>
                                 </ul>
                             </nav>
@@ -293,6 +160,9 @@ export const Header = () => {
                 <div>Postres y bebidas</div>
             </div>
         }
+
+        <Register pshow={mostrarRegistro} setMostrarRegistro={setMostrarRegistro} />
+        
         
     </>
   )

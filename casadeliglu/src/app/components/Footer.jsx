@@ -4,17 +4,16 @@ import footer_logo from '../../assets/img/footer_logo.webp'
 export const Footer = () => {
   return (
     <>
-        <div className="container-fluid footer">
-            <div className="row">
-                <div className="col-1"></div>
-                <div className="col-md-2 footer__caja__logo">
+        <div className="footer">
+            <div className="caja__footer">
+                <div className="footer__caja__logo">
                     <img src={footer_logo} alt="" className='footer__contacto__logo' />
                     <div className="footer__contacto__iconos">
                         <InstagramIcon />
                         <WhatsappIcon />
                     </div>
                 </div>
-                <div className="col-12 col-md-3">
+                <div className="footer__columna__menus">
                     
                     <div className='footer__menus d-lg-grid d-none'>
                         <h3>Productos</h3>
@@ -48,7 +47,7 @@ export const Footer = () => {
                     </div>
                 </div>
         
-                <div className="col-12 col-md-3">
+                <div className="footer__datos__contacto">
                         <div className="footer__caja__contacto">
                             <h3>Contáctanos</h3>
                             <div className="footer__grilla__contacto">
@@ -65,10 +64,9 @@ export const Footer = () => {
                             </div>
                         </div>
                 </div>
-                <div className="col-3 col-md-2">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.5672424397344!2d-70.69713962348264!3d-33.408452795364134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c6a03ff852c1%3A0x837343980a4c4de4!2sAv.%20Domingo%20Sta.%20Mar%C3%ADa%203595%2C%208640722%20Renca%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1684119866929!5m2!1ses-419!2scl" width="100%" height="220" style={{border:'0'}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                <div className="footer__contenedor__goolemap">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.5672424397344!2d-70.69713962348264!3d-33.408452795364134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c6a03ff852c1%3A0x837343980a4c4de4!2sAv.%20Domingo%20Sta.%20Mar%C3%ADa%203595%2C%208640722%20Renca%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1684119866929!5m2!1ses-419!2scl" width="100%" height="220" style={{border:'0'}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-                <div className="col-1"></div>
             </div>
         </div>
     </>

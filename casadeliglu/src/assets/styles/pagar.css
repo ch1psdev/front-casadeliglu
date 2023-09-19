@@ -1,9 +1,76 @@
 .pagar{
     display: grid;
     grid-auto-flow: column;
+    grid-template-columns: 70% 30%;
+}
+
+.pagar__seccion__productos, .pagar__seccion__total{
+    padding: 30px;
 }
 
 .pagar__tabla{
     display: grid;
     grid-auto-flow: column;
+}
+
+.pagar__seccion__productos__boxBoton{
+    justify-content: end;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 40px;
+}
+
+.total__productos__caja{
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.total__productos__productos{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+}
+
+.total__productos__productos p{
+    margin: 0;
+}
+
+.caja__getnet{
+    padding: 15px;
+    background-color: #f0f1f2;
+}
+
+.caja__getnet__btn{
+    background-color: white;
+    padding: 15px;
+}
+
+.total__productos__caja h3{
+    font-size: 20px;
+}
+
+.total__productos__subtotal{
+    font-weight: bold;
+    margin: 0;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+}
+
+.total__productos__subtotal p{
+    margin: 0;
+}
+
+.total__productos__caja{
+    display: grid;
+    gap: 10px;
+}
+
+.formPagoCampos{
+    padding:20px 0px ;
+}
+
+.formPagoCampos .form-group{
+    margin-bottom: 20px;
 }

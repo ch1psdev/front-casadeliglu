@@ -26,7 +26,7 @@ export const ProductosHome = ({datos}) => {
     <>
         <div className="row pb-5" style={{maxWidth:'100%', marginLeft:'0',marginRight:'0'}}>
           <div className="col-1 d-none d-lg-block"></div>
-          <div className="col-md-10 col-12" style={{display: 'grid'}}>
+          <div className="col-lg-10 col-12" style={{display: 'grid'}}>
             <div>
               <h1 style={{marginBottom: '40px'}}>Nuestros productos</h1>
             </div>

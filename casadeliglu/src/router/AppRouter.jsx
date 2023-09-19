@@ -11,6 +11,7 @@ import { Login } from '../app/modules/auth/pages/Login'
 import { useSelector } from 'react-redux'
 import { Producto } from '../app/modules/Productos/Producto'
 import { InRoutes } from '../app/routes/InRoutes'
+import { Pagar } from '../app/modules/Pago/Pagar/Pagar'
 
 export const AppRouter = () => {
 
@@ -19,7 +20,7 @@ export const AppRouter = () => {
   return (
     <>
     
-    {
+    {/* {
       status=='logout' ? (
         <Routes>
           <Route path='/inicio' element={<Trabajando />} />
@@ -36,7 +37,23 @@ export const AppRouter = () => {
         </>
         
       )
-    }
+    } */}
+    <>
+    <Header />
+      <Routes>
+        <Route path='/inicio' element={<Home />} />
+        <Route path='/productos' element={<Productos />} />
+        <Route path='/productos/producto' element={<Producto />} />
+        <Route path='/quienes-somos' element={<Nosotros />} />
+        <Route path='/contacto' element={<Contacto />} />
+        <Route path='/pagar' element={<Pagar />} />
+
+        <Route path='/' element={<Navigate to='/inicio' />} />
+        <Route path='/*' element={<Navigate to='/inicio' />} />
+        <Route path='*' element={<Navigate to='/inicio' />} />
+      </Routes>
+      <Footer />
+    </>
       
     </>
   )

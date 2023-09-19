@@ -1,0 +1,44 @@
+.next{
+    background-color: red;
+}
+
+.containerPagination{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 40px;
+    grid-auto-rows: 40px;
+    place-content: center;
+    margin-bottom: 100px;
+    margin-top: 80px;
+}
+
+.containerPagination li{
+    display: grid;
+    place-content: center;
+    border: 1px solid #dee0e0;
+    background: white;
+}
+
+.nextPagination{
+    color: white;
+    background: var(--color-primario)!important;
+    border: 1px solid var(--color-primario)!important;
+    border-radius: 0px 7px 7px 0px;
+}
+
+.previousPagination{
+    color: white;
+    background: var(--color-primario)!important;
+    border: 1px solid var(--color-primario)!important;
+    border-radius: 7px 0px 0px 7px;
+}
+
+.nextPagination:hover, .previousPagination:hover{
+    cursor: pointer;
+}
+
+.nextPagination a, .previousPagination a{
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+}

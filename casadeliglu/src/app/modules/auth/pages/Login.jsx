@@ -1,26 +1,56 @@
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { login } from "../../../store/auth/authSlice"
-import * as CryptoJS from 'crypto-js';
-import { createRef, useState } from "react";
-import { loginKey, loginUser, loginValue, siteKey } from "../../../../config/config";
+import { createRef, useEffect, useState } from "react";
+import { siteKey } from "../../../../config/config";
 import { iniciarSesion } from "../../../helpers/Login/IniciarSesionHelper";
 import Swal from 'sweetalert2'
 import ReCAPTCHA from "react-google-recaptcha";
+import { encryptDecrypt, endcodeBase64, validaCorreo } from "../../../helpers/validations";
+import sha256 from "sha256";
+import { loginThunk } from "../../../store/auth/thunks";
+import { ToastContainer, toast } from "react-toastify";
+import { ThreeCircles } from "react-loader-spinner";
+import { Loader } from "../../../components/Loader";
 
-export const Login = () => {
-    const navigate = useNavigate()
+export const Login = ({referencia, setMostrarRegistro}) => {
     const dispatch = useDispatch()
     const [form, setForm] = useState({
         correo:'',
-        clave:'',
+        password:'',
         captcha: siteKey 
     });
+    const [errorCorreo, setErrorCorreo] = useState(false);
+    const [errorPass, setErrorPass] = useState(false);
+    // const [loader, setLoader] = useState(false);
 
-    const recaptchaRef = createRef()
+    const recaptchaRef = createRef();
 
-    const logear = async() => {
-        
+    const notify = (texto) => {
+        toast.success(texto, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
+
+    const handleInput = (e) => {
+
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const onLogin = async(e) => {
+        // setLoader(true);
+        e.preventDefault();
+
         if(form.clave == '' || form.correo == ''){
             Swal.fire({
                 title: 'Debes completar todos los campos',
@@ -28,11 +58,19 @@ export const Login = () => {
                 confirmButtonText: 'Aceptar',
                 confirmButtonColor: '#0C2695'
               })
+            //   setLoader(false);
             return
+        }
+        const resCorreo = validaCorreo(form.correo);
+
+        if (!resCorreo){
+            setErrorCorreo(true)
+            // setLoader(false);
+            return;
         }
 
         const token = await recaptchaRef.current.executeAsync();
-        recaptchaRef.current.reset()
+        recaptchaRef.current.reset();
         if(!token){
             Swal.fire({
                 title: 'No se ha podido validar el captcha',
@@ -40,77 +78,76 @@ export const Login = () => {
                 confirmButtonText: 'Aceptar',
                 confirmButtonColor: '#0C2695'
               })
+            //   setLoader(false);
         return
         }
 
         const input = {
             correo: form.correo,
-            clave: form.clave,
+            clave: endcodeBase64(encryptDecrypt(sha256(form.password),
+                token.substring(token.length - 10, token.length))),
             captcha: token 
         }
 
-        // let res1 = CryptoJS.AES.decrypt(loginValue, loginKey).toString(CryptoJS.enc.Utf8);
-        
-        // if(form.usuario != loginUser || form.password != res1){
-        //     Swal.fire({
-        //         title: 'Los datos ingresados con incorrectos',
-        //         icon: 'error',
-        //         confirmButtonText: 'Aceptar',
-        //         confirmButtonColor: '#0C2695'
-        //       })
-        //     return
-        // }else{
-             dispatch(login());
-             window.location.reload()
-        // }
+        // dispatch(login());
 
-        let data = await iniciarSesion(input);
-        
+        // let data = await iniciarSesion(input);
+        const res = await dispatch(loginThunk(input))
+
+        if(res == 0){
+            notify('Sesión iniciada correctamente!');
+            // setLoader(false);
+        }
+        // setLoader(false);
     }
 
-    const handleInput = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        })
-    }
+    useEffect(() => {
+        setErrorCorreo(false)
+    }, [])
     
 
   return (
     <>
-        <div className="content-fluid login">
-            <div className="caja__login">
-                <h1>Iniciar sesión</h1>
-                <div className="caja__inputs">
+        <div> 
+            <form ref={referencia} className='contenedor__login d-none' onSubmit={onLogin}>
+                <h2 className='contenedor__login__titulo'>Inicia sesión</h2>
+                <div className='form-group contenedor__login__group'>
+                    <label htmlFor="correo" className='contenedor__login__group__texto'>Correo</label>
                     <input 
+                        name="correo" 
                         type="text" 
-                        placeholder="correo" 
-                        name="correo"
-                        className="form-control" 
+                        className='contenedor__login__group__campo form-control'
                         value={form.correo} 
-                        onChange={handleInput} 
+                        onChange={handleInput}  
                     />
+                    <span className={`${errorCorreo ? 'd-block' : 'd-none'} spanInput`}>El correo ingresado no es válido</span>
+                </div>
+
+                <div className='form-group contenedor__login__group'>
+                    <label htmlFor="password" className='contenedor__login__group__texto'>Contraseña</label>
                     <input 
-                        type="clave" 
-                        placeholder="Contraseña" 
-                        name="clave" 
-                        className="form-control" 
-                        value={form.clave} 
-                        onChange={handleInput} 
+                        name='password' 
+                        type='password' 
+                        className='contenedor__login__group__campo form-control'
+                        value={form.password} 
+                        onChange={handleInput}  
                     />
                 </div>
+                <span className={`${errorPass ? 'd-block' : 'd-none'} spanInput`}>La contraseña ingresada no es válida</span>
+
                 <ReCAPTCHA
                     ref={recaptchaRef}
                     size="invisible"
                     sitekey={siteKey}
                 />
-                <button className="boton" onClick={() => logear()}>Ingresar</button>
-            </div>
-            <div>
-                <a onClick={() => navigate(-1)} className="manito">Volver</a>
-            </div>
-            
+
+                <button type="submit" className='contenedor__login__button boton'>Iniciar sesión</button>
+                <Link className="contenedor__login__registrar" onClick={()=>setMostrarRegistro(true)}>
+                    Regístrate aquí
+                </Link>
+            </form>
         </div>
+        <ToastContainer />
     </>
   )
 }

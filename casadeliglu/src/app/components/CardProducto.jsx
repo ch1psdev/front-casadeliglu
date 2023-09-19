@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
-import { AddCart } from '../../assets/Icons'
-import salmon from '../../assets/img/productos/salmon.jpg'
-import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom';import Swal from 'sweetalert2'
+import { AddCart, ImgNotFound } from '../../assets/Icons'
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
 import { actualizarProducto, agregarProducto } from '../store/shop/shopSlice';
+import { abreviar } from '../helpers/textos';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const CardProducto = ({producto}) => {
 
@@ -12,6 +15,19 @@ export const CardProducto = ({producto}) => {
   const dispatch = useDispatch();
 
   const { products } = useSelector((state) => state.carritoState);
+
+  const notify = (texto) => {
+    toast.success(texto, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
+};
   
   const irProducto = () => {
 
@@ -19,16 +35,15 @@ export const CardProducto = ({producto}) => {
   }
 
   const irCategoria = () => {
-    navigate('/productos', {state: producto.categoria})
+    navigate('/productos', {state: producto.familia})
   }
 
   const addProducto = () =>{
-    const existe = products.find(data => data.payload.id == producto.id);
-    // console.log(existe)
+    const existe = products.find(data => data.idProducto == producto.idProducto);
 
     if(existe != undefined){
-      let prod = {...existe.payload,
-        cantidad : existe.payload.cantidad + 1
+      let prod = {...existe,
+        cantidad : existe.cantidad + 1
       }
       console.log(prod)
       dispatch(actualizarProducto(prod));
@@ -39,26 +54,30 @@ export const CardProducto = ({producto}) => {
     const productos = {...producto,
       cantidad: 1  
     }
-    dispatch(agregarProducto(productos));
-    Swal.fire({
-      title: 'Producto añadido al carrito de compras!',
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-      confirmButtonColor: '#0C2695'
-    })
-  }
 
+    dispatch(agregarProducto(productos));
+    notify('Producto agregado correctamente!');
+  }
+  
   return (
     <>
       {
         producto!=undefined &&
         <div className="card card-producto">
-          <img src={producto.foto} className="card-img-top" alt="foto producto" />
+          {
+            producto.foto ? 
+            (
+              <img src={producto.foto} className="card-img-top" alt="foto producto" />
+            ):(
+              <ImgNotFound />
+            )
+          }
           <div className="card-body">
             <div className='card__cuerpo__textos'>
-              <span className='card-categoria manito' onClick={irCategoria}>{producto.categoria}</span>
-              <h5 className="card-title manito" onClick={irProducto}>{producto.nombre}</h5>
-              <p className="card-text">$ {producto.precio}</p>
+              <span className='card-categoria manito' onClick={irCategoria}>{producto.familia}</span>
+              {/* <h5 className="card-title manito" onClick={irProducto}>{producto.nombre}</h5> */}
+              <h5 className="card-title manito" onClick={irProducto}>{abreviar(producto.nombre)}</h5>
+              <p className="card-text">$ {producto.precioBruto}</p>
             </div>
             <div className='card__opciones manito'>
               <div className='card__opc__ver' onClick={irProducto}>
@@ -71,7 +90,7 @@ export const CardProducto = ({producto}) => {
           </div>
         </div>
       }
-      
+      <ToastContainer />
     </>
   )
 }
