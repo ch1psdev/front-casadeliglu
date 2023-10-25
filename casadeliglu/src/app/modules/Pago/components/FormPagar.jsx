@@ -120,7 +120,7 @@ export const FormPagar = ({setPaso, setInputForm, inputForm}) => {
 
             <div className="pagar__seccion__productos__boxBoton">
                 <button type="button" className="boton-secundario" onClick={()=>setPaso('paso1')}>Atrás</button>
-                <button type="submit" className="boton">Continuar</button>
+                <button type="submit" className="boton" onClick={()=>setPaso('paso3')}>Continuar</button>
             </div>
         </form>
     </>

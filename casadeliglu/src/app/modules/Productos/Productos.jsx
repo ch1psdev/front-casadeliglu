@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { FilterIcon, LupaIcon } from "../../../assets/Icons"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { CardProducto } from "../../components/CardProducto";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
@@ -13,6 +13,7 @@ export const Productos = () => {
   const [datosFiltrados, setDatosFiltrados] = useState();
   const [seleccionados, setSeleccionados] = useState([]);
   const [categorias, setCategorias] = useState();
+  const [showFiltros, setShowFiltros] = useState(false);
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,18 +30,23 @@ export const Productos = () => {
   const filtrarDatos = () => {
 
     if(location.state != undefined || location.state != null){
-      setDatos(productos.filter( (data) => data.familia.includes(location.state) ))
+      setDatosFiltrados(productos.filter( (data) => data.familia.includes(location.state) ))
+      const sel = [].concat(location.state)
+      // const cat = categorias.filter(x => x !== location.state)
+      setSeleccionados(sel)
     }else{
-      setDatos(productos);
+      setDatosFiltrados(productos);
     }
   }
 
   const filtrarPorCategorias = (dato) => {
 
     if(dato != null){
-      setDatos(productos.filter( (data) => data.familia.includes(dato) ))
+      // setDatos(productos.filter( (data) => data.familia.includes(dato) ))
       const cat = categorias.filter(x => x !== dato)
       const sel = seleccionados.concat(dato);
+      const fil = productos.filter(data=>sel.includes(data.familia))
+      setDatosFiltrados(fil);
       setSeleccionados(sel)
       setCategorias(cat)
     }
@@ -48,9 +54,14 @@ export const Productos = () => {
 
   const eliminarCategoria = (inp) => {
     if(inp != null){
-      setDatos(productos.filter( (data) => data.familia.includes(inp) ))
+      // setDatos(productos.filter( (data) => data.familia.includes(inp) ))
       const sel = seleccionados.filter(x => x !== inp);
       const cat = categorias.concat(inp);
+      let fil = datosFiltrados.filter(x => x.familia !== inp);
+      if(fil.length<1){
+        fil = datos
+      }
+      setDatosFiltrados(fil);
       setSeleccionados(sel)
       setCategorias(cat)
     }
@@ -84,28 +95,116 @@ export const Productos = () => {
 
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + 16;
-  const currentItems = datos?.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(datos?.length / 16);
+  const currentItems = datosFiltrados?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(datosFiltrados?.length / 16);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * 16) % datos.length;
+    const newOffset = (event.selected * 16) % datosFiltrados.length;
     setItemOffset(newOffset);
   };
+
+  const mostrarOpcFiltrar = () =>{
+    setShowFiltros(!showFiltros);
+  }
+
+  const ordenarAlfab = () =>{
+    datosFiltrados.sort((a,b)=>{
+      const nombreA = a.nombre.toUpperCase();
+      const nombreB = b.nombre.toUpperCase();
+
+      if(nombreA < nombreB){
+        return -1;
+      }
+
+      if(nombreA > nombreB){
+        return 1;
+      }
+
+      return 0;
+    });
+
+    setShowFiltros(false);
+  }
+
+  const ordenarReverse = () => {
+    datosFiltrados.sort((a,b)=>{
+      const nombreA = a.nombre.toUpperCase();
+      const nombreB = b.nombre.toUpperCase();
+
+      if(nombreA > nombreB){
+        return -1;
+      }
+
+      if(nombreA < nombreB){
+        return 1;
+      }
+
+      return 0;
+    });
+    setShowFiltros(false);
+  }
+
+  const ordenarPrecioMinMax = () =>{
+
+    for (let i = 0; i < datosFiltrados.length -1; i++) {
+      for(let j = 0; j < datosFiltrados.length -1 -i; j++){
+
+        if(datosFiltrados[j].precioBruto > datosFiltrados[j+1].precioBruto){
+          const aux = datosFiltrados[j];
+          datosFiltrados[j] = datosFiltrados[j+1];
+          datosFiltrados[j+1] = aux;
+        }
+
+      }
+      
+    }
+
+    setShowFiltros(false);
+  }
+
+  const ordenarPrecioMaxMin = () =>{
+
+    for (let i = 0; i < datosFiltrados.length -1; i++) {
+      for(let j = 0; j < datosFiltrados.length -1 -i; j++){
+
+        if(datosFiltrados[j].precioBruto < datosFiltrados[j+1].precioBruto){
+          const aux = datosFiltrados[j];
+          datosFiltrados[j] = datosFiltrados[j+1];
+          datosFiltrados[j+1] = aux;
+        }
+
+      }
+      
+    }
+
+    setShowFiltros(false);
+  }
+
+  useEffect(() => {
+    setCategorias(mapFamilias());
+  }, [productos])
 
   useEffect(() => {
     filtrarDatos();
   }, [location.state])
 
+  
   useEffect(() => {
-    setCategorias(mapFamilias());
+    setDatos(productos);
   }, [productos])
+
+  useEffect(() => {
+    const cat = mapFamilias().filter(x => !seleccionados.includes(x))
+    setCategorias(cat)
+  }, [seleccionados])
+  
   
   
   return (
     <>
       <div className="container-fluid" style={{padding:'0'}}>
         <div className="row">
-          <div className="col-12 productos__banner" style={{backgroundImage: 'url("src/assets/img/productos/bannerProductos.webp")'}}>
+          <div className="col-12 productos__banner">
             <h1>Productos</h1>
           </div>
         </div>
@@ -181,14 +280,25 @@ export const Productos = () => {
                 </div>
               </div>
               <div className="productos__cuerpo__caja">
-                  <div className="productos__barraBusqueda">
+                  <div className="productos__barraBusqueda productos__filtrar">
                     <form onSubmit={onBusqueda}>
                       <input type="text" placeholder="¿Qué estás buscando?" value={busqueda} onChange={handleBusqueda} />
                       <button className="botonLupa" type="submit" onClick={() => {onBusqueda()}}><LupaIcon/></button>
                     </form>
                     
-                    <div className="filtrar">
-                      <button className="filtro__btn__filtrar">Filtrar <FilterIcon/></button>
+                    <div className="productos__filtrar__filtro">
+                      <button onClick={mostrarOpcFiltrar}>Filtrar <FilterIcon/></button>
+                      {
+                        showFiltros &&
+                        <div>
+                          <ul>
+                            <li onClick={ordenarAlfab}>A - Z</li>
+                            <li onClick={ordenarReverse}>Z - A</li>
+                            <li onClick={ordenarPrecioMinMax}>Precio min. - max.</li>
+                            <li onClick={ordenarPrecioMaxMin}>Precio max. - min.</li>
+                          </ul>
+                        </div>
+                      }
                     </div>
                   </div>
                   <div>

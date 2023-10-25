@@ -1,29 +1,37 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { CarritoIcon, MenuIcon, UserIcon } from '../../assets/Icons'
+import { CarritoIcon, LogoutIcon, MenuIcon, UserIcon } from '../../assets/Icons'
 import { useState } from 'react';
 import 'animate.css';
 import iglu_header from '../../assets/img/iglu_header.png'
-import { PanelCarrito } from './panelCarrito';
 import { useRef } from 'react';
 import { Login } from '../modules/auth/pages/Login';
 import { Register } from '../modules/auth/pages/Register';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ThreeCircles } from 'react-loader-spinner';
 import { capitalizar } from '../helpers/textos';
+import { logout } from '../store/auth/authSlice';
+import { vaciarCarrito } from '../store/shop/shopSlice';
+import { ModalCarrito } from './Pago/ModalCarrito';
 
 export const Header = () => {
 
     const navigate = useNavigate();
     const [mostrarMenu, setMostrarMenu] = useState(false);
-    const [mostrarCarrito, setMostrarCarrito] = useState(false);
     const [mostrarRegistro, setMostrarRegistro] = useState(false);
     const [familias, setFamilias] = useState();
+    const [showModalCarrito, setShowModalCarrito] = useState(false)
+
+    const dispatch = useDispatch()
 
     const usuario = useSelector( state => state.usuarioState);
     const productos = useSelector( state => state.productoState);
     
     const login = useRef();
+
+    const handleCloseModalCarrito = () =>{
+        setShowModalCarrito(false)
+      }
 
     const onShowLogin = () => {
         login.current.classList.toggle('d-none');
@@ -44,6 +52,15 @@ export const Header = () => {
 
     const irProductos = (data) => {
         navigate('/productos', {state: data})
+    }
+
+    const onCerrarSesion = async() => {
+        dispatch(logout());
+        dispatch(vaciarCarrito());
+    }
+
+    const onShowUser = () => {
+        document.getElementById('cerrarSesion').classList.toggle('d-none')
     }
     
   return (
@@ -102,7 +119,7 @@ export const Header = () => {
                                     </li>
 
                                     <li>
-                                        <a className='manito nav__icon' onClick={() => setMostrarCarrito(!mostrarCarrito)}>
+                                        <a className='manito nav__icon' onClick={() => setShowModalCarrito(!showModalCarrito)}>
                                                 <div>
                                                     <CarritoIcon />    
                                                 </div>
@@ -113,9 +130,15 @@ export const Header = () => {
                                             {
                                                 usuario.status == 'identificado' ? (
                                                     <span style={{cursor:'initial'}}>
-                                                        <div>
+                                                        <div onClick={() => onShowUser()} className='manito'>
                                                             <UserIcon />
-                                                            <span className='nav__login__texto' style={{cursor:'initial'}}>Hola {usuario.info.nombre}!</span>
+                                                            <span className='nav__login__texto manito'>Hola {usuario.info.nombre}!</span>
+                                                        </div>
+                                                        <div className='contenedor__logout d-none' id='cerrarSesion'>
+                                                            <div className='manito contenedor__logout__contenido'>
+                                                                <LogoutIcon />
+                                                                <a onClick={onCerrarSesion}>Cerrar sesión</a>
+                                                            </div>
                                                         </div>
                                                     </span>
                                                 ):(
@@ -139,11 +162,6 @@ export const Header = () => {
                 <div></div>
             </div>
         </div>
-        {
-            mostrarCarrito &&
-                <PanelCarrito setMostrarCarrito={setMostrarCarrito} mostrarCarrito={mostrarCarrito} />
-        }
-        
 
         {
             mostrarMenu &&
@@ -163,7 +181,7 @@ export const Header = () => {
 
         <Register pshow={mostrarRegistro} setMostrarRegistro={setMostrarRegistro} />
         
-        
+        <ModalCarrito showModalCarrito={showModalCarrito} handleCloseModalCarrito={handleCloseModalCarrito} />
     </>
   )
 }

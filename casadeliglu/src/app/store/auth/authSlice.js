@@ -35,9 +35,23 @@ export const authSlice = createSlice({
         },
         cargarProductos: ( state, payload ) => {
             state.products = payload
-        } 
+        },
+
+        logout: ( state ) => {
+            state.status = 'logout'
+            state.products = null,
+            state.info.idUsuario = 0,
+            state.info.nombre = '',
+            state.info.apellido = '',
+            state.info.contacto = 0,
+            state.info.correo = '',
+            state.info.clave = '',
+            state.info.direccion = '',
+            state.info.comuna = '',
+            state.info.ciudad = ''
+        }
     }
 });
 
-export const { login, cargarProductos } = authSlice.actions;
+export const { login, cargarProductos, logout } = authSlice.actions;
 export default authSlice.reducer;

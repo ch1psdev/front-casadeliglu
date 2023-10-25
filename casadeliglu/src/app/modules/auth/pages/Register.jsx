@@ -230,8 +230,11 @@ export const Register = ({pshow, setMostrarRegistro}) => {
                     sitekey={siteKey}
                 />
 
-                <button className='contenedor__login__button boton' onClick={handleClose}>Cerrar</button>
-                <button type="submit">Registrar</button>
+                <div className="contenedor__login__cont__button">
+                    <button className='contenedor__login__button boton' onClick={handleClose}>Cerrar</button>
+                    <button type="submit" className="boton-secundario">Registrar</button>
+                </div>
+                
             </form>
         </Modal.Body>
       </Modal>

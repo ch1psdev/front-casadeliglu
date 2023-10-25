@@ -12,6 +12,8 @@ import { useSelector } from 'react-redux'
 import { Producto } from '../app/modules/Productos/Producto'
 import { InRoutes } from '../app/routes/InRoutes'
 import { Pagar } from '../app/modules/Pago/Pagar/Pagar'
+import { PagoEnEspera } from '../app/modules/Pago/Pagar/Pages/PagoEnEspera'
+import { PagoFinalizado } from '../app/modules/Pago/Pagar/Pages/PagoFinalizado'
 
 export const AppRouter = () => {
 
@@ -47,6 +49,8 @@ export const AppRouter = () => {
         <Route path='/quienes-somos' element={<Nosotros />} />
         <Route path='/contacto' element={<Contacto />} />
         <Route path='/pagar' element={<Pagar />} />
+        <Route path='/pagar/procesando' element={<PagoEnEspera />} />
+        <Route path='/pagar/resuelto' element={<PagoFinalizado />} />
 
         <Route path='/' element={<Navigate to='/inicio' />} />
         <Route path='/*' element={<Navigate to='/inicio' />} />

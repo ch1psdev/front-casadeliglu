@@ -1,0 +1,48 @@
+.modal__carrito{
+    padding-right: 0 !important;
+    opacity: 1;
+
+    &__opacidad{
+        opacity: 0 !important;
+    }
+
+    & .modal-dialog{
+        margin: 0;
+        height: auto;
+        margin-left: auto;
+        position: absolute;
+        right: 0;
+        z-index: 200;
+        transition: transform .5s ease !important;
+        width: 500px;
+    }
+
+    & .modal-header{
+        justify-content: end;
+
+        a{
+            cursor: pointer;
+
+            svg{
+            
+                width: 15px;
+            }
+        }
+    }
+
+    & .modal-body{
+        min-height: calc(100vh - 150px);
+    }
+
+    & .modal-footer{
+        justify-content: left;
+        display: grid;
+        grid-template-columns: 100%;
+
+        button{
+            width: 100%;
+            padding: 15px 30px;
+        }
+    }
+    
+}

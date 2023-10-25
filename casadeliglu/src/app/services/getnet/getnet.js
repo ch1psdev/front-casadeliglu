@@ -20,3 +20,23 @@ export const pagar = async (input) => {
           return;
       }
   }
+
+  export const consultarPago = async (requestId) => {
+    try{
+      const res = await fetch(`${urlApi}/pago/${requestId}`,{
+          mode: 'cors',
+          method: 'GET',
+          headers:{
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          }
+      });
+  
+      const data = await res.json();
+      return data;
+          
+      }catch(e){
+          throw e;
+          return;
+      }
+  }

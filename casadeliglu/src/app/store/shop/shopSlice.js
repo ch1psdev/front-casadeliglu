@@ -24,6 +24,7 @@ export const shopSlice = createSlice({
             state.products = [];
             state.total = 0;                                                                             0;
         }
+
     }
 });
 

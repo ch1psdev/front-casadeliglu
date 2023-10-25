@@ -15,9 +15,11 @@ import banner3 from '../../../assets/img/home/banner3.webp';
 import banner4 from '../../../assets/img/home/banner4.webp';
 import { getProductosService } from '../../services/productos/productoService';
 import { cargarProductosThunk } from '../../store/product/thunk';
+import { ModalCarrito } from '../../components/Pago/ModalCarrito';
 
 export const Home = () => {
 
+  const [showModalCarrito, setShowModalCarrito] = useState(true)
   const navigate = useNavigate();
   const [pr, setPr] = useState();
   const dispatch = useDispatch();
@@ -81,7 +83,9 @@ export const Home = () => {
   }, [productos])
   
   
-  
+  const handleCloseModalCarrito = () =>{
+    setShowModalCarrito(false)
+  }
 
   return (
     <>
@@ -156,7 +160,7 @@ export const Home = () => {
           <div className="col-12 col-lg-1"></div>
         </div>
       </div>
-    
+      {/* <ModalCarrito showModalCarrito={showModalCarrito} handleCloseModalCarrito={handleCloseModalCarrito} /> */}
     </>
   )
 }

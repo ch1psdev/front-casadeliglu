@@ -1,14 +1,16 @@
 @import './productos';
 @import './components/miga.scss';
-@import './header.css';
+@import './header';
 @import './nosotros.css';
 @import './home.css';
 @import './footer.css';
 @import './banner.css';
-@import './login.css';
+@import './login';
 @import './panelCarrito.css';
-@import './pagar.css';
+@import './pagar';
 @import './paginacion.css';
+@import './components/modules/pago/_envio';
+@import './components/modal_carrito';
 
 :root{
     --color-primario: #0C2695;

@@ -58,6 +58,11 @@ export const CardProducto = ({producto}) => {
     dispatch(agregarProducto(productos));
     notify('Producto agregado correctamente!');
   }
+
+  useEffect(() => {
+    console.log(producto)
+  }, [producto])
+  
   
   return (
     <>
@@ -68,6 +73,8 @@ export const CardProducto = ({producto}) => {
             producto.foto ? 
             (
               <img src={producto.foto} className="card-img-top" alt="foto producto" />
+              // <img src="https://casadeliglu.cl/public/kanikama.jpg" className="card-img-top" alt="foto producto" />
+              
             ):(
               <ImgNotFound />
             )

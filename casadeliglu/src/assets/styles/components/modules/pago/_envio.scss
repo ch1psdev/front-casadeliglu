@@ -1,0 +1,30 @@
+.envio{
+    background-color: lightgreen;
+    color: green;
+    border: 2px solid green;
+    border-radius: 15px;
+    padding: 20px;
+    display: grid;
+    grid-auto-flow: column;
+    width: 80%;
+
+    &__textos{
+        p{
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+    }
+
+    &__valor{
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: end;
+        align-items: center;
+        gap: 30px;
+
+        p{
+            margin-bottom: 0;
+            font-size: 20px;
+        }
+    }
+}

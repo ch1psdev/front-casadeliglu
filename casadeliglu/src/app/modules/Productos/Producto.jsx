@@ -102,9 +102,16 @@ export const Producto = () => {
                 <div className="col-10">
                     <div className="row">
                         <div className="col-12" style={{padding: '20px 0px'}}>
-                            <div className="miga">
-                                <span>Inicio</span>
-                            </div>
+                            {
+                                detalleProducto &&
+                                <div className="miga">
+                                    <span className="miga__ruta" onClick={() => navigate('/inicio')}>Inicio</span>
+                                    <span> / </span>
+                                    <span className="miga__ruta" onClick={() => navigate('/productos')}>Productos</span>
+                                    <span> / </span>
+                                    <span className="miga__activo">{detalleProducto.nombre}</span>
+                                </div>
+                            }
                         </div>
                     </div>
                     <div className="row">
