@@ -13,40 +13,6 @@
     fill: var(--color-primario);
 }
 
-.menu__mobile{
-    background: #fff;
-    width: 200px;
-    position: absolute;
-    z-index: 1;
-    margin-top: 100px;
-    right: 0;
-}
-
-.menu__mobile div{
-    padding: 10px;
-}
-
-.header{
-    height: 150px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.header2__grilla{
-    height: 100%;
-    display: grid;
-    grid-auto-flow: column;
-}
-
-.header2__grilla__contenido{
-    display: grid; 
-    grid-auto-flow: row;
-    grid-template-rows: 50%;
-}
-
-.header2__grilla__contenido__div img{
-    height: 75px;
-}
-
 .nav__login{
     display: grid;
     justify-content: center;
@@ -61,23 +27,10 @@
     margin-left: 10px;
 }
 
-.nav__icon{
-    display: grid!important;
-    justify-content: center;
-}
-
 @media screen and (min-width:768px) {
     
     .header__caja__menu{
         display: flex;
-    }
-    .menu__mobile{
-        display: none;
-    }
-
-    .header2__grilla__contenido__div{
-        display: grid;
-        justify-content: center;
     }
 
 }
@@ -105,6 +58,178 @@
 
         a{
             padding: 0!important;
+        }
+    }
+}
+
+
+.header{
+    position: relative;
+    z-index: 1;
+    height: 75px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    @include breakPoint($medium){
+        height: 150px;
+    }
+
+    &__caja{
+        height: 100%;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 0px 1fr 0px;
+
+        @include breakPoint($medium){
+            grid-template-columns: inherit
+        }
+
+        &__contenido{
+            display: grid; 
+            grid-auto-flow: column;
+            grid-template-columns: 70% 30%;
+            grid-template-rows: initial;
+            align-items: center;
+            padding: 0 15px;
+
+            @include breakPoint($medium){
+                grid-auto-flow: row;
+                grid-template-rows: 50%;
+                grid-template-columns: initial;
+                align-items: initial;
+            }
+
+            &__img {
+
+                @include breakPoint($medium){
+                    display: grid;
+                    justify-content: center;
+                }
+
+                img{
+                    height: auto;
+                    width: 190px;
+
+                    @include breakPoint($medium){
+                        height: 75px;
+                        width: auto;
+                    }
+                }
+            }
+
+            &__menus__mobile {
+                display: grid;
+                grid-auto-flow: column;
+                align-items: center;
+                align-items: center;
+                justify-items: center;
+
+                a{
+
+                    svg{
+                        width: 30px;
+                        
+                        path{
+                            fill: $primary_color;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__menu__desktop{
+            height: 100%;
+            display: none;
+        
+            @include breakPoint($medium){
+                display: block;
+            }
+        
+            &__lista{
+                display: GRID;
+                justify-content: end;
+                grid-auto-flow: column;
+                grid-auto-columns: 1fr;
+                align-content: end;
+                height: 100%;
+        
+                & > li{
+                    float: left;
+                }
+        
+                &__item{
+                    text-align: center;
+                    align-self: center;
+                    color: black;
+        
+                    &:hover{
+                        border-bottom: 3px solid $primary_color;
+                        color: $primary_color;
+                        font-weight: bold;
+                    }
+        
+                    &__active{
+                        border-bottom: 3px solid $primary_color;
+                        color: $primary_color;
+                        font-weight: bold;
+                    }
+        
+                    ul{
+                        display:none;
+                        position: absolute;
+                        min-width: 180px;
+        
+                        li{
+                            position: relative;
+        
+                            ul{
+                                right: -180px;
+                                top: 0px;
+                            }
+                        }
+        
+                        a{
+                            text-align: left;
+                            font-weight: normal;
+                        }
+                    }
+                }
+        
+                li{
+        
+                    &:hover > ul{
+                        display: block;
+                    }
+        
+                    
+        
+                    a{
+                        background-color: #FFFFFF;
+                        color: #000;
+                        text-decoration: none;
+                        padding: 10px 15px;
+                        display: block;
+        
+                        &:hover{
+                            color: #0C2695;
+                            font-weight: bold;
+                        }
+                    }
+        
+                    
+                }
+        
+                &__icon a{
+                    display: grid!important;
+                    justify-content: center;
+                }
+            }
+        }
+
+        &__menu__mobile{
+            position: absolute;
+            z-index: 1;
+            background: white;
+            width: 100%;
         }
     }
 }

@@ -14,6 +14,7 @@ import { InRoutes } from '../app/routes/InRoutes'
 import { Pagar } from '../app/modules/Pago/Pagar/Pagar'
 import { PagoEnEspera } from '../app/modules/Pago/Pagar/Pages/PagoEnEspera'
 import { PagoFinalizado } from '../app/modules/Pago/Pagar/Pages/PagoFinalizado'
+import { Layout } from '../app/Layouts/Layout'
 
 export const AppRouter = () => {
 
@@ -41,9 +42,8 @@ export const AppRouter = () => {
       )
     } */}
     <>
-    <Header />
       <Routes>
-        <Route path='/inicio' element={<Home />} />
+        <Route path='/inicio' element={<Layout><Home /></Layout>} />
         <Route path='/productos' element={<Productos />} />
         <Route path='/productos/producto' element={<Producto />} />
         <Route path='/quienes-somos' element={<Nosotros />} />
@@ -56,7 +56,7 @@ export const AppRouter = () => {
         <Route path='/*' element={<Navigate to='/inicio' />} />
         <Route path='*' element={<Navigate to='/inicio' />} />
       </Routes>
-      <Footer />
+      
     </>
       
     </>

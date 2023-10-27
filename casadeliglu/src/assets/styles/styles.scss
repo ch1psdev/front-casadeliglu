@@ -1,26 +1,3 @@
-@import './productos';
-@import './components/miga.scss';
-@import './header';
-@import './nosotros.css';
-@import './home.css';
-@import './footer.css';
-@import './banner.css';
-@import './login';
-@import './panelCarrito.css';
-@import './pagar';
-@import './paginacion.css';
-@import './components/modules/pago/_envio';
-@import './components/modal_carrito';
-
-:root{
-    --color-primario: #0C2695;
-
-    --small: '576px';
-    --medium: '768px';
-    --large: '992px';
-    --ex-large: '1200px';
-}
-
 /*COLORS*/
 $primary_color: #0C2695; 
 
@@ -33,11 +10,26 @@ $xxlarge: 1200px;
 $xxxlarge: 1200px;
 $xxxxlarge: 1200px;
 
+:root{
+    --color-primario: #0C2695;
+
+    --small: '576px';
+    --medium: '768px';
+    // --large: '992px';
+    --ex-large: '1200px';
+}
+
+
+
 /*MIXINS*/
 @mixin breakPoint($size){
     @media(min-width: $size){
         @content;
     }
+}
+
+.manito{
+    cursor: pointer;
 }
 
 .cuerpo{
@@ -90,11 +82,6 @@ a{
     display: none;
 }
 
-.header{
-    position: relative;
-    z-index: 1;
-}
-
 .contenedor-header{
     background: #ffffff;
     max-height: 100px;
@@ -109,54 +96,6 @@ a{
     padding: 5px;
 }
 
-.header__menu{
-    DISPLAY: GRID;
-    justify-content: end;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    align-content: end;
-    height: 100%;
-}
-
-.header__menu li a{
-    background-color: #FFFFFF;
-    color: #000;
-    text-decoration: none;
-    padding: 10px 15px;
-    display: block;
-}
-
-.header__menu > li{
-    float: left;
-}
-
-.header__menu li a:hover {
-    color: #0C2695;
-    font-weight: bold;
-}
-
-.header__menu li ul{
-    display:none;
-    position: absolute;
-    min-width: 180px
-}
-
-.header__menu li:hover > ul{
-    display: block;
-}
-
-.header__menu li ul li{
-    position: relative
-}
-
-.header__menu li ul li:hover{
-}
-
-.header__menu li ul li ul{
-    right: -180px;
-    top: 0px;
-}
-
 .header__subMenu{
     display: grid;
     grid-auto-flow: column;
@@ -166,29 +105,6 @@ a{
     align-items: center;
     grid-template-columns: 120px 360px 120px 120px;
     justify-content: space-between;
-}
-
-.header__menu__item{
-    text-align: center;
-    align-items: center;
-}
-
-.header__menu__item:hover{
-    border-bottom: 3px solid var(--color-primario);
-    color: var(--color-primario);
-    font-weight: bold;
-}
-
-.header__menu--non-active{
-    text-align: center;
-    align-self: center;
-    color: black;
-}
-
-.header__menu--active{
-    border-bottom: 3px solid var(--color-primario);
-    color: var(--color-primario);
-    font-weight: bold;
 }
 
 .header__menu div a{
@@ -322,9 +238,7 @@ input[type=radio]:checked + .banner__radio{
     transform: rotate(90deg);
 }
 
-.manito{
-    cursor: pointer;
-}
+
 
 .caja__trabajando{
     background-image: url('../img/background.webp');
@@ -366,3 +280,17 @@ input[type=radio]:checked + .banner__radio{
     color: red;
     font-size: 14px;
 }
+
+@import './productos';
+@import './components/miga.scss';
+@import './header';
+@import './nosotros.css';
+@import './home.css';
+@import './footer.css';
+@import './banner.css';
+@import './login';
+@import './panelCarrito.css';
+@import './pagar';
+@import './paginacion.css';
+@import './components/modules/pago/_envio';
+@import './components/modal_carrito';

@@ -8,13 +8,21 @@
 
     & .modal-dialog{
         margin: 0;
-        height: auto;
+        height: 100%;
         margin-left: auto;
         position: absolute;
         right: 0;
         z-index: 200;
         transition: transform .5s ease !important;
-        width: 500px;
+        width: 100%;
+
+        @include breakPoint($large){
+            width: 500px;
+        }
+
+        .modal-content{
+            height: 100%;
+        }
     }
 
     & .modal-header{
