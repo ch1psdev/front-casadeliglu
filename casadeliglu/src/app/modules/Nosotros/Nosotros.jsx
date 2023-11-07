@@ -1,10 +1,10 @@
-import iglu_working from '../../../assets/img/iglu_working.png'
+import iglu_working from '../../../assets/img/iglu_working.webp'
 
 export const Nosotros = () => {
 
   return (
     <>
-      <div className="container-fluid mb-5 nosotros__caja">
+      <div className="container-fluid nosotros__caja">
         <div className="row">
           <div className="col-12 col-md-2"></div>
           <div className="col-12 col-md-8">

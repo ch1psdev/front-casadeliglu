@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import iglu_working from '../../assets/img/iglu_working.png'
+import iglu_working from '../../assets/img/iglu_working.webp'
 
 export const Trabajando = () => {
     const navigate = useNavigate()

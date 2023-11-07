@@ -11,14 +11,14 @@ import { vaciarCarrito } from '../store/shop/shopSlice';
 import { MenuHeaderDesktop } from './Header/MenuHeaderDesktop';
 import { MenuHeaderMobile } from './Header/MenuHeaderMobile';
 import { CarritoIcon, MenuIcon } from '../../assets/Icons';
+import { Login } from '../modules/auth/pages/Login';
 
 export const Header = ({handleModalCarrito}) => {
 
     const navigate = useNavigate();
     const [mostrarRegistro, setMostrarRegistro] = useState(false);
-    const [showMenuMobile, setShowMenuMobile] = useState(false)
-
-    const dispatch = useDispatch()
+    const [showMenuMobile, setShowMenuMobile] = useState(false);
+    const [showModalLogin, setShowModalLogin] = useState(false);
 
     const usuario = useSelector( state => state.usuarioState);
     // const productos = useSelector( state => state.productoState);
@@ -29,21 +29,16 @@ export const Header = ({handleModalCarrito}) => {
         setShowModalCarrito(false)
       }
 
+    const handleCloseLogin = () =>{
+        setShowModalLogin(false);
+    }
+
     const onShowLogin = () => {
         login.current.classList.toggle('d-none');
     }
 
     const irProductos = (data) => {
         navigate('/productos', {state: data})
-    }
-
-    const onCerrarSesion = async() => {
-        dispatch(logout());
-        dispatch(vaciarCarrito());
-    }
-
-    const onShowUser = () => {
-        document.getElementById('cerrarSesion').classList.toggle('d-none')
     }
     
   return (
@@ -57,13 +52,13 @@ export const Header = ({handleModalCarrito}) => {
                         <img src={iglu_header} alt="" className='manito' onClick={() => navigate('/')} />
                     </div>
                     <div className='header2__grilla__contenido__div header__caja__contenido__menus'>
-                        <MenuHeaderDesktop handleModalCarrito={handleModalCarrito} irProductos={irProductos} />
-                        <div className='header__caja__contenido__menus__mobile'>
-                            <a onClick={()=>setShowMenuMobile(!showMenuMobile)}>
-                                <MenuIcon />
-                            </a>
+                        <MenuHeaderDesktop handleModalCarrito={handleModalCarrito} irProductos={irProductos} setShowModalLogin={setShowModalLogin} />
+                        <div className='header__caja__contenido__menus__mobile d-grid d-md-none'>
                             <a onClick={()=>handleModalCarrito()}>
                                 <CarritoIcon />
+                            </a>
+                            <a onClick={()=>setShowMenuMobile(!showMenuMobile)}>
+                                <MenuIcon />
                             </a>
                         </div>
                     </div>
@@ -73,9 +68,10 @@ export const Header = ({handleModalCarrito}) => {
         </div>
 
         <Register pshow={mostrarRegistro} setMostrarRegistro={setMostrarRegistro} />
+        <Login show={showModalLogin} handleCloseLogin={handleCloseLogin} />
         
         {
-            showMenuMobile && <MenuHeaderMobile  />
+            showMenuMobile && <MenuHeaderMobile showMenuMobile={showMenuMobile} setShowMenuMobile={setShowMenuMobile} />
         }
         
     </>

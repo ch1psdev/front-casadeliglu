@@ -12,8 +12,9 @@ import { loginThunk } from "../../../store/auth/thunks";
 import { ToastContainer, toast } from "react-toastify";
 import { ThreeCircles } from "react-loader-spinner";
 import { Loader } from "../../../components/Loader";
+import { Modal } from "react-bootstrap";
 
-export const Login = ({referencia, setMostrarRegistro}) => {
+export const Login = ({show, handleCloseLogin}) => {
     const dispatch = useDispatch()
     const [form, setForm] = useState({
         correo:'',
@@ -22,7 +23,6 @@ export const Login = ({referencia, setMostrarRegistro}) => {
     });
     const [errorCorreo, setErrorCorreo] = useState(false);
     const [errorPass, setErrorPass] = useState(false);
-    // const [loader, setLoader] = useState(false);
 
     const recaptchaRef = createRef();
 
@@ -89,16 +89,12 @@ export const Login = ({referencia, setMostrarRegistro}) => {
             captcha: token 
         }
 
-        // dispatch(login());
-
-        // let data = await iniciarSesion(input);
         const res = await dispatch(loginThunk(input))
 
         if(res == 0){
             notify('Sesión iniciada correctamente!');
-            // setLoader(false);
+            handleCloseLogin();
         }
-        // setLoader(false);
     }
 
     useEffect(() => {
@@ -108,8 +104,12 @@ export const Login = ({referencia, setMostrarRegistro}) => {
 
   return (
     <>
-        <div> 
-            <form ref={referencia} className='contenedor__login d-none' onSubmit={onLogin}>
+    <Modal show={show} onHide={handleCloseLogin} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Crea tu usuario</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <form className='contenedor__login' onSubmit={onLogin}>
                 <h2 className='contenedor__login__titulo'>Inicia sesión</h2>
                 <div className='form-group contenedor__login__group'>
                     <label htmlFor="correo" className='contenedor__login__group__texto'>Correo</label>
@@ -146,8 +146,8 @@ export const Login = ({referencia, setMostrarRegistro}) => {
                     Regístrate aquí
                 </Link>
             </form>
-        </div>
-        <ToastContainer />
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

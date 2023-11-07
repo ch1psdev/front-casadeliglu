@@ -33,33 +33,29 @@
 }
 
 .contenedor__login{
-    position: absolute;
-    margin-top: 10px;
     background-color: white;
-    width: 300px;
     padding: 20px;
     display: grid;
-    border-radius: 0px 0px 10px 10px;
+
+    &__titulo{
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    &__group{
+        margin-bottom: 20px;
+    }
+
+    &__button{
+        margin: auto;
+    }
+
+    &__registrar{
+        text-align: center;
+        font-size: 14px!important;
+    }
 } 
-
-.contenedor__login__group{
-    margin-bottom: 20px;
-}
-
-.contenedor__login__button{
-    margin: auto;
-}
-
-.contenedor__login__titulo{
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 20px;
-}
-
-.contenedor__login__registrar{
-    text-align: center;
-    font-size: 14px!important;
-}
 
 .contenedor__login__cont__button{
     display: grid;

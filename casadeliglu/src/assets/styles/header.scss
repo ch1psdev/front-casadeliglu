@@ -230,6 +230,26 @@
             z-index: 1;
             background: white;
             width: 100%;
+            border-radius: 0px 0px 25px 25px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+            ul{
+                padding: 10px 20px;
+                text-align: end;
+                display: grid;
+                justify-items: end;
+
+                li{
+                    padding: 5px 0;
+                    width: min-content;
+
+                    &:hover{
+                        color: $primary_color;
+                        font-weight: bold;
+                        cursor: pointer;
+                    }
+                }
+            }
         }
     }
 }

@@ -182,43 +182,7 @@ a{
 
 /* CARD */
 
-.contacto__caja__info{
-    display: grid;
-    padding: 20px;
-}
 
-.contacto__caja__info div{
-    align-items: center;
-    grid-auto-flow: column;
-    grid-template-columns: 50% 50%;
-    margin-bottom: 20px;
-}
-
-.contacto__caja__info div p{
-    margin-bottom: 0;
-}
-
-.contacto__caja__info div h3{
-    font-size: 20px;
-}
-
-.contacto__caja{
-    border: 2px solid #19A7CE;
-    background: #ECF9FF;
-    border-radius: 15px;
-}
-
-.contacto{
-    background-image: url('../img/background.webp');
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    display: grid;
-}
-
-.contacto div{
-    align-self: center;
-}
 
 .banner__radio{
     cursor: pointer; 
@@ -284,7 +248,7 @@ input[type=radio]:checked + .banner__radio{
 @import './productos';
 @import './components/miga.scss';
 @import './header';
-@import './nosotros.css';
+@import './nosotros';
 @import './home.css';
 @import './footer.css';
 @import './banner.css';
@@ -294,3 +258,4 @@ input[type=radio]:checked + .banner__radio{
 @import './paginacion.css';
 @import './components/modules/pago/_envio';
 @import './components/modal_carrito';
+@import './components/modules/contacto';

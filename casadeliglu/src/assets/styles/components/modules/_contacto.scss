@@ -1,0 +1,67 @@
+.contacto{
+    background-image: url('../img/background.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    display: grid;
+}
+
+.contacto div{
+    align-self: center;
+}
+
+.contacto{
+    
+
+    @include breakPoint($large){
+        height: calc(100vh - (240px + 150px));
+        overflow: auto;
+    }
+
+    &__caja{
+        border: 2px solid #19A7CE;
+        background: #ECF9FF;
+        border-radius: 15px;
+        display: grid;
+        margin: 20px;
+
+        @include breakPoint($large){
+            grid-template-columns: 50% 50%;
+            width: 1500px;
+            margin: auto;
+        }
+
+        &__info{
+            display: grid;
+            padding: 20px;
+
+            div{
+                align-items: start;
+                grid-auto-flow: column;
+                grid-template-columns: 35% 65%;
+                margin-bottom: 20px;
+
+                @include breakPoint($large){
+                    grid-template-columns: 50% 50%;
+                    align-items: center;
+                }
+
+                p{
+                    margin-bottom: 0;
+                }
+
+                h3{
+                    font-size: 20px;
+                }
+            }
+        }
+
+        &__mapa{
+            display: none;
+
+            @include breakPoint($large){
+                display: block;
+            }
+        }
+    }
+}

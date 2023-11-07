@@ -22,6 +22,7 @@ export const authSlice = createSlice({
         //     state.status="login"
         // },
         login: ( state, {payload} ) => {
+            console.log(payload);
             state.status = "identificado"
             state.info.idUsuario = payload.idUsuario,
             state.info.nombre = payload.nombre,

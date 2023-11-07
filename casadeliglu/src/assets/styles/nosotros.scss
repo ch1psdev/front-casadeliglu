@@ -3,6 +3,12 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
+    padding-bottom: 30px;
+    
+    @include breakPoint($large){
+        margin-bottom: 3rem;
+        padding-bottom: 0px;
+    }
 }
 
 .nosotros{
@@ -16,10 +22,22 @@
 }
 
 .nosotros__logo img{
-    width: 400px;
+    width: 230px;
+
+    @include breakPoint($large){
+        width: 400px;
+    }
 }
 
 .nosotros__texto{
     text-align: justify;
-    font-size: 20px;
+    font-size: 16px;
+    padding: 0 20px;
+
+    @include breakPoint($large){
+        padding: 0;
+        font-size: 20px;
+    }
 }
+
+

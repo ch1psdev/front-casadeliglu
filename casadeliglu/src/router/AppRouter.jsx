@@ -44,13 +44,13 @@ export const AppRouter = () => {
     <>
       <Routes>
         <Route path='/inicio' element={<Layout><Home /></Layout>} />
-        <Route path='/productos' element={<Productos />} />
-        <Route path='/productos/producto' element={<Producto />} />
-        <Route path='/quienes-somos' element={<Nosotros />} />
-        <Route path='/contacto' element={<Contacto />} />
-        <Route path='/pagar' element={<Pagar />} />
-        <Route path='/pagar/procesando' element={<PagoEnEspera />} />
-        <Route path='/pagar/resuelto' element={<PagoFinalizado />} />
+        <Route path='/productos' element={<Layout><Productos /></Layout>} />
+        <Route path='/productos/producto' element={<Layout><Producto /></Layout>} />
+        <Route path='/quienes-somos' element={<Layout><Nosotros /></Layout>} />
+        <Route path='/contacto' element={<Layout><Contacto /></Layout>} />
+        <Route path='/pagar' element={<Layout><Pagar /></Layout>} />
+        <Route path='/pagar/procesando' element={<Layout><PagoEnEspera /></Layout>} />
+        <Route path='/pagar/resuelto' element={<Layout><PagoFinalizado /></Layout>} />
 
         <Route path='/' element={<Navigate to='/inicio' />} />
         <Route path='/*' element={<Navigate to='/inicio' />} />
