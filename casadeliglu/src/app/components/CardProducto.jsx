@@ -45,7 +45,6 @@ export const CardProducto = ({producto}) => {
       let prod = {...existe,
         cantidad : existe.cantidad + 1
       }
-      console.log(prod)
       dispatch(actualizarProducto(prod));
       return;
     }
@@ -58,11 +57,6 @@ export const CardProducto = ({producto}) => {
     dispatch(agregarProducto(productos));
     notify('Producto agregado correctamente!');
   }
-
-  useEffect(() => {
-    console.log(producto)
-  }, [producto])
-  
   
   return (
     <>

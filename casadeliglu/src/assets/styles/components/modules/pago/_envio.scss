@@ -1,7 +1,7 @@
 .envio{
-    background-color: lightgreen;
-    color: green;
-    border: 2px solid green;
+    background-color: white;
+    color: black;
+    border: 2px solid gray;
     border-radius: 15px;
     padding: 20px;
     display: grid;
@@ -27,4 +27,16 @@
             font-size: 20px;
         }
     }
+
+    &__boton{
+        display: grid;
+        justify-items: end;
+        margin-top: 50px;
+    }
+}
+
+.envio__selected{
+    background-color: lightgreen;
+    color: green;
+    border: 2px solid green;
 }

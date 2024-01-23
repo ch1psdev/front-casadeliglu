@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { agregarTotal } from "../../../store/buy/buySlice";
 
-export const TotalProductos = ({onPagar, total, setTotal}) => {
+export const TotalProductos = () => {
 
   const { products } = useSelector((state) => state.carritoState);
+  const { total } = useSelector((state) => state.buyState); 
+  const dispatch = useDispatch();
+
   // const [total, setTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
 
   const calcularSubTotal = () =>{
 
@@ -15,26 +20,17 @@ export const TotalProductos = ({onPagar, total, setTotal}) => {
 
     const acumProductos = totales.reduce((acumulador, prd) => acumulador + prd, 0)
 
-    return acumProductos
-  }
+    setSubTotal(acumProductos)
+    dispatch(agregarTotal(acumProductos))
+    console.log('se ejecuto')
 
-  const calcularTotal = () => {
-    const opcEnvio = document.getElementsByName("tipoEnvio");
-    for (let i = 0; i < opcEnvio.length; i++) {
-      if (opcEnvio[i].checked) {
-        setTotal(parseInt(calcularSubTotal())+parseInt(opcEnvio[i].value))
-        break;
-      }
-      
-    }
+    return
   }
 
   useEffect(() => {
-    calcularTotal()
+    calcularSubTotal()
   }, [])
   
-  
-
   return (
     <>
         <div className="total__productos__caja">
@@ -52,16 +48,16 @@ export const TotalProductos = ({onPagar, total, setTotal}) => {
 
           <div className="total__productos__subtotal">
             <p>Subtotal:</p>
-            <p><b>$ {calcularSubTotal()}</b></p>
+            <p><b>$ {subTotal}</b></p>
           </div>
 
           <div>
             <div>
-              <input type="radio" id="btnEnvio" name="tipoEnvio" value={2500} onChange={calcularTotal} defaultChecked />
+              {/* <input type="radio" id="btnEnvio" name="tipoEnvio" value={2500} onChange={calcularTotal} defaultChecked /> */}
               <label htmlFor="btnEnvio">&nbsp;Envío a domicilio ($2.500)</label>
             </div>
             <div>
-              <input type="radio" id="btnRetiro" name="tipoEnvio" value={0} onChange={calcularTotal} />
+              {/* <input type="radio" id="btnRetiro" name="tipoEnvio" value={0} onChange={calcularTotal} /> */}
               <label htmlFor="btnRetiro">&nbsp;Retiro en local</label>
             </div>
           </div>
@@ -79,9 +75,9 @@ export const TotalProductos = ({onPagar, total, setTotal}) => {
             </div>
             <p>Paga seguro todo lo que necesitas con Getnet utilizando tus tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.</p>
           </div>
-          <div>
+          {/* <div>
             <button className="boton" onClick={onPagar}>Pagar</button>
-          </div>
+          </div> */}
         </div>
     </>
   )

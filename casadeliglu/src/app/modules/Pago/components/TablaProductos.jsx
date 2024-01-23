@@ -1,8 +1,30 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actualizarCompra } from "../../../store/buy/buySlice";
 
 export const TablaProductos = ({setPaso}) => {
 
     const { products } = useSelector((state) => state.carritoState);
+    const carrito = useSelector((state) => state.carritoState);
+    const dispatch = useDispatch();
+
+    const confirmarProductos = () =>{
+      let productos=[];
+
+      for (let i = 0; i < carrito.products.length; i++) {
+          productos.push({
+          sku: carrito.products[i].codigo,
+          name: carrito.products[i].nombre,
+          category: carrito.products[i].familia,
+          qty: carrito.products[i].cantidad,
+          price: carrito.products[i].precioBruto,
+          tax: 0
+          });
+      }
+
+      dispatch(actualizarCompra(productos));
+      setPaso('paso2')
+
+  }
 
   return (
     <>
@@ -34,7 +56,7 @@ export const TablaProductos = ({setPaso}) => {
             </tbody>
           </table>
           <div className="pagar__seccion__productos__boxBoton">
-            <button className="boton" onClick={() => setPaso('paso2')}>Continuar</button>
+            <button className="boton" onClick={()=>confirmarProductos()}>Continuar</button>
           </div>
     </>
   )

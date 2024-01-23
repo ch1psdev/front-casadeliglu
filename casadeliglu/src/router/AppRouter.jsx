@@ -15,6 +15,7 @@ import { Pagar } from '../app/modules/Pago/Pagar/Pagar'
 import { PagoEnEspera } from '../app/modules/Pago/Pagar/Pages/PagoEnEspera'
 import { PagoFinalizado } from '../app/modules/Pago/Pagar/Pages/PagoFinalizado'
 import { Layout } from '../app/Layouts/Layout'
+import { Miperfil } from '../app/modules/MiPerfil/Miperfil'
 
 export const AppRouter = () => {
 
@@ -51,6 +52,7 @@ export const AppRouter = () => {
         <Route path='/pagar' element={<Layout><Pagar /></Layout>} />
         <Route path='/pagar/procesando' element={<Layout><PagoEnEspera /></Layout>} />
         <Route path='/pagar/resuelto' element={<Layout><PagoFinalizado /></Layout>} />
+        <Route path='/mi-perfil' element={<Layout><Miperfil /></Layout>} />
 
         <Route path='/' element={<Navigate to='/inicio' />} />
         <Route path='/*' element={<Navigate to='/inicio' />} />

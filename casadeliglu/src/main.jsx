@@ -17,9 +17,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   //<React.StrictMode>
     <PersistGate persistor={ persistor }>
     <Provider store = {store}>
-    <HashRouter>
+    <BrowserRouter>
       <App />
-    </HashRouter>
+    </BrowserRouter>
     </Provider>
     </PersistGate>
   //</React.StrictMode>,

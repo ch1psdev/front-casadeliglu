@@ -5,6 +5,8 @@ import { CardProducto } from "../../components/CardProducto";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import { capitalizar } from "../../helpers/textos";
+import Pagination from '@mui/material/Pagination';
+import { ThreeDots } from "react-loader-spinner";
 
 export const Productos = () => {
 
@@ -14,6 +16,16 @@ export const Productos = () => {
   const [seleccionados, setSeleccionados] = useState([]);
   const [categorias, setCategorias] = useState();
   const [showFiltros, setShowFiltros] = useState(false);
+
+  //PAGINATION
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(16);
+  
+  const handlePagination = (e, pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,6 +34,7 @@ export const Productos = () => {
   const handleBusqueda = (e) => {
     setBusqueda(e.target.value);
   }
+  
 
   const onBusqueda = (e) => {
     setDatos(productos.filter( (data) => data.nombre.includes(busqueda)));
@@ -98,8 +111,9 @@ export const Productos = () => {
   const currentItems = datosFiltrados?.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(datosFiltrados?.length / 16);
 
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * 16) % datosFiltrados.length;
+  const handlePageClick = (event, page) => {
+    // console.log(page)
+    const newOffset = (page * 16) % datosFiltrados.length;
     setItemOffset(newOffset);
   };
 
@@ -127,7 +141,10 @@ export const Productos = () => {
   }
 
   const ordenarReverse = () => {
-    datosFiltrados.sort((a,b)=>{
+
+    const arrayOrdenado = [...datosFiltrados];
+    arrayOrdenado.sort((a,b)=>{
+
       const nombreA = a.nombre.toUpperCase();
       const nombreB = b.nombre.toUpperCase();
 
@@ -141,6 +158,7 @@ export const Productos = () => {
 
       return 0;
     });
+    setDatosFiltrados(arrayOrdenado);
     setShowFiltros(false);
   }
 
@@ -185,12 +203,17 @@ export const Productos = () => {
   }, [productos])
 
   useEffect(() => {
+    setLoading(true)
     filtrarDatos();
+    setLoading(false)
   }, [location.state])
 
   
   useEffect(() => {
+    setLoading(true)
     setDatos(productos);
+    setPosts(productos);
+    setLoading(false)
   }, [productos])
 
   useEffect(() => {
@@ -318,7 +341,7 @@ export const Productos = () => {
                         
                       </div>
 
-                      <ReactPaginate
+                      {/* <ReactPaginate
                           breakLabel="..."
                           nextLabel=">"
                           onPageChange={handlePageClick}
@@ -331,7 +354,22 @@ export const Productos = () => {
                           nextClassName= {'nextPagination'}
                           activeClassName= {'selected'}
                           containerClassName="containerPagination"
-                        />
+                        /> */}
+
+                        <div style={{display:'grid', justifyContent:'center', padding: '20px 0px 40px 0px'}}>
+                          <Pagination 
+                            count={Math.ceil(posts.length / postsPerPage)} 
+                            defaultPage={1} 
+                            siblingCount={0} 
+                            boundaryCount={2} 
+                            // color="primary"
+                            showFirstButton 
+                            showLastButton
+                            onChange={(e,page) => handlePageClick(e, page)}
+                          />
+                          
+                        </div>
+                        
                   </div>
               </div>
             </div>
@@ -339,7 +377,18 @@ export const Productos = () => {
           
           <div className=''></div>
         </div>
-      </div>
+      </div>      
+
+      {/* <ThreeDots
+  visible={true}
+  height="80"
+  width="80"
+  color="#4fa94d"
+  radius="9"
+  ariaLabel="three-dots-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  /> */}
     </>
   )
 }

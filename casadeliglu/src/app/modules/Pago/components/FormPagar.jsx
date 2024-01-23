@@ -1,6 +1,24 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actualizarCompra, agregarDatosPersonales } from "../../../store/buy/buySlice";
+import { useEffect } from "react";
 
-export const FormPagar = ({setPaso, setInputForm, inputForm}) => {
+export const FormPagar = ({setPaso}) => {
+
+    const usuario = useSelector((state) => state.usuarioState);
+
+    const dispatch = useDispatch();
+
+    const [inputForm, setInputForm] = useState({
+        nombre:'',
+        apellidos:'',
+        direccion:'',
+        comuna: '',
+        ciudad: '',
+        numeroContacto:'',
+        correo:'',
+        comentario:''
+      });
 
     const handleInput = (e) => {
         setInputForm({
@@ -12,6 +30,26 @@ export const FormPagar = ({setPaso, setInputForm, inputForm}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
     }
+
+    const confirmarDatosPersonales = () =>{
+        dispatch(agregarDatosPersonales(inputForm));
+        setPaso('paso3')
+    }
+
+    useEffect(() => {
+        if(usuario.status == 'identificado'){
+          setInputForm((inputPago)=>({
+            ...inputPago,
+            nombre: usuario.info.nombre,
+            apellidos: usuario.info.apellido,
+            // direccion: usuario.info.direccion,
+            comuna: usuario.info.comuna,
+            ciudad: usuario.info.ciudad,
+            numeroContacto: usuario.info.contacto.toString(),
+            correo: usuario.info.correo,
+        }))
+        }
+      }, [usuario])
 
   return (
     <>
@@ -120,7 +158,7 @@ export const FormPagar = ({setPaso, setInputForm, inputForm}) => {
 
             <div className="pagar__seccion__productos__boxBoton">
                 <button type="button" className="boton-secundario" onClick={()=>setPaso('paso1')}>Atrás</button>
-                <button type="submit" className="boton" onClick={()=>setPaso('paso3')}>Continuar</button>
+                <button type="submit" className="boton" onClick={()=>confirmarDatosPersonales()}>Continuar</button>
             </div>
         </form>
     </>

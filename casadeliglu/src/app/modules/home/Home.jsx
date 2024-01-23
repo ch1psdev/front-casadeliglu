@@ -1,67 +1,24 @@
 import { useEffect, useState } from 'react';
 import plato_mariscos from '../../../assets/img/plato_mariscos.webp'
-import { Galleria } from 'primereact/galleria';
 import { ProductosHome } from '../../components/ProductosHome';
 import { useNavigate } from 'react-router-dom';
 import { FloatingWhatsApp } from 'react-floating-whatsapp';
 import logo_whatsapp from '../../../assets/img/logo_whatsapp.png'
-// import { Banner } from '../../components/Banner';
-import Swal from 'sweetalert2'
 import { useDispatch } from 'react-redux';
 import { cargarProductos } from '../../store/auth/authSlice';
-import banner1 from '../../../assets/img/home/banner1.webp';
-import banner2 from '../../../assets/img/home/banner2.webp';
-import banner3 from '../../../assets/img/home/banner3.webp';
-import banner4 from '../../../assets/img/home/banner4.webp';
 import { getProductosService } from '../../services/productos/productoService';
 import { cargarProductosThunk } from '../../store/product/thunk';
-import { ModalCarrito } from '../../components/Pago/ModalCarrito';
 
 export const Home = () => {
 
-  const [showModalCarrito, setShowModalCarrito] = useState(true)
   const navigate = useNavigate();
   const [pr, setPr] = useState();
   const dispatch = useDispatch();
   const [productos, setProductos] = useState();
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      nombre: 'banner1',
-      imagen: banner1
-    },
-    {
-      id: 2,
-      nombre: 'banner2',
-      imagen: banner2
-    },
-    {
-      id: 3,
-      nombre: 'banner3',
-      imagen: banner3
-    },
-    {
-      id: 4,
-      nombre: 'banner4',
-      imagen: banner4
-    }
-  ]);
 
-  let prods;
   const obtenerProductos = async() => {
     setPr(productos);
-
   }
-
-    const productTemplate = (product) => {
-      return (
-          <div className="">
-              <div className="mb-3 d-grid">
-                  <img src={product.imagen} alt="" className='banner__img' />
-              </div>
-          </div>
-      );
-  };
 
   useEffect(() => {
     obtenerProductos();
@@ -71,9 +28,7 @@ export const Home = () => {
   }, [pr])
 
   useEffect(() => {
-    // console.log(getProductosService())
     getProductosService().then(data=>setProductos(data.data))
-    // getProductosService();
   }, [])
 
   useEffect(() => {
@@ -81,11 +36,6 @@ export const Home = () => {
       dispatch(cargarProductosThunk(productos))
     }
   }, [productos])
-  
-  
-  const handleCloseModalCarrito = () =>{
-    setShowModalCarrito(false)
-  }
 
   return (
     <>
@@ -105,30 +55,6 @@ export const Home = () => {
             chatMessage="Hola, ¿en qué puedo ayudarte?"
             avatar={logo_whatsapp} 
           />
-
-          {/*CARRUSEL*/}
-          <div className="col-12" style={{padding:'0'}}>
-            <div className='row' style={{background: 'rgba(0, 0, 0, 0.2)', marginRight: '0', marginLeft: '0'}}>
-              <div className='col-12 col-lg-1'></div>
-              <div className='col-12 col-lg-10'>
-                <div className="card" style={{border: '0'}}>
-                  <Galleria 
-                    value={products} 
-                    showItemNavigators={true} 
-                    showThumbnails={false} 
-                    showIndicators 
-                    circular 
-                    autoPlay 
-                    transitionInterval={3000}
-                    showIndicatorsOnItem={true} 
-                    item={productTemplate} 
-                  />
-                </div>
-              </div>
-              <div className='col-12 col-lg-1'></div>
-            </div>
-            
-          </div>
         </div>
 
         {/*SLIDER DE CARDS */}
@@ -160,7 +86,6 @@ export const Home = () => {
           <div className="col-12 col-lg-1"></div>
         </div>
       </div>
-      {/* <ModalCarrito showModalCarrito={showModalCarrito} handleCloseModalCarrito={handleCloseModalCarrito} /> */}
     </>
   )
 }

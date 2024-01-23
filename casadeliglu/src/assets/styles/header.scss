@@ -25,6 +25,7 @@
 
 .nav__login__texto{
     margin-left: 10px;
+    font-size: 14px;
 }
 
 @media screen and (min-width:768px) {
@@ -44,7 +45,6 @@
 
 .contenedor__logout{
     position: absolute;
-    margin-top: 10px;
     background-color: white;
     padding: 5px 20px;
     display: grid;
@@ -58,6 +58,7 @@
 
         a{
             padding: 0!important;
+            font-size: 14px;
         }
     }
 }
@@ -70,7 +71,7 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     @include breakPoint($medium){
-        height: 150px;
+        height: 170px;
     }
 
     &__caja{
@@ -93,9 +94,37 @@
 
             @include breakPoint($medium){
                 grid-auto-flow: row;
-                grid-template-rows: 50%;
+                grid-template-rows: 30px 1fr 65px;
                 grid-template-columns: initial;
                 align-items: initial;
+            }
+
+            &__menu{
+                display: none;
+
+                @include breakPoint($medium){
+                    display: block;
+                }
+
+                &__desktop{
+
+                    &__lista{
+                        display: grid;
+                        grid-auto-flow: column;
+                        justify-content: end;
+                        gap: 20px;
+                        margin-bottom: 0;
+                        padding: 5px 0px;
+
+                        &__item{
+
+                            a{
+                                font-size: 14px;
+                                color: black;
+                            }
+                        }
+                    }
+                }
             }
 
             &__img {
@@ -136,95 +165,6 @@
             }
         }
 
-        &__menu__desktop{
-            height: 100%;
-            display: none;
-        
-            @include breakPoint($medium){
-                display: block;
-            }
-        
-            &__lista{
-                display: GRID;
-                justify-content: end;
-                grid-auto-flow: column;
-                grid-auto-columns: 1fr;
-                align-content: end;
-                height: 100%;
-        
-                & > li{
-                    float: left;
-                }
-        
-                &__item{
-                    text-align: center;
-                    align-self: center;
-                    color: black;
-        
-                    &:hover{
-                        border-bottom: 3px solid $primary_color;
-                        color: $primary_color;
-                        font-weight: bold;
-                    }
-        
-                    &__active{
-                        border-bottom: 3px solid $primary_color;
-                        color: $primary_color;
-                        font-weight: bold;
-                    }
-        
-                    ul{
-                        display:none;
-                        position: absolute;
-                        min-width: 180px;
-        
-                        li{
-                            position: relative;
-        
-                            ul{
-                                right: -180px;
-                                top: 0px;
-                            }
-                        }
-        
-                        a{
-                            text-align: left;
-                            font-weight: normal;
-                        }
-                    }
-                }
-        
-                li{
-        
-                    &:hover > ul{
-                        display: block;
-                    }
-        
-                    
-        
-                    a{
-                        background-color: #FFFFFF;
-                        color: #000;
-                        text-decoration: none;
-                        padding: 10px 15px;
-                        display: block;
-        
-                        &:hover{
-                            color: #0C2695;
-                            font-weight: bold;
-                        }
-                    }
-        
-                    
-                }
-        
-                &__icon a{
-                    display: grid!important;
-                    justify-content: center;
-                }
-            }
-        }
-
         &__menu__mobile{
             position: absolute;
             z-index: 1;
@@ -247,6 +187,71 @@
                         color: $primary_color;
                         font-weight: bold;
                         cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    &__productos{
+
+        display: none;
+
+        @include breakPoint($medium){
+            display: grid;
+            align-content: end;
+            justify-content: center;
+            height: 100%;
+        }
+
+        
+
+        &__lista{
+            margin: 0px;
+            margin-top: 11px;
+            display: flex;
+        
+            &__familia{
+                display: grid;
+                grid-auto-rows: 40px 1fr;
+                // align-items: center;
+
+                &:hover > a{
+                    background-color: white;
+                    color: #0C2695;
+                }
+
+                &:hover > ul{
+                    display: grid;
+                }
+
+                a{
+                    background-color: #0C2695;
+                    padding: 8px 12px;
+                    color: white;
+
+                    &:hover{
+                        color: #0C2695;
+                    }
+                }
+
+                &__subfamilia{
+                    display: none;
+                    min-height: 75px;
+                    background-color: white;
+                    padding: 8px 12px;
+                    position: absolute;
+                    margin-top: 40px;
+                    min-width: 150px;
+
+                    li{
+                        color: #0C2695;
+                        cursor: pointer;
+
+                        &:hover{
+                            text-decoration: underline;
+                            text-decoration-color: #0C2695;
+                        }
                     }
                 }
             }

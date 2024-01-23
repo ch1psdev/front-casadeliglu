@@ -69,6 +69,9 @@ export const Footer = () => {
                 </div>
             </div>
         </div>
+        <div className='footer__creditos'>
+            <h1>Desarrollado por Matías Moncada - matias.monc@gmail.com</h1>
+        </div>
     </>
   )
 }
