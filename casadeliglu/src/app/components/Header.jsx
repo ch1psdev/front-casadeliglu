@@ -10,7 +10,7 @@ import { logout } from '../store/auth/authSlice';
 import { vaciarCarrito } from '../store/shop/shopSlice';
 import { MenuHeaderDesktop } from './Header/MenuHeaderDesktop';
 import { MenuHeaderMobile } from './Header/MenuHeaderMobile';
-import { CarritoIcon, LogoutIcon, MenuIcon, UserIcon } from '../../assets/Icons';
+import { CarritoIcon, LogoutIcon, LupaIcon, MenuIcon, UserIcon } from '../../assets/Icons';
 import { Login } from '../modules/auth/pages/Login';
 import { toast } from "react-toastify";
 
@@ -21,6 +21,7 @@ export const Header = ({handleModalCarrito}) => {
     const [mostrarRegistro, setMostrarRegistro] = useState(false);
     const [showMenuMobile, setShowMenuMobile] = useState(false);
     const [showModalLogin, setShowModalLogin] = useState(false);
+    const [buscador, setBuscador] = useState();
 
     const usuario = useSelector( state => state.usuarioState);
     
@@ -56,6 +57,10 @@ export const Header = ({handleModalCarrito}) => {
         dispatch(vaciarCarrito());
         notify('Sesión finalizada!')
     }
+
+    const onChangeBuscador = (event) =>{
+        setBuscador(event.target.value);
+    }
     
   return (
     <>
@@ -68,6 +73,10 @@ export const Header = ({handleModalCarrito}) => {
 
                         <nav className="header__caja__contenido__menu__desktop">
                             <ul className='header__caja__contenido__menu__desktop__lista'>
+                                <li className="header__caja__contenido__menu__desktop__lista__item">
+                                    <input type="text" onChange={onChangeBuscador} placeholder='Buscar...' />
+                                    <button onClick={() =>irProductos({producto:buscador})}><LupaIcon/></button>
+                                </li>
                                 <li className="header__caja__contenido__menu__desktop__lista__item">
                                     <NavLink
                                         to="/inicio" 

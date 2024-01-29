@@ -42,7 +42,7 @@ export const MenuHeaderDesktop = ({irProductos}) => {
                 mapFamilias(productos.data).map((data,i)=>(
                     
                     <li key={i} className="header__productos__lista__familia">
-                        <a className='manito' onClick={() =>irProductos(data)} >
+                        <a className='manito' onClick={() =>irProductos({familia:data})} >
                             {capitalizar(data)}
                         </a>
                         {
@@ -50,7 +50,7 @@ export const MenuHeaderDesktop = ({irProductos}) => {
                                 <ul className="header__productos__lista__familia__subfamilia">
                                     {
                                         obtenerSubFamilias(data).map((data2, i)=>(
-                                            <li key={i}>{capitalizar(data2)}</li>
+                                            <li key={i} onClick={() =>irProductos({familia:data, subFamilia: data2})}>{capitalizar(data2)}</li>
                                         ))
                                     }
                                 </ul>

@@ -43,10 +43,20 @@ export const Productos = () => {
   const filtrarDatos = () => {
 
     if(location.state != undefined || location.state != null){
-      setDatosFiltrados(productos.filter( (data) => data.familia.includes(location.state) ))
-      const sel = [].concat(location.state)
-      // const cat = categorias.filter(x => x !== location.state)
-      setSeleccionados(sel)
+
+      if(location.state.producto){
+        setDatosFiltrados(productos.filter((data)=>data.nombre.includes(location.state.producto)))
+        setSeleccionados([])
+      }else if(location.state.subFamilia){
+        setDatosFiltrados(productos.filter( (data) => data.subFamilia.includes(location.state.subFamilia) ))
+        const sel = [].concat(location.state.familia)
+        setSeleccionados(sel)
+      }else{
+        setDatosFiltrados(productos.filter( (data) => data.familia.includes(location.state.familia) ))
+        const sel = [].concat(location.state.familia)
+        setSeleccionados(sel)
+      }
+
     }else{
       setDatosFiltrados(productos);
     }
