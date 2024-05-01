@@ -16,6 +16,10 @@
     border-radius: 13px 13px 0px 0px;
 }
 
+.home__nosotros__boton{
+    justify-self: center;
+}
+
 @media screen and (min-width: 1200px ) {
     .home__nosotros__caja{
         flex-wrap: nowrap;
@@ -31,5 +35,9 @@
 
     .home__nosotros__img img{
         border-radius: 13px 0px 0px 13px;
+    }
+
+    .home__nosotros__boton{
+        justify-self: end;
     }
 }

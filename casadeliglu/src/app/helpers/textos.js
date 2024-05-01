@@ -1,6 +1,6 @@
 export const abreviar = (texto) =>{
     if(texto.length > 20){
-        return texto.substring(0,19)+'...';
+        return texto.substring(0,22)+'...';
     }else{
         return texto
     }

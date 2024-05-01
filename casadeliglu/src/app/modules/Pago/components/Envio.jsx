@@ -3,13 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { obtenerFechaYHoraActual } from "../../../helpers/textos";
 import { pagar } from "../../../services/getnet/getnet";
 import { useNavigate } from "react-router-dom";
+import { LoaderComponent } from "../../../components/Loader";
 
 export const Envio = () => {
 
   const { total } = useSelector((state) => state.buyState); 
   const compra = useSelector((state) => state.buyState);
 
+  //STATES
   const [radioEnvio, setRadioEnvio] = useState();
+  const [mostrarLoader, setMostrarLoader] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -29,7 +33,13 @@ export const Envio = () => {
     
   } 
 
+  const handleCloseLoader = () => {
+    setMostrarLoader(false)
+  }
+
   const irAlPago = async() => {
+
+    setMostrarLoader(true);
 
     let input = compra;
     let fechaActual = new Date();
@@ -37,10 +47,14 @@ export const Envio = () => {
 
     const fechaFormateada = fechaActual.toISOString().substring(0,19)+'+00:00';
 
-    input = {...input, total:total + parseInt(radioEnvio), reference: obtenerFechaYHoraActual(), expiration: fechaFormateada}
+    let conenvio = radioEnvio > 0 ? true : false;
+
+    input = {...input, total:total + parseInt(radioEnvio), reference: obtenerFechaYHoraActual(), expiration: fechaFormateada, delivery: conenvio}
     console.log(input, 'INPUT')
 
     const res = await pagar(input);
+
+    console.log(res)
 
     if(res.status.status == 'OK'){
       console.log(res.processUrl)
@@ -49,25 +63,16 @@ export const Envio = () => {
     }
 
     console.log(res)
+
+    setMostrarLoader(false)
   }
-  
-  // const obtenerMesActual = () => {
-  //   const fecha = new Date();
-  //   const opciones = { month: 'long' };
-  //   const mesEnEspanol = fecha.toLocaleDateString('es-ES', opciones);
-  //   return mesEnEspanol;
-  // };
-  
-  // // Ejemplo de uso
-  // const mesActual = obtenerMesActual();
-  // console.log(mesActual); // Imprimirá el nombre del mes actual en español
 
   return (
     <>
     <div className="envio" id="envio">
       <div className="envio__textos">
         <p>
-          Su producto será enviado el día <b>Lunes 22 de Enero de 2024</b> 
+        Su compra será entregada en un <b>máximo de 48 horas.</b> 
         </p>
         <p><b>Dirección:</b> Av escuela agrícola 1710, Macul</p>
       </div>
@@ -93,6 +98,8 @@ export const Envio = () => {
     <div className="envio__boton">
       <button className="boton" onClick={() => irAlPago()}>Pagar</button>
     </div>
+
+    <LoaderComponent mostrarLoader={mostrarLoader} setMostrarLoader={setMostrarLoader} handleCloseLoader={handleCloseLoader} />
     </>
   )
 }

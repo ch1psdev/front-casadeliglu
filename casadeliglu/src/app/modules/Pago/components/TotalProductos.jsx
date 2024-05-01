@@ -51,16 +51,14 @@ export const TotalProductos = () => {
             <p><b>$ {subTotal}</b></p>
           </div>
 
-          <div>
+          {/* <div>
             <div>
-              {/* <input type="radio" id="btnEnvio" name="tipoEnvio" value={2500} onChange={calcularTotal} defaultChecked /> */}
-              <label htmlFor="btnEnvio">&nbsp;Envío a domicilio ($2.500)</label>
+              <label htmlFor="btnEnvio">&nbsp;Envío a domicilio ($2.900)</label>
             </div>
             <div>
-              {/* <input type="radio" id="btnRetiro" name="tipoEnvio" value={0} onChange={calcularTotal} /> */}
               <label htmlFor="btnRetiro">&nbsp;Retiro en local</label>
             </div>
-          </div>
+          </div> */}
 
           <div className="total__productos__subtotal">
             <p>Total:</p>

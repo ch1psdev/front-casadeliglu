@@ -47,7 +47,7 @@ export const Pagar = () => {
           }   
 
         </div>
-        <div className="pagar__seccion__total">
+        <div className="pagar__seccion__total d-none d-lg-grid">
           <TotalProductos />
         </div>
       </div>

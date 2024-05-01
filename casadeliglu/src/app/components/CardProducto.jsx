@@ -1,17 +1,15 @@
-import { useEffect } from 'react';
 import { AddCart, ImgNotFound } from '../../assets/Icons'
-import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { actualizarProducto, agregarProducto } from '../store/shop/shopSlice';
 import { abreviar } from '../helpers/textos';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import not_found from '../../assets/img/productos/not-found.webp'
 
 export const CardProducto = ({producto}) => {
 
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
 
   const { products } = useSelector((state) => state.carritoState);
@@ -35,7 +33,7 @@ export const CardProducto = ({producto}) => {
   }
 
   const irCategoria = () => {
-    navigate('/productos', {state: producto.familia})
+    navigate('/productos', {state: {categoria: producto.familia}})
   }
 
   const addProducto = () =>{
@@ -67,17 +65,15 @@ export const CardProducto = ({producto}) => {
             producto.foto ? 
             (
               <img src={producto.foto} className="card-img-top" alt="foto producto" />
-              // <img src="https://casadeliglu.cl/public/kanikama.jpg" className="card-img-top" alt="foto producto" />
               
             ):(
-              <ImgNotFound />
+              <img src={not_found} alt="foto producto" className='card-img-top' />
             )
           }
           <div className="card-body">
             <div className='card__cuerpo__textos'>
               <span className='card-categoria manito' onClick={irCategoria}>{producto.familia}</span>
-              {/* <h5 className="card-title manito" onClick={irProducto}>{producto.nombre}</h5> */}
-              <h5 className="card-title manito" onClick={irProducto}>{abreviar(producto.nombre)}</h5>
+              <h5 className="card-title manito" onClick={irProducto}><abbr title={producto.nombre}>{abreviar(producto.nombre)}</abbr></h5>
               <p className="card-text">$ {producto.precioBruto}</p>
             </div>
             <div className='card__opciones manito'>

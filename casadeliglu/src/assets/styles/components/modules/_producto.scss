@@ -1,0 +1,43 @@
+.producto{
+    display: grid;
+    background-color: #ECF9FF;
+    padding: 0;
+    margin-bottom: 30px;
+
+    @include breakPoint($large){
+        grid-auto-flow: column;
+        grid-template-columns: 50%;
+        height: 500px;
+    }
+
+    &__foto{
+        background-color: white;
+        display: grid;
+        place-content: center;
+        height: 300px;
+
+        @include breakPoint($large){
+            height: 500px;
+        }
+
+        img{
+            height: 300px;
+            width: 100%;
+            max-width: 100%;
+
+            @include breakPoint($large){
+                height: 500px;
+            }
+        }
+    }
+
+    &__info{
+        padding: 30px;
+        display: grid;
+        gap: 20px;
+
+        @include breakPoint($large){
+            gap: 0;
+        }
+    }
+}

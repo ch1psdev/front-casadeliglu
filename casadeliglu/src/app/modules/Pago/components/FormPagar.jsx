@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actualizarCompra, agregarDatosPersonales } from "../../../store/buy/buySlice";
 import { useEffect } from "react";
+import { capitalizar } from "../../../helpers/textos";
 
 export const FormPagar = ({setPaso}) => {
 
@@ -20,6 +21,14 @@ export const FormPagar = ({setPaso}) => {
         comentario:''
       });
 
+      const [errorNombre, setErrorNombre] = useState(false);
+      const [errorApellidos, setErrorApellidos] = useState(false);
+      const [errorDireccion, setErrorDireccion] = useState(false);
+      const [errorComuna, setErrorComuna] = useState(false);
+      const [errorCiudad, setErrorCiudad] = useState(false);
+      const [errorContacto, setErrorContacto] = useState(false);
+      const [errorCorreo, setErrorCorreo] = useState(false);
+
     const handleInput = (e) => {
         setInputForm({
             ...inputForm,
@@ -32,6 +41,20 @@ export const FormPagar = ({setPaso}) => {
     }
 
     const confirmarDatosPersonales = () =>{
+
+        if(!inputForm.nombre || !inputForm.apellidos || !inputForm.direccion || !inputForm.comuna || !inputForm.ciudad || !inputForm.numeroContacto || !inputForm.correo){
+            !inputForm.nombre ? setErrorNombre(true) : setErrorNombre(false);
+            !inputForm.apellidos ? setErrorApellidos(true) : setErrorApellidos(false)
+            !inputForm.direccion ? setErrorDireccion(true) : setErrorDireccion(false);
+            !inputForm.comuna ? setErrorComuna(true) : setErrorComuna(false);
+            !inputForm.ciudad ? setErrorCiudad(true) : setErrorCiudad(false);
+            !inputForm.numeroContacto ? setErrorContacto(true) : setErrorContacto(false);
+            !inputForm.correo ? setErrorCorreo(true) : setErrorCorreo(false);
+
+            return;
+        }
+        
+
         dispatch(agregarDatosPersonales(inputForm));
         setPaso('paso3')
     }
@@ -42,7 +65,7 @@ export const FormPagar = ({setPaso}) => {
             ...inputPago,
             nombre: usuario.info.nombre,
             apellidos: usuario.info.apellido,
-            // direccion: usuario.info.direccion,
+            direccion: capitalizar(usuario.info.direccion) + ', ' + capitalizar(usuario.info.comuna) + ', ' + capitalizar(usuario.info.ciudad),
             comuna: usuario.info.comuna,
             ciudad: usuario.info.ciudad,
             numeroContacto: usuario.info.contacto.toString(),
@@ -59,10 +82,10 @@ export const FormPagar = ({setPaso}) => {
 
             <div className="formPagoCampos">
                 <div className="form-group">
-                    <label htmlFor="nombre">Nombre</label>
+                    <label htmlFor="nombre"><span className="formPagoCampos__obligatorio">*</span>Nombre</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className={`form-control ${errorNombre ? 'input-error' : ''}`} 
                         id="nombre" 
                         name="nombre"
                         onChange={handleInput}
@@ -71,10 +94,10 @@ export const FormPagar = ({setPaso}) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="apPaterno">Apellidos</label>
+                    <label htmlFor="apPaterno"><span className="formPagoCampos__obligatorio">*</span>Apellidos</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className={`form-control ${errorApellidos ? 'input-error' : ''}`} 
                         id="apPaterno" 
                         name="apellidos"
                         onChange={handleInput}
@@ -83,10 +106,10 @@ export const FormPagar = ({setPaso}) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="direccion">Dirección</label>
+                    <label htmlFor="direccion"><span className="formPagoCampos__obligatorio">*</span>Dirección</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className={`form-control ${errorDireccion ? 'input-error' : ''}`} 
                         id="direccion" 
                         name="direccion"
                         onChange={handleInput}
@@ -95,10 +118,10 @@ export const FormPagar = ({setPaso}) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="comuna">Comuna</label>
+                    <label htmlFor="comuna"><span className="formPagoCampos__obligatorio">*</span>Comuna</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className={`form-control ${errorComuna ? 'input-error' : ''}`}  
                         id="comuna" 
                         name="comuna"
                         onChange={handleInput}
@@ -107,10 +130,10 @@ export const FormPagar = ({setPaso}) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="ciudad">Ciudad</label>
+                    <label htmlFor="ciudad"><span className="formPagoCampos__obligatorio">*</span>Ciudad</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className={`form-control ${errorCiudad ? 'input-error' : ''}`}  
                         id="ciudad" 
                         name="ciudad"
                         onChange={handleInput}
@@ -119,10 +142,10 @@ export const FormPagar = ({setPaso}) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="nroContacto">Número de contacto</label>
+                    <label htmlFor="nroContacto"><span className="formPagoCampos__obligatorio">*</span>Número de contacto</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className={`form-control ${errorContacto ? 'input-error' : ''}`} 
                         id="nroContacto" 
                         name="numeroContacto"
                         onChange={handleInput}
@@ -131,10 +154,10 @@ export const FormPagar = ({setPaso}) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="correo">Correo</label>
+                    <label htmlFor="correo"><span className="formPagoCampos__obligatorio">*</span>Correo</label>
                     <input 
                         type="text" 
-                        className="form-control" 
+                        className={`form-control ${errorCorreo ? 'input-error' : ''}`} 
                         id="correo" 
                         name="correo"
                         onChange={handleInput}

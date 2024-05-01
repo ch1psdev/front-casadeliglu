@@ -1,33 +1,31 @@
+import { useState } from "react"
 import { useSelector } from "react-redux"
 import { FilterIcon, LupaIcon } from "../../../assets/Icons"
-import { useEffect, useRef, useState } from "react"
 import { CardProducto } from "../../components/CardProducto";
-import { useLocation, useNavigate } from "react-router-dom";
-import ReactPaginate from 'react-paginate';
+import { useNavigate } from "react-router-dom";
 import { capitalizar } from "../../helpers/textos";
 import Pagination from '@mui/material/Pagination';
-import { ThreeDots } from "react-loader-spinner";
+import { LoaderComponent } from "../../components/Loader";
+import { useProductos } from "../../hooks/useProductos";
+import { usePagination } from "../../hooks/usePagination";
 
 export const Productos = () => {
 
   const [busqueda, setBusqueda] = useState('');
   const [datos, setDatos] = useState();
   const [datosFiltrados, setDatosFiltrados] = useState();
-  const [seleccionados, setSeleccionados] = useState([]);
-  const [categorias, setCategorias] = useState();
+  const [seleccionados, setSeleccionados] = useState('');
   const [showFiltros, setShowFiltros] = useState(false);
 
-  //PAGINATION
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(16);
-  
-  const handlePagination = (e, pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-  
-  const location = useLocation();
+  const [listaProductos, filtrarProductosPorFamilia, filtrarPorNombre, familias, ordenarPrecioDesc, ordenarPrecioAsc, quitarFiltroPorCategoria] = useProductos();
+  const [currentItems, numberOfPages, handlePageClick] = usePagination(listaProductos,16)
+
+  const [mostrarLoader, setMostrarLoader] = useState(false);
+
+  const handleClose = () => {
+    setMostrarLoader(false)
+  }
+
   const navigate = useNavigate();
   const productos = useSelector( (state) => state.productoState.data);
 
@@ -40,74 +38,22 @@ export const Productos = () => {
     setDatos(productos.filter( (data) => data.nombre.includes(busqueda)));
   }
 
-  const filtrarDatos = () => {
-
-    if(location.state != undefined || location.state != null){
-
-      if(location.state.producto){
-        setDatosFiltrados(productos.filter((data)=>data.nombre.includes(location.state.producto)))
-        setSeleccionados([])
-      }else if(location.state.subFamilia){
-        setDatosFiltrados(productos.filter( (data) => data.subFamilia.includes(location.state.subFamilia) ))
-        const sel = [].concat(location.state.familia)
-        setSeleccionados(sel)
-      }else{
-        setDatosFiltrados(productos.filter( (data) => data.familia.includes(location.state.familia) ))
-        const sel = [].concat(location.state.familia)
-        setSeleccionados(sel)
-      }
-
-    }else{
-      setDatosFiltrados(productos);
-    }
-  }
 
   const filtrarPorCategorias = (dato) => {
-
-    if(dato != null){
-      // setDatos(productos.filter( (data) => data.familia.includes(dato) ))
-      const cat = categorias.filter(x => x !== dato)
-      const sel = seleccionados.concat(dato);
-      const fil = productos.filter(data=>sel.includes(data.familia))
-      setDatosFiltrados(fil);
-      setSeleccionados(sel)
-      setCategorias(cat)
-    }
+    filtrarProductosPorFamilia(dato);
+    setSeleccionados(dato);
   }
 
-  const eliminarCategoria = (inp) => {
-    if(inp != null){
-      // setDatos(productos.filter( (data) => data.familia.includes(inp) ))
-      const sel = seleccionados.filter(x => x !== inp);
-      const cat = categorias.concat(inp);
-      let fil = datosFiltrados.filter(x => x.familia !== inp);
-      if(fil.length<1){
-        fil = datos
-      }
-      setDatosFiltrados(fil);
-      setSeleccionados(sel)
-      setCategorias(cat)
-    }
+  const eliminarCategoria = () => {
+    quitarFiltroPorCategoria();
+    setSeleccionados('')
   }
 
-  const mapFamilias = () =>{
-    const familias = (productos.map( data => data.familia));
-    let res = new Array();
-
-    for (let i = 0; i < familias.length; i++) {
-        if(!res.includes(familias[i])){
-            res.push(familias[i]);
-        }
-    }
-
-    return res;
-}
-
-  function Items({ currentItems }) {
+  function Items({ current }) {
     return (
       <>
-        {currentItems &&
-          currentItems.map((item, i) => (
+        {current &&
+          current.map((item, i) => (
             <div key={i}>
               <CardProducto producto={item} />
             </div>
@@ -116,19 +62,13 @@ export const Productos = () => {
     );
   }
 
-  const [itemOffset, setItemOffset] = useState(0);
-  const endOffset = itemOffset + 16;
-  const currentItems = datosFiltrados?.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(datosFiltrados?.length / 16);
-
-  const handlePageClick = (event, page) => {
-    // console.log(page)
-    const newOffset = (page * 16) % datosFiltrados.length;
-    setItemOffset(newOffset);
-  };
-
   const mostrarOpcFiltrar = () =>{
     setShowFiltros(!showFiltros);
+  }
+
+  const ejecutarFuncionFiltro = (fun) => {
+    fun();
+    setShowFiltros(false);
   }
 
   const ordenarAlfab = () =>{
@@ -172,67 +112,6 @@ export const Productos = () => {
     setShowFiltros(false);
   }
 
-  const ordenarPrecioMinMax = () =>{
-
-    for (let i = 0; i < datosFiltrados.length -1; i++) {
-      for(let j = 0; j < datosFiltrados.length -1 -i; j++){
-
-        if(datosFiltrados[j].precioBruto > datosFiltrados[j+1].precioBruto){
-          const aux = datosFiltrados[j];
-          datosFiltrados[j] = datosFiltrados[j+1];
-          datosFiltrados[j+1] = aux;
-        }
-
-      }
-      
-    }
-
-    setShowFiltros(false);
-  }
-
-  const ordenarPrecioMaxMin = () =>{
-
-    for (let i = 0; i < datosFiltrados.length -1; i++) {
-      for(let j = 0; j < datosFiltrados.length -1 -i; j++){
-
-        if(datosFiltrados[j].precioBruto < datosFiltrados[j+1].precioBruto){
-          const aux = datosFiltrados[j];
-          datosFiltrados[j] = datosFiltrados[j+1];
-          datosFiltrados[j+1] = aux;
-        }
-
-      }
-      
-    }
-
-    setShowFiltros(false);
-  }
-
-  useEffect(() => {
-    setCategorias(mapFamilias());
-  }, [productos])
-
-  useEffect(() => {
-    setLoading(true)
-    filtrarDatos();
-    setLoading(false)
-  }, [location.state])
-
-  
-  useEffect(() => {
-    setLoading(true)
-    setDatos(productos);
-    setPosts(productos);
-    setLoading(false)
-  }, [productos])
-
-  useEffect(() => {
-    const cat = mapFamilias().filter(x => !seleccionados.includes(x))
-    setCategorias(cat)
-  }, [seleccionados])
-  
-  
-  
   return (
     <>
       <div className="container-fluid" style={{padding:'0'}}>
@@ -262,12 +141,11 @@ export const Productos = () => {
                   <div className="mt-4 mb-4 productos__categorias__caja__seleccionados">
                     {
                       seleccionados &&
-                      seleccionados.sort().map((data, i) => (
-                        <div key={i} >
-                          <p>{capitalizar(data)}</p>
-                          <label onClick={() => eliminarCategoria(data)}>X</label>
+                      
+                        <div >
+                          <p>{seleccionados}</p>
+                          <label onClick={() => eliminarCategoria()}>X</label>
                         </div>
-                      ))
                     }
                   </div>
                   <div className="productos__categorias__caja__detalle">
@@ -283,27 +161,15 @@ export const Productos = () => {
                         <div className="accordion-body p-0">
                           <ul className="productos__categorias__caja__detalle__categorias">
                             {
-                              categorias != undefined &&
-                              (categorias.length > 0) &&
-                              categorias.sort().map((data,i)=>(
+                              // familias != undefined &&
+                              (familias != undefined && familias.length > 0) &&
+                              familias.sort().map((data,i)=>(
                                 <li key={i} onClick={() => filtrarPorCategorias(data)}>
                                     {capitalizar(data)}
                                 </li>
                               ))
                             }
                           </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                          Sub-familia
-                        </button>
-                      </h2>
-                      <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                        <div className="accordion-body">
-                          
                         </div>
                       </div>
                     </div>
@@ -327,8 +193,8 @@ export const Productos = () => {
                           <ul>
                             <li onClick={ordenarAlfab}>A - Z</li>
                             <li onClick={ordenarReverse}>Z - A</li>
-                            <li onClick={ordenarPrecioMinMax}>Precio min. - max.</li>
-                            <li onClick={ordenarPrecioMaxMin}>Precio max. - min.</li>
+                            <li onClick={()=>ejecutarFuncionFiltro(ordenarPrecioAsc)}>Precio min. - max.</li>
+                            <li onClick={()=>ejecutarFuncionFiltro(ordenarPrecioDesc)}>Precio max. - min.</li>
                           </ul>
                         </div>
                       }
@@ -336,43 +202,18 @@ export const Productos = () => {
                   </div>
                   <div>
                       <div className="productos__lista">
-                          {/* {
-                          // template(products)
-                          datos!=undefined &&
-                          datos.map((data, i) =>(
-                            
-                              <div key={i}>
-                                <CardProducto producto={data} />
-                              </div>
-                            ))
-                        } */}
-                        {/* <button onClick={()=>console.log(products.payload)}></button> */}
-                        <Items currentItems={currentItems} />
+                          {
+                            currentItems.length > 0 &&
+                            <Items current={currentItems} />
+                          }
                         
                       </div>
-
-                      {/* <ReactPaginate
-                          breakLabel="..."
-                          nextLabel=">"
-                          onPageChange={handlePageClick}
-                          pageRangeDisplayed={3}
-                          pageCount={pageCount}
-                          previousLabel="<"
-                          previousClassName={'previousPagination'}
-                          renderOnZeroPageCount={null}
-                          disabledClassName= {'disabled'}
-                          nextClassName= {'nextPagination'}
-                          activeClassName= {'selected'}
-                          containerClassName="containerPagination"
-                        /> */}
-
                         <div style={{display:'grid', justifyContent:'center', padding: '20px 0px 40px 0px'}}>
                           <Pagination 
-                            count={Math.ceil(posts.length / postsPerPage)} 
+                            count={numberOfPages}
                             defaultPage={1} 
                             siblingCount={0} 
                             boundaryCount={2} 
-                            // color="primary"
                             showFirstButton 
                             showLastButton
                             onChange={(e,page) => handlePageClick(e, page)}
@@ -387,18 +228,9 @@ export const Productos = () => {
           
           <div className=''></div>
         </div>
-      </div>      
+      </div>     
 
-      {/* <ThreeDots
-  visible={true}
-  height="80"
-  width="80"
-  color="#4fa94d"
-  radius="9"
-  ariaLabel="three-dots-loading"
-  wrapperStyle={{}}
-  wrapperClass=""
-  /> */}
+      <LoaderComponent mostrarLoader={mostrarLoader} setMostrarLoader={setMostrarLoader} handleCloseLoader={handleClose} /> 
     </>
   )
 }

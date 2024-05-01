@@ -6,7 +6,9 @@ import { registrarService } from "../../../services/login/registerService";
 import Swal from 'sweetalert2'
 import { encryptDecrypt, endcodeBase64 } from "../../../helpers/validations";
 import sha256 from "sha256";
-import { ThreeCircles } from "react-loader-spinner";
+import { LoaderComponent } from "../../../components/Loader";
+import visible from '../../../../assets/icons/visible.svg';
+import notvisible from '../../../../assets/icons/not-visible.svg';
 
 export const Register = ({pshow, setMostrarRegistro}) => {
 
@@ -21,16 +23,35 @@ export const Register = ({pshow, setMostrarRegistro}) => {
         comuna: '',
         ciudad: ''
     })
+
+    const [errorNombre, setErrorNombre] = useState(false) 
+    const [errorApellido, setErrorApellido] = useState(false)
+    const [errorContacto, setErrorContacto] = useState(false)
+    const [errorCorreo, setErrorCorreo] = useState(false)
+    const [errorDireccion, setErrorDireccion] = useState(false)
+    const [errorComuna, setErrorComuna] = useState(false)
+    const [errorCiudad, setErrorCiudad] = useState(false)
+    const [errorClave, setErrorClave] = useState(false)
+    const [errorClave2, setErrorClave2] = useState(false)
+
+    const [viewPass, setViewPass] = useState(false)
+    const [viewRePass, setViewRePass] = useState(false)
+
+    const [mostrarLoader, setMostrarLoader] = useState(false);
     const [repass, setRepass] = useState()
+    const handleCloseLoader = () => {
+        setMostrarLoader(false)
+      }
     // const [loader, setLoader] = useState(false);
 
     const recaptchaRef = useRef();
 
     const handleClose = () =>{
+        cleanFields()
         setShow(false);
         setMostrarRegistro(false);
     } 
-    const handleShow = () => setShow(true);
+    // const handleShow = () => setShow(true);
 
     const handleInput = (e) => {
 
@@ -89,6 +110,41 @@ export const Register = ({pshow, setMostrarRegistro}) => {
             //   setLoader(false);
         return
         }
+        setMostrarLoader(true)
+
+        if(!form.nombre || !form.apellido || !form.contacto || !form.correo || !form.direccion || !form.comuna || !form.ciudad || !form.clave){
+
+            !form.nombre ? setErrorNombre(true) : setErrorNombre(false)
+            !form.apellido ? setErrorApellido(true) : setErrorApellido(false)
+            !form.contacto ? setErrorContacto(true) : setErrorContacto(false)
+            !form.correo ? setErrorCorreo(true) : setErrorCorreo(false)
+            !form.direccion ? setErrorDireccion(true) : setErrorDireccion(false)
+            !form.comuna ? setErrorComuna(true) : setErrorComuna(false)
+            !form.ciudad ? setErrorCiudad(true) : setErrorCiudad(false)
+            !form.clave ? setErrorClave(true) : setErrorClave(false)
+            !repass ? setErrorClave2(true) : setErrorClave2(false)
+
+
+            Swal.fire({
+                title: 'Debe llenar todos los campos.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#0C2695'
+              })
+              setMostrarLoader(false)
+            return
+        }
+
+        if(form.clave != repass){
+            Swal.fire({
+                title: 'Las contraseñas ingresadas no coinciden.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#0C2695'
+              })
+              setMostrarLoader(false)
+            return
+        }
 
         let inputRegistro = {
             nombre: form.nombre,
@@ -104,6 +160,10 @@ export const Register = ({pshow, setMostrarRegistro}) => {
         }
 
         await registrar(inputRegistro);
+
+        cleanFields()
+
+        setMostrarLoader(false)
     }
 
     const registrar = async(usuario) => {
@@ -111,11 +171,51 @@ export const Register = ({pshow, setMostrarRegistro}) => {
         handleClose();
         // setLoader(false);
     }
+
+    const cleanFields = () => {
+        setForm({
+            nombre:'',
+            apellido: '',
+            contacto: '',
+            correo: '',
+            clave: '',
+            direccion: '',
+            comuna: '',
+            ciudad: ''
+        })
+
+        setErrorNombre(false) 
+        setErrorApellido(false)
+        setErrorContacto(false)
+        setErrorCorreo(false)
+        setErrorDireccion(false)
+        setErrorComuna(false)
+        setErrorCiudad(false)
+        setErrorClave(false)
+        setErrorClave2(false)
+    }
     
     useEffect(() => {
       setShow(pshow)
     }, [pshow])
-     
+
+    useEffect(() => {
+        cleanFields()
+    }, [])
+    
+    useEffect(() => {
+        const inpPass = document.getElementById('clave')
+  
+        viewPass ? inpPass?.setAttribute('type', 'text') : inpPass?.setAttribute('type', 'password')
+  
+      }, [viewPass])
+
+      useEffect(() => {
+        const inpPass = document.getElementById('clave2')
+  
+        viewRePass ? inpPass?.setAttribute('type', 'text') : inpPass?.setAttribute('type', 'password')
+  
+      }, [viewRePass])
 
   return (
     <>
@@ -130,7 +230,7 @@ export const Register = ({pshow, setMostrarRegistro}) => {
                     <input 
                         name="nombre" 
                         type="text" 
-                        className='contenedor__login__group__campo form-control'
+                        className={`contenedor__login__group__campo ${errorNombre && 'input-error'} form-control`}
                         value={form.nombre} 
                         onChange={handleInput}  
                     />
@@ -141,7 +241,7 @@ export const Register = ({pshow, setMostrarRegistro}) => {
                     <input 
                         name='apellido' 
                         type='text' 
-                        className='contenedor__login__group__campo form-control'
+                        className={`contenedor__login__group__campo ${errorApellido && 'input-error'} form-control`}
                         value={form.apellido} 
                         onChange={handleInput}  
                     />
@@ -152,7 +252,7 @@ export const Register = ({pshow, setMostrarRegistro}) => {
                     <input 
                         name='contacto' 
                         type='text' 
-                        className='contenedor__login__group__campo form-control'
+                        className={`contenedor__login__group__campo ${errorContacto && 'input-error'} form-control`}
                         value={form.contacto} 
                         onChange={handleInput}  
                     />
@@ -163,7 +263,7 @@ export const Register = ({pshow, setMostrarRegistro}) => {
                     <input 
                         name='correo' 
                         type='text' 
-                        className='contenedor__login__group__campo form-control'
+                        className={`contenedor__login__group__campo ${errorCorreo && 'input-error'} form-control`}
                         value={form.correo} 
                         onChange={handleInput}  
                     />
@@ -174,7 +274,8 @@ export const Register = ({pshow, setMostrarRegistro}) => {
                     <input 
                         name='direccion' 
                         type='text' 
-                        className='contenedor__login__group__campo form-control'
+                        id="direccion"
+                        className={`contenedor__login__group__campo ${errorDireccion && 'input-error'} form-control`}
                         value={form.direccion} 
                         onChange={handleInput}  
                     />
@@ -185,7 +286,7 @@ export const Register = ({pshow, setMostrarRegistro}) => {
                     <input 
                         name='comuna' 
                         type='text' 
-                        className='contenedor__login__group__campo form-control'
+                        className={`contenedor__login__group__campo ${errorComuna && 'input-error'} form-control`}
                         value={form.comuna} 
                         onChange={handleInput}  
                     />
@@ -196,7 +297,7 @@ export const Register = ({pshow, setMostrarRegistro}) => {
                     <input 
                         name='ciudad' 
                         type='text' 
-                        className='contenedor__login__group__campo form-control'
+                        className={`contenedor__login__group__campo ${errorCiudad && 'input-error'} form-control`}
                         value={form.ciudad} 
                         onChange={handleInput}  
                     />
@@ -204,24 +305,45 @@ export const Register = ({pshow, setMostrarRegistro}) => {
 
                 <div className='form-group contenedor__login__group'>
                     <label htmlFor="clave" className='contenedor__login__group__texto'>Contraseña</label>
-                    <input 
-                        name='clave' 
-                        type='password' 
-                        className='contenedor__login__group__campo form-control'
-                        value={form.clave} 
-                        onChange={handleInput}  
-                    />
+                    <div className="d-flex">
+                        <input 
+                            name='clave' 
+                            type='password' 
+                            id="clave"
+                            className={`contenedor__login__group__campo ${errorClave && 'input-error'} form-control`}
+                            value={form.clave} 
+                            onChange={handleInput}  
+                        />
+                        <button className="magic-eye" type="button" onClick={()=>setViewPass(!viewPass)}>
+                            {
+                                viewPass ? (<img src={visible} alt="visible" />) : (<img src={notvisible} alt="not visible" />)
+                            }
+                            
+                            
+                        </button>
+                    </div>
                 </div>
 
                 <div className='form-group contenedor__login__group'>
                     <label htmlFor="clave2" className='contenedor__login__group__texto'>Repita su contraseña</label>
-                    <input 
-                        name='clave2' 
-                        type='password' 
-                        className='contenedor__login__group__campo form-control'
-                        value={repass} 
-                        onChange={(e) => setRepass(e.target.value)}  
-                    />
+                    
+                    <div className="d-flex">
+                        <input 
+                            name='clave2' 
+                            type='password' 
+                            id="clave2"
+                            className={`contenedor__login__group__campo ${errorClave2 && 'input-error'} form-control`}
+                            value={repass} 
+                            onChange={(e) => setRepass(e.target.value)}  
+                        />
+                        <button className="magic-eye" type="button" onClick={()=>setViewRePass(!viewRePass)}>
+                            {
+                                viewRePass ? (<img src={visible} alt="visible" />) : (<img src={notvisible} alt="not visible" />)
+                            }
+                            
+                            
+                        </button>
+                    </div>
                 </div>
 
                 <ReCAPTCHA
@@ -238,6 +360,8 @@ export const Register = ({pshow, setMostrarRegistro}) => {
             </form>
         </Modal.Body>
       </Modal>
+
+      <LoaderComponent mostrarLoader={mostrarLoader} setMostrarLoader={setMostrarLoader} handleCloseLoader={handleCloseLoader} />
     </>
   )
 }

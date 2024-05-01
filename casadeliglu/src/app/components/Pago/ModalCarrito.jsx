@@ -38,11 +38,13 @@ export const ModalCarrito = ({showModalCarrito, handleCloseModalCarrito}) => {
 
     const btnRestar = (i,data) => {
         let elemento = document.getElementById('cantidad'+i).value;
-        elemento = parseInt(elemento) - 1;
-        let prod = {...data,
-        cantidad : elemento
+        if(parseInt(elemento) > 1){
+            elemento = parseInt(elemento) - 1;
+            let prod = {...data,
+            cantidad : elemento
+            }
+            dispatch(actualizarProducto(prod));
         }
-        dispatch(actualizarProducto(prod));
     }
 
     const eliminarElemento = (index) => {

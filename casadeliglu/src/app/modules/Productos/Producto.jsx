@@ -6,6 +6,7 @@ import { actualizarProducto, agregarProducto } from '../../store/shop/shopSlice'
 import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import not_found from '../../../assets/img/productos/not-found.webp'
 
 export const Producto = () => {
 
@@ -38,7 +39,7 @@ export const Producto = () => {
     const sumarTotal = () => {
         if(cantidad < detalleProducto.stock){
             setCantidad(cantidad+1);
-            setTotal(total+detalleProducto?.precioBruto)
+            setTotal(parseInt(total)+parseInt(detalleProducto?.precioBruto))
         }
         
     }
@@ -55,15 +56,17 @@ export const Producto = () => {
 
     const addProducto = () =>{
         const existe = products.find(data => data.idProducto == detalleProducto.idProducto);
+
+        console.log(existe)
         
-        if(!((existe.cantidad + cantidad) <= detalleProducto.stock) ){
-            notify('Producto supera el stock disponible');
-            return;
-        }
+        // if(!((existe.cantidad + cantidad) <= detalleProducto.stock) ){
+        //     notify('Producto supera el stock disponible');
+        //     return;
+        // }
 
         if(existe != undefined){
           let prod = {...existe,
-            cantidad : existe.cantidad + cantidad
+            cantidad : parseInt(existe.cantidad) + parseInt(cantidad)
           }
           console.log(prod)
           dispatch(actualizarProducto(prod));
@@ -119,14 +122,16 @@ export const Producto = () => {
                             {
                                 detalleProducto != undefined &&
                                 <>
+                                <div className='producto__foto'>
                                 {
                                     detalleProducto.foto ? 
                                     (
                                         <img src={detalleProducto.foto} alt="" />
                                     ):(
-                                    <ImgNotFound />
+                                        <img src={not_found} alt="" />
                                     )
                                 }
+                                </div>
                                 
                                 <div className="producto__info">
                                     <div className="producto__info__desc">

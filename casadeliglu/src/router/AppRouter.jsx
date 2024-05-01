@@ -16,34 +16,19 @@ import { PagoEnEspera } from '../app/modules/Pago/Pagar/Pages/PagoEnEspera'
 import { PagoFinalizado } from '../app/modules/Pago/Pagar/Pages/PagoFinalizado'
 import { Layout } from '../app/Layouts/Layout'
 import { Miperfil } from '../app/modules/MiPerfil/Miperfil'
+import { Mantenedor } from '../app/modules/mantenedor/views/mantenedor'
 
 export const AppRouter = () => {
 
   const num = 1
-  const { status} = useSelector( (state) => state.usuarioState);
+  const { status, token } = useSelector( (state) => state.usuarioState);
   return (
     <>
-    
-    {/* {
-      status=='logout' ? (
-        <Routes>
-          <Route path='/inicio' element={<Trabajando />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/' element={<Navigate to='/inicio' />} />
-          <Route path='/*' element={<Navigate to='/inicio' />} />
-          <Route path='*' element={<Navigate to='/inicio' />} />
-        </Routes>
-      ):(
-        <>
-          <Header />
-              <InRoutes />
-          <Footer /> 
-        </>
-        
-      )
-    } */}
-    <>
       <Routes>
+        {
+          (status == 'identificado' && token) &&
+          <Route path='/panel' element={<Mantenedor />} />
+        }
         <Route path='/inicio' element={<Layout><Home /></Layout>} />
         <Route path='/productos' element={<Layout><Productos /></Layout>} />
         <Route path='/productos/producto' element={<Layout><Producto /></Layout>} />
@@ -58,8 +43,6 @@ export const AppRouter = () => {
         <Route path='/*' element={<Navigate to='/inicio' />} />
         <Route path='*' element={<Navigate to='/inicio' />} />
       </Routes>
-      
-    </>
       
     </>
   )

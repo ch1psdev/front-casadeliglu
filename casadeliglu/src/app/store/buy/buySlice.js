@@ -15,7 +15,9 @@ export const buySlice = createSlice({
         locale: 'es_CL',
         userAgent:'',
         items:[],
-        referecence:''
+        referecence:'',
+        delivery: '',
+        direccion: ''
     },
     reducers: {
 
@@ -26,7 +28,8 @@ export const buySlice = createSlice({
             state.name = payload.payload.nombre,
             state.surname = payload.payload.apellidos,
             state.email = payload.payload.correo,
-            state.mobile = payload.payload.numeroContacto.toString()
+            state.mobile = payload.payload.numeroContacto.toString(),
+            state.direccion = payload.payload.direccion
         },
         agregarInfoDevice: (state, payload ) =>{
             console.log(payload)

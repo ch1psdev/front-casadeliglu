@@ -17,7 +17,6 @@ export const pagar = async (input) => {
           
       }catch(e){
           throw e;
-          return;
       }
   }
 
@@ -37,6 +36,24 @@ export const pagar = async (input) => {
           
       }catch(e){
           throw e;
-          return;
+      }
+  }
+
+  export const getNumeroCompra = async (pagoGetnet) => {
+    try{
+      const res = await fetch(`${urlApi}/pago/obtenerNumeroCompra/${pagoGetnet}`,{
+          mode: 'cors',
+          method: 'GET',
+          headers:{
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          }
+      });
+  
+      const data = await res.json();
+      return data;
+          
+      }catch(e){
+          throw e;
       }
   }

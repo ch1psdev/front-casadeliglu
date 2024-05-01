@@ -60,10 +60,17 @@ a{
 
 .boton{
     color: #ffffff;
+    align-self: end;
+    padding: 13px;
+    font-size: 18px;
     background-color: var(--color-primario);
-    border: 0;
-    padding: 7px 30px;
     border-radius: 8px;
+    border: 0;
+
+    @include breakPoint($large){
+        padding: 7px 30px;
+        font-size: 15px;
+    }
 }
 
 .boton-secundario{
@@ -175,11 +182,6 @@ a{
     margin-bottom: 40px;
 }
 
-.home__nosotros__boton{
-    align-self: center;
-    justify-self: end;
-}
-
 /* CARD */
 
 
@@ -245,11 +247,25 @@ input[type=radio]:checked + .banner__radio{
     font-size: 14px;
 }
 
+.input-error{
+    border: 1px solid red;
+}
+
+.magic-eye{
+    background: #0C2695;
+    border: none;
+    border-radius: 0rem 0.375rem 0.375rem 0rem;
+
+    img{
+        width: 25px
+    }
+}
+
 @import './productos';
 @import './components/miga.scss';
 @import './header';
 @import './nosotros';
-@import './home.css';
+@import './home';
 @import './footer';
 @import './banner.css';
 @import './login';
@@ -260,3 +276,6 @@ input[type=radio]:checked + .banner__radio{
 @import './components/modal_carrito';
 @import './components/modules/contacto';
 @import './components/modules/miperfil';
+@import './components/modules/mantenedor';
+@import './components/loader';
+@import './components/modules/producto';

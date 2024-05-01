@@ -1,0 +1,24 @@
+.editar__icono{
+    width: 20px;
+}
+
+.mantenedor{
+    padding: 30px 100px;
+
+    &__contenido{
+        margin-top: 20px;
+
+        &__botones{
+            display: grid;
+            grid-auto-flow: column;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+    }
+
+    
+}
+
+.contenedor__editarProducto__botones{
+    display: flex;
+}

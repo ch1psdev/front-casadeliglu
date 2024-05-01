@@ -1,11 +1,15 @@
 .pagar{
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 70% 30%;
+    // display: grid;
+    // grid-auto-flow: column;
+    // grid-template-columns: 70% 30%;
 }
 
 .pagar__seccion__productos, .pagar__seccion__total{
     padding: 30px;
+}
+
+.pagar__seccion__total{
+    height: min-content;
 }
 
 .pagar__tabla{
@@ -24,6 +28,7 @@
     border: 1px solid #dee2e6;
     border-radius: 8px;
     padding: 20px;
+    grid-template-rows: repeat(5, min-content);
 }
 
 .total__productos__productos{
@@ -68,7 +73,12 @@
 }
 
 .formPagoCampos{
-    padding:20px 0px ;
+    padding:20px 0px;
+
+    &__obligatorio{
+        color: red;
+    }
+
 }
 
 .formPagoCampos .form-group{
@@ -76,7 +86,16 @@
 }
 
 .pagar{
-    
+    min-height: calc(100vh - 250px);
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 100%;
+
+    @include breakPoint($large){
+        min-height: auto;
+        grid-template-columns: 70% 30%;
+    }
+
     &__procesando{
         margin-top: 30px;
 

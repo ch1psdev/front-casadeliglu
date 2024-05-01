@@ -17,6 +17,5 @@ export const iniciarSesionService = async (usuario) => {
         
     }catch(e){
         throw e;
-        return;
     }
 }

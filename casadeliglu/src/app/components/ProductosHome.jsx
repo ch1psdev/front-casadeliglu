@@ -1,7 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import salmon from '../../assets/img/productos/salmon.jpg'
-import { AddCart } from '../../assets/Icons';
-import { useEffect } from 'react';
 import { CardProducto } from './CardProducto';
 
 export const ProductosHome = ({datos}) => {
@@ -30,14 +27,14 @@ export const ProductosHome = ({datos}) => {
             <div>
               <h1 style={{marginBottom: '40px'}}>Nuestros productos</h1>
             </div>
-            <div className='cards-group' style={{display:'grid', gridAutoFlow:'column', justifyItems: 'center'}}>
+            <div className='cards-group' style={{display:'flex', flexWrap: 'wrap', justifyItems: 'center', justifyContent: 'center'}}>
                 {
                   datos!=undefined &&
                     template()
                 }
             </div>
             
-            <button className='boton home__nosotros__boton' style={{alignSelf: 'end', marginTop:'40px'}} onClick={() => navigate('/productos')}>Ver más productos</button>
+            <button className='boton home__nosotros__boton' style={{marginTop:'40px'}} onClick={() => navigate('/productos')}>Ver más productos</button>
           </div>
           <div className="col-1 d-none d-lg-block"></div>
         </div>

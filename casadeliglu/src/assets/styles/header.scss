@@ -221,6 +221,33 @@
                 }
             }
         }
+
+        &__menu{
+
+            &__desktop{
+
+                &__lista{
+
+                    &__icon{
+
+                        &__contador{
+                            position: absolute;
+                            background: yellow;
+                            border-radius: 50px;
+                            width: 15px;
+                            height: 15px;
+                            font-size: 10px;
+                            display: grid;
+                            justify-content: center;
+                            align-items: center;
+                            font-weight: bolder;
+                            top: 2px;
+                            margin-left: 12px;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     &__productos{

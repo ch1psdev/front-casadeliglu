@@ -1,11 +1,10 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'animate.css';
 import iglu_header from '../../assets/img/iglu_header.png'
 import { useRef } from 'react';
 import { Register } from '../modules/auth/pages/Register';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThreeCircles } from 'react-loader-spinner';
 import { logout } from '../store/auth/authSlice';
 import { vaciarCarrito } from '../store/shop/shopSlice';
 import { MenuHeaderDesktop } from './Header/MenuHeaderDesktop';
@@ -22,8 +21,12 @@ export const Header = ({handleModalCarrito}) => {
     const [showMenuMobile, setShowMenuMobile] = useState(false);
     const [showModalLogin, setShowModalLogin] = useState(false);
     const [buscador, setBuscador] = useState();
+    const [contadorProductos, setContadorProductos] = useState(0);
 
     const usuario = useSelector( state => state.usuarioState);
+    const { products } = useSelector((state) => state.carritoState);
+
+    const { status, token } = useSelector( (state) => state.usuarioState);
     
     const login = useRef();
 
@@ -45,7 +48,11 @@ export const Header = ({handleModalCarrito}) => {
     }
 
     const irProductos = (data) => {
-        navigate('/productos', {state: data})
+        navigate('/productos', {state: {categoria: data.familia}})
+    }
+
+    const irProductosPorNombre = (data) => {
+        navigate('/productos', {state: {nombreProducto: data.producto}})
     }
 
     const onShowUser = () => {
@@ -61,7 +68,27 @@ export const Header = ({handleModalCarrito}) => {
     const onChangeBuscador = (event) =>{
         setBuscador(event.target.value);
     }
+
+    const irRegistro = () => {
+        setShowModalLogin(false);
+        setMostrarRegistro(true);
+    }
+
+    const calcularContadorProductos = () =>{
+        let contador = 0
+
+        for (let i = 0; i < products.length; i++) {
+            contador = contador + products[i].cantidad
+        }
+
+        setContadorProductos(contador);
+    }
     
+    useEffect(() => {
+        calcularContadorProductos()
+    }, [products])
+    
+
   return (
     <>
         {/*HEADER NUEVO*/}
@@ -73,10 +100,31 @@ export const Header = ({handleModalCarrito}) => {
 
                         <nav className="header__caja__contenido__menu__desktop">
                             <ul className='header__caja__contenido__menu__desktop__lista'>
+                            {
+                                (usuario.status == 'identificado' && usuario.token) &&
+                                <li className="header__caja__contenido__menu__desktop__lista__item">
+                                    <NavLink
+                                        to="/panel" 
+                                        className={({isActive}) => `${isActive ? 'header__caja__menu__desktop__lista__item__active' : ''}`}>
+                                            Panel
+                                    </NavLink>
+                                </li>
+                            }
+                                
+
                                 <li className="header__caja__contenido__menu__desktop__lista__item">
                                     <input type="text" onChange={onChangeBuscador} placeholder='Buscar...' />
-                                    <button onClick={() =>irProductos({producto:buscador})}><LupaIcon/></button>
+                                    <button onClick={() =>irProductosPorNombre({producto:buscador})}><LupaIcon/></button>
                                 </li>
+
+                                <li className="header__caja__contenido__menu__desktop__lista__item">
+                                    <NavLink
+                                        to="/productos" 
+                                        className={({isActive}) => `${isActive ? 'header__caja__menu__desktop__lista__item__active' : ''}`}>
+                                            Productos
+                                    </NavLink>
+                                </li>
+
                                 <li className="header__caja__contenido__menu__desktop__lista__item">
                                     <NavLink
                                         to="/inicio" 
@@ -133,6 +181,7 @@ export const Header = ({handleModalCarrito}) => {
                                 </li>
 
                                 <li className="header__caja__menu__desktop__lista__icon">
+                                    <div className='header__caja__menu__desktop__lista__icon__contador'>{contadorProductos}</div>
                                     <a className='manito' onClick={handleModalCarrito}>
                                             <div>
                                                 <CarritoIcon />    
@@ -163,7 +212,7 @@ export const Header = ({handleModalCarrito}) => {
         </div>
 
         <Register pshow={mostrarRegistro} setMostrarRegistro={setMostrarRegistro} />
-        <Login show={showModalLogin} handleCloseLogin={handleCloseLogin} />
+        <Login show={showModalLogin} handleCloseLogin={handleCloseLogin} irRegistro={irRegistro} />
         
         {
             showMenuMobile && <MenuHeaderMobile showMenuMobile={showMenuMobile} setShowMenuMobile={setShowMenuMobile} />
