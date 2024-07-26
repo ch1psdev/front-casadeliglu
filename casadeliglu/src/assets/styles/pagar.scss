@@ -98,6 +98,12 @@
 
     &__procesando{
         margin-top: 30px;
+        height: calc(100vh - 216px);
+
+        @include breakPoint($large){
+            height: calc(100vh - 240px);
+        }
+        
 
         &__contenido{
             display: grid;
@@ -112,7 +118,7 @@
     display: grid;
     justify-content: center;
     &__aprobado{
-        width: 450px;
+        max-width: 450px;
         border: 1px solid #f0f1f2;
         padding: 30px;
         display: grid;

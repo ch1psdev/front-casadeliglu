@@ -16,9 +16,81 @@
         }
     }
 
+    &__agregarProducto__contenido{
+        display: grid;
+        grid-auto-flow: column;
+
+        &__campos{
+            width: 90%;
+        }
+    }
+
     
 }
 
 .contenedor__editarProducto__botones{
     display: flex;
+}
+
+.mantenedor2{
+    display: grid;
+    grid-template-columns: 25% 75%;
+    height: 100vh;
+
+    &__contenido{
+        padding: 30px;
+        height: inherit;
+    }
+
+    &__menu{
+        height: inherit;
+    }
+}
+
+.menutoggle{
+    background-color: $primary_color;
+    padding: 20px;
+    height: 100%;
+
+    &__title{
+        color: white;
+        font-size: 30px;
+        font-weight: bolder;
+        text-align: center;
+        line-height: 1;
+    }
+
+    &__usuario{
+        padding: 20px 0px;
+        color: whitesmoke;
+        font-weight: 600;
+        
+        p{
+            margin: 0;
+        }
+    }
+
+    &__menu{
+        display: grid;
+        grid-auto-flow: row;
+                
+        a{
+            color: white;
+            padding: 10px;
+            border-bottom: 2px solid white;
+            margin-bottom: 2px;
+            cursor: pointer;
+
+            &:hover{
+                background-color: #ECF9FF;
+                color: $primary_color !important;
+            }
+        }
+
+        &__activo{
+            background-color: #ECF9FF;
+            color: $primary_color !important;
+        }
+
+    }
 }

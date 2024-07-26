@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useSelector } from "react-redux"
 import { FilterIcon, LupaIcon } from "../../../assets/Icons"
 import { CardProducto } from "../../components/CardProducto";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +10,6 @@ import { usePagination } from "../../hooks/usePagination";
 
 export const Productos = () => {
 
-  const [busqueda, setBusqueda] = useState('');
-  const [datos, setDatos] = useState();
   const [datosFiltrados, setDatosFiltrados] = useState();
   const [seleccionados, setSeleccionados] = useState('');
   const [showFiltros, setShowFiltros] = useState(false);
@@ -27,17 +24,12 @@ export const Productos = () => {
   }
 
   const navigate = useNavigate();
-  const productos = useSelector( (state) => state.productoState.data);
-
-  const handleBusqueda = (e) => {
-    setBusqueda(e.target.value);
-  }
-  
 
   const onBusqueda = (e) => {
-    setDatos(productos.filter( (data) => data.nombre.includes(busqueda)));
+    e.preventDefault();
+    const prd = document.getElementById("inpBusqueda").value;
+    filtrarPorNombre(prd)
   }
-
 
   const filtrarPorCategorias = (dato) => {
     filtrarProductosPorFamilia(dato);
@@ -71,46 +63,46 @@ export const Productos = () => {
     setShowFiltros(false);
   }
 
-  const ordenarAlfab = () =>{
-    datosFiltrados.sort((a,b)=>{
-      const nombreA = a.nombre.toUpperCase();
-      const nombreB = b.nombre.toUpperCase();
+  // const ordenarAlfab = () =>{
+  //   datosFiltrados.sort((a,b)=>{
+  //     const nombreA = a.nombre.toUpperCase();
+  //     const nombreB = b.nombre.toUpperCase();
 
-      if(nombreA < nombreB){
-        return -1;
-      }
+  //     if(nombreA < nombreB){
+  //       return -1;
+  //     }
 
-      if(nombreA > nombreB){
-        return 1;
-      }
+  //     if(nombreA > nombreB){
+  //       return 1;
+  //     }
 
-      return 0;
-    });
+  //     return 0;
+  //   });
 
-    setShowFiltros(false);
-  }
+  //   setShowFiltros(false);
+  // }
 
-  const ordenarReverse = () => {
+  // const ordenarReverse = () => {
 
-    const arrayOrdenado = [...datosFiltrados];
-    arrayOrdenado.sort((a,b)=>{
+  //   const arrayOrdenado = [...datosFiltrados];
+  //   arrayOrdenado.sort((a,b)=>{
 
-      const nombreA = a.nombre.toUpperCase();
-      const nombreB = b.nombre.toUpperCase();
+  //     const nombreA = a.nombre.toUpperCase();
+  //     const nombreB = b.nombre.toUpperCase();
 
-      if(nombreA > nombreB){
-        return -1;
-      }
+  //     if(nombreA > nombreB){
+  //       return -1;
+  //     }
 
-      if(nombreA < nombreB){
-        return 1;
-      }
+  //     if(nombreA < nombreB){
+  //       return 1;
+  //     }
 
-      return 0;
-    });
-    setDatosFiltrados(arrayOrdenado);
-    setShowFiltros(false);
-  }
+  //     return 0;
+  //   });
+  //   setDatosFiltrados(arrayOrdenado);
+  //   setShowFiltros(false);
+  // }
 
   return (
     <>
@@ -149,8 +141,21 @@ export const Productos = () => {
                     }
                   </div>
                   <div className="productos__categorias__caja__detalle">
-
-                  <div className="accordion" id="accordionPanelsStayOpenExample">
+                    <h3>Familia</h3>
+                    <select name="selectFamilias" id="selectFamilias" className="form-select">
+                      <option value="" disabled>Seleccione...</option>
+                      {
+                        familias.map((data) => (
+                          <option key={data} value="data">{capitalizar(data)}</option>
+                        ))
+                      }
+                    </select>
+                    <br />
+                    <h3>Sub-familia</h3>
+                    <select name="selectSubFamilias" id="selectSubFamilias" className="form-select">
+                      <option value="" disabled>Seleccione...</option>
+                    </select>
+                  {/* <div className="accordion" id="accordionPanelsStayOpenExample">
                     <div className="accordion-item">
                       <h2 className="accordion-header" id="panelsStayOpen-headingOne">
                         <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
@@ -173,7 +178,7 @@ export const Productos = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   </div>
                 </div>
@@ -181,8 +186,8 @@ export const Productos = () => {
               <div className="productos__cuerpo__caja">
                   <div className="productos__barraBusqueda productos__filtrar">
                     <form onSubmit={onBusqueda}>
-                      <input type="text" placeholder="¿Qué estás buscando?" value={busqueda} onChange={handleBusqueda} />
-                      <button className="botonLupa" type="submit" onClick={() => {onBusqueda()}}><LupaIcon/></button>
+                      <input type="text" placeholder="¿Qué estás buscando?" id="inpBusqueda" />
+                      <button className="botonLupa" type="submit"><LupaIcon/></button>
                     </form>
                     
                     <div className="productos__filtrar__filtro">

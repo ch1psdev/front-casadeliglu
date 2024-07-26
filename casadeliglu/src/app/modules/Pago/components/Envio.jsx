@@ -62,8 +62,6 @@ export const Envio = () => {
       navigate('/pagar/procesando', {state: res.requestId});
     }
 
-    console.log(res)
-
     setMostrarLoader(false)
   }
 
@@ -74,7 +72,7 @@ export const Envio = () => {
         <p>
         Su compra será entregada en un <b>máximo de 48 horas.</b> 
         </p>
-        <p><b>Dirección:</b> Av escuela agrícola 1710, Macul</p>
+        <p><b>Dirección:</b>{compra.direccion}</p>
       </div>
       <div className="envio__valor">
         <p><b>Valor:</b> $ 2.900</p>

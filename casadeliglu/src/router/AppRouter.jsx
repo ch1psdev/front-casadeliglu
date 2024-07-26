@@ -17,17 +17,26 @@ import { PagoFinalizado } from '../app/modules/Pago/Pagar/Pages/PagoFinalizado'
 import { Layout } from '../app/Layouts/Layout'
 import { Miperfil } from '../app/modules/MiPerfil/Miperfil'
 import { Mantenedor } from '../app/modules/mantenedor/views/mantenedor'
+import { PanelRoutes } from '../app/routes/PanelRoutes'
+import { Inventario } from '../app/modules/mantenedor/views/Inventario'
+import { Ventas } from '../app/modules/mantenedor/views/Ventas'
 
 export const AppRouter = () => {
 
   const num = 1
-  const { status, token } = useSelector( (state) => state.usuarioState);
+  const { status, token, info } = useSelector( (state) => state.usuarioState);
   return (
     <>
       <Routes>
         {
-          (status == 'identificado' && token) &&
+          (status == 'identificado' && token && info.rol < 3) &&
+          <>
           <Route path='/panel' element={<Mantenedor />} />
+          <Route path='/panel2' element={<Mantenedor />}>
+                <Route path='/panel2/inventario' element={<Inventario />}/>
+                <Route path='/panel2/ventas' element={<Ventas />}/>
+            </Route>
+          </>
         }
         <Route path='/inicio' element={<Layout><Home /></Layout>} />
         <Route path='/productos' element={<Layout><Productos /></Layout>} />

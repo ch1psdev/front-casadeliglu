@@ -1,0 +1,35 @@
+.inventario{
+    height: 100%;
+    display: grid;
+    gap: 10px;
+
+    &__tabla{
+        overflow-y: scroll;
+
+        &__filtros{
+            &__primero, &__segundo{
+                display: grid;
+                grid-auto-flow: column;
+            }
+
+            &__primero{
+                grid-template-columns: repeat(3, 33.33%);
+            }
+
+            &__segundo{
+                grid-template-columns: repeat(4, 25%);
+                button{
+                    width: 90%;
+                }
+
+                button.boton-secundario{
+                    place-self: end start;
+                }
+            }
+            
+            &__campos{
+                width: 90%;
+            }
+        }
+    }
+}

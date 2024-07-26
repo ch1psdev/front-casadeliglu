@@ -20,6 +20,7 @@ export const ModalEditarProducto = ({showModalProducto, setShowModalProducto, ce
         stock: producto?.stock ? producto?.stock : '',
         foto: producto?.foto ? producto?.foto : ''
     })
+    const [fotoProducto, setFotoProducto] = useState(null);
 
     const handleInput = (e) => {
 
@@ -56,15 +57,52 @@ export const ModalEditarProducto = ({showModalProducto, setShowModalProducto, ce
             if(result.isConfirmed){
 
                 new Promise(async (resolve, reject)=>{
+                    let res;
+                    let inputProducto = formProducto;
+                    inputProducto.captcha = tokenCaptcha;
                     try {
-                        let inputProducto = formProducto;
-                        inputProducto.captcha = tokenCaptcha;
-                        const res = await postUpdateProductoService(token, inputProducto);
-                        if(res.code == 200){
-                            resolve(res.code)
-                          }else{
-                            reject('Hubo un problema al procesar la solicitud')
-                          }
+                        if(!fotoProducto == ''){
+                            console.log('HAY FOTO')
+                            const reader = new FileReader();
+                            reader.readAsDataURL(fotoProducto);
+
+                            reader.onloadend = async () => {
+                                const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
+                                
+                                inputProducto.foto = {
+                                    fileName: fotoProducto.name,
+                                    fileType: fotoProducto.type,
+                                    fileContent: base64String
+                                }
+                                
+                                res = await postUpdateProductoService(token, inputProducto);
+
+                                if(res.code == 200){
+                                    resolve(res.code)
+                                }else{
+                                    reject('Hubo un problema al procesar la solicitud')
+                                }
+                                
+                            }
+    
+                            }else{
+                                console.log('NO HAY FOTO')
+                                inputProducto.foto = null;
+                                
+                                
+                                const res = await postUpdateProductoService(token, inputProducto);
+
+                                    if(res.code == 200){
+                                        resolve(res.code)
+                                    }else{
+                                        reject('Hubo un problema al procesar la solicitud')
+                                    }
+                            }
+                        
+                        
+                        
+
+                        
                     } catch (error) {
                         reject('Hubo un problema al procesar la solicitud')
                     }
@@ -97,9 +135,32 @@ export const ModalEditarProducto = ({showModalProducto, setShowModalProducto, ce
         
     }
 
+    const handleFoto = (e) => {
+
+        if(e.target.files.length>0){
+            if(e.target.files[0].type == 'image/webp'){
+
+                setFotoProducto(e.target.files[0])
+            }else{
+                e.target.value = ''
+                Swal.fire({
+                    title: 'Recuerda que la imagen debe tener un formato WEBP',
+                    icon: 'warning',
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#0C2695'
+                  })
+                return
+            }
+        }
+    }
+
     useEffect(() => {
         setFormProducto(producto)
     }, [producto])
+    
+    useEffect(() => {
+        setFotoProducto(null)
+    }, [])
     
 
   return (
@@ -171,6 +232,16 @@ export const ModalEditarProducto = ({showModalProducto, setShowModalProducto, ce
                         onChange={handleInput}  
                     />
                 </div>
+
+                <div className='form-group mantenedor__agregarProducto__contenido__campos'>
+                            <label htmlFor="foto" className='contenedor__login__group__texto'>Foto</label>
+                            <input 
+                                name='foto' 
+                                type='file' 
+                                className='contenedor__login__group__campo form-control'
+                                onChange={handleFoto}  
+                            />
+                        </div>
 
                 <ReCAPTCHA
                     ref={recaptchaRef}

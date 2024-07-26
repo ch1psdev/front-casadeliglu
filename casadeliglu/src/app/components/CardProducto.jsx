@@ -17,11 +17,11 @@ export const CardProducto = ({producto}) => {
   const notify = (texto) => {
     toast.success(texto, {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
+        pauseOnHover: false,
+        draggable: false,
         progress: undefined,
         theme: "colored",
     });
@@ -87,7 +87,7 @@ export const CardProducto = ({producto}) => {
           </div>
         </div>
       }
-      <ToastContainer />
+      <ToastContainer closeOnClick />
     </>
   )
 }

@@ -1,12 +1,18 @@
-import { useSelector } from "react-redux";
 import { capitalizar } from "../../helpers/textos";
+import { useEffect, useState } from "react";
+import { getMenuProductsService } from "../../services/productos/productoService";
+import { filtrarProductosSubFamilia } from "../../store/product/productSilce";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-export const MenuHeaderDesktop = ({irProductos}) => {
+export const MenuHeaderDesktop = () => {
 
-    const productos = useSelector( state => state.productoState);
+    const [menu, setMenu] = useState([]);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const mapFamilias = () =>{
-        const familias = (productos.data.map( data => data.familia));
+        const familias = (menu.map( data => data.Familia));
         
         let res = new Array();
 
@@ -20,29 +26,40 @@ export const MenuHeaderDesktop = ({irProductos}) => {
     }
 
     const obtenerSubFamilias = (produs) =>{
-        const subfamilias = (productos.data.filter(data => data.familia == produs))
-
+        const subfamilias = (menu.filter(data => data.Familia == produs))
         let res = new Array();
 
-        for (let i = 0; i < subfamilias.length; i++) {
-            if((!res.includes(subfamilias[i].subFamilia)) && subfamilias[i].subFamilia != 'none' && subfamilias[i].subFamilia != ''){
-                res.push(subfamilias[i].subFamilia);
+        for (let i = 0; i < subfamilias[0].Subfamilias.length; i++) {
+            if(!res.includes(subfamilias[0].Subfamilias[i].Subfamilia) && subfamilias[0].Subfamilias[i].Subfamilia != '' && subfamilias[0].Subfamilias[i].Subfamilia != null){
+                res.push(subfamilias[0].Subfamilias[i].Subfamilia);
             }
         }
-
         return res;
     }
+
+    const filtrarProductosSubFamilias = (familia, subFamilia) =>{
+        dispatch(filtrarProductosSubFamilia({familia, subFamilia}))
+        navigate('/productos')
+    }
+
+    useEffect(() => {
+      const res = getMenuProductsService().then((data)=>{
+        console.log(JSON.parse(data).Familias)
+        setMenu(JSON.parse(data).Familias)
+    })
+    }, [])
+    
 
   return (
     <>
         <div className="header__productos">
             <ul className="header__productos__lista">
             {
-                productos.data.length > 0 &&
-                mapFamilias(productos.data).map((data,i)=>(
+                menu.length > 0 &&
+                mapFamilias(menu).map((data,i)=>(
                     
                     <li key={i} className="header__productos__lista__familia">
-                        <a className='manito' onClick={() =>irProductos({familia:data})} >
+                        <a className='manito' onClick={() =>filtrarProductosSubFamilias(data, '')} >
                             {capitalizar(data)}
                         </a>
                         {
@@ -50,7 +67,7 @@ export const MenuHeaderDesktop = ({irProductos}) => {
                                 <ul className="header__productos__lista__familia__subfamilia">
                                     {
                                         obtenerSubFamilias(data).map((data2, i)=>(
-                                            <li key={i} onClick={() =>irProductos({familia:data, subFamilia: data2})}>{capitalizar(data2)}</li>
+                                            data2 != null && <li key={i} onClick={() =>filtrarProductosSubFamilias(data, data2)}>{capitalizar(data2)}</li>
                                         ))
                                     }
                                 </ul>

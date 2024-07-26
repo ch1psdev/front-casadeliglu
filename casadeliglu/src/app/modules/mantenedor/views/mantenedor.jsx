@@ -3,9 +3,11 @@ import { getProductosMantenedorService, getToggleVigenciaProductosService } from
 import { useSelector } from 'react-redux';
 import { EditarIcon } from '../../../../assets/Icons';
 import { ModalEditarProducto } from '../../../components/Modals/ModalEditarProducto';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { ModalAgregarProducto } from '../../../components/Modals/ModalAgregarProducto';
 import Swal from 'sweetalert2';
+import { MenuToggle } from '../components/MenuToggle';
+import { Inventario } from '../components/Inventario';
 
 export const Mantenedor = () => {
 
@@ -17,6 +19,8 @@ export const Mantenedor = () => {
   const [producto, setProducto] = useState();
   const [showModalProducto, setShowModalProducto] = useState(false);
   const [showModalAgregarProducto, setShowModalAgregarProducto] = useState(false);
+
+  const [contenido, setContenido] = useState('')
 
   const obtenerProductos = async() =>{
     const res = await getProductosMantenedorService(token);
@@ -110,64 +114,16 @@ export const Mantenedor = () => {
 
   return (
     <>
-        <div className='mantenedor'>
-          <h1>Administración Casa del Iglú</h1>
-          <div className='mantenedor__contenido'>
-            <div className='mantenedor__contenido__botones'>
-              <button className='boton mantenedor__botones__agregar' onClick={abrirModalAgregarProducto}>Agregar producto</button>
-              <button className='boton-secundario mantenedor__botones__volver' onClick={()=>navigate('/')}>Ir al sitio</button>
-            </div>
-            
-          <table className="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Familia</th>
-                <th scope="col">Subfamilia</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Foto</th>
-                <th scope="col">Act/Desc</th>
-                <th scope="col">Editar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                
-                productos &&
-                productos.map((data, i)=>(
-                  <tr key={i}>
-                    <th scope="row">{data.codigo}</th>
-                    <td>{data.nombre}</td>
-                    <td>{data.familia}</td>
-                    <td>{data.subFamilia}</td>
-                    <td>{data.precioBruto}</td>
-                    <td>{data.stock}</td>
-                    {
-                      data.foto == null ? (
-                        <td>Sin foto</td>
-                      ) : (
-                        <td><a href={data.foto} target='_blank'>Ver Foto</a></td>
-                      )
-                    }
-                    <td>
-                      <div className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" defaultChecked={data.vigente} onClick={() => productoVigenteToggle(data.idProducto)} />
-                        {/* <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label> */}
-                      </div>
-                    </td>
-                    <td><a onClick={()=>abrirModalProducto(data)}><EditarIcon clase="editar__icono" /></a></td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-          </div>
+      <div className='mantenedor2'>
+        <div className='mantenedor2__menu'>
+          {<MenuToggle />}
         </div>
-
-        <ModalEditarProducto showModalProducto={showModalProducto} setShowModalProducto={setShowModalProducto} cerrarModalProducto={cerrarModalProducto} producto={producto} />
-        <ModalAgregarProducto showModalAgregarProducto={showModalAgregarProducto} setShowModalAgregarProducto={setShowModalAgregarProducto} cerrarModalAgregarProducto={cerrarModalAgregarProducto} />
+        <div className='mantenedor2__contenido'>
+          {
+            <Outlet />
+          }
+        </div>
+      </div>
     </>
   )
 }

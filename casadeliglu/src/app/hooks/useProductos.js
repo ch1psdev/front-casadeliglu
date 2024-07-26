@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { getProductosService } from "../services/productos/productoService"
 import Swal from 'sweetalert2';
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const useProductos = () => {
 
@@ -9,18 +9,21 @@ export const useProductos = () => {
     const [ familias, setFamilias ] = useState([])
     const [productos, setProductos] = useState([])
 
-    const location = useLocation();
+    const { filtro } = useSelector( state => state.productoState)
 
     const obtenerProductos = async() => {
         getProductosService().then((data) => {
 
             setProductos(data.data);
     
-            if(location.state?.categoria){
-                setListaProductos(data.data.filter(p => p.familia == location.state?.categoria))
-            }else if(location.state?.nombreProducto){
-                setListaProductos(data.data.filter(p => p.nombre.toLowerCase().includes((location.state?.nombreProducto).toLowerCase())))
+            //Estos filtros aplican cuando salta desde el home hacia productos
+            if(filtro.familia){
+                 setListaProductos(data.data.filter(p => p.familia == filtro.familia))
+                if(filtro.subFamilia){
+                    setListaProductos(data.data.filter(p => p.subFamilia == filtro.subFamilia))
+                }
             }else{
+            
                 setListaProductos(data.data)
             }
 
@@ -60,6 +63,8 @@ export const useProductos = () => {
     //Filtra los productos por nombre de producto
     const filtrarPorNombre = (nombreProducto = '') => {
         setListaProductos(productos.filter(p => p.nombre.includes(nombreProducto)))
+        console.log(productos)
+        console.log(nombreProducto)
     }
 
     const quitarFiltroPorCategoria = () => {
@@ -104,6 +109,11 @@ export const useProductos = () => {
     useEffect(() => {
       obtenerProductos()
     }, [])
+
+    useEffect(() => {
+        filtro.familia && setListaProductos(productos.filter(p => p.familia == filtro.familia))
+        filtro.subFamilia && setListaProductos(productos.filter(p => p.subFamilia == filtro.subFamilia))
+    }, [filtro])
     
 
     return[

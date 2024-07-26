@@ -2,7 +2,6 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import 'animate.css';
 import iglu_header from '../../assets/img/iglu_header.png'
-import { useRef } from 'react';
 import { Register } from '../modules/auth/pages/Register';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/auth/authSlice';
@@ -12,6 +11,7 @@ import { MenuHeaderMobile } from './Header/MenuHeaderMobile';
 import { CarritoIcon, LogoutIcon, LupaIcon, MenuIcon, UserIcon } from '../../assets/Icons';
 import { Login } from '../modules/auth/pages/Login';
 import { toast } from "react-toastify";
+import { limpiarFiltro } from '../store/product/productSilce';
 
 export const Header = ({handleModalCarrito}) => {
 
@@ -26,18 +26,14 @@ export const Header = ({handleModalCarrito}) => {
     const usuario = useSelector( state => state.usuarioState);
     const { products } = useSelector((state) => state.carritoState);
 
-    const { status, token } = useSelector( (state) => state.usuarioState);
-    
-    const login = useRef();
-
     const notify = (texto) => {
         toast.success(texto, {
             position: "top-right",
-            autoClose: 5000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
+            pauseOnHover: false,
+            draggable: false,
             progress: undefined,
             theme: "colored",
         });
@@ -45,10 +41,6 @@ export const Header = ({handleModalCarrito}) => {
 
     const handleCloseLogin = () =>{
         setShowModalLogin(false);
-    }
-
-    const irProductos = (data) => {
-        navigate('/productos', {state: {categoria: data.familia}})
     }
 
     const irProductosPorNombre = (data) => {
@@ -101,7 +93,7 @@ export const Header = ({handleModalCarrito}) => {
                         <nav className="header__caja__contenido__menu__desktop">
                             <ul className='header__caja__contenido__menu__desktop__lista'>
                             {
-                                (usuario.status == 'identificado' && usuario.token) &&
+                                (usuario.status == 'identificado' && usuario.token && usuario.info.rol < 3) &&
                                 <li className="header__caja__contenido__menu__desktop__lista__item">
                                     <NavLink
                                         to="/panel" 
@@ -120,6 +112,7 @@ export const Header = ({handleModalCarrito}) => {
                                 <li className="header__caja__contenido__menu__desktop__lista__item">
                                     <NavLink
                                         to="/productos" 
+                                        onClick={()=>dispatch(limpiarFiltro())}
                                         className={({isActive}) => `${isActive ? 'header__caja__menu__desktop__lista__item__active' : ''}`}>
                                             Productos
                                     </NavLink>
@@ -196,8 +189,9 @@ export const Header = ({handleModalCarrito}) => {
                         <img src={iglu_header} alt="" className='manito' onClick={() => navigate('/')} />
                     </div>
                     <div className='header2__grilla__contenido__div header__caja__contenido__menus'>
-                        <MenuHeaderDesktop handleModalCarrito={handleModalCarrito} irProductos={irProductos} setShowModalLogin={setShowModalLogin} />
+                        <MenuHeaderDesktop handleModalCarrito={handleModalCarrito} setShowModalLogin={setShowModalLogin} />
                         <div className='header__caja__contenido__menus__mobile d-grid d-md-none'>
+                            <div className='header__caja__menu__desktop__lista__icon__contador'>{contadorProductos}</div>
                             <a onClick={()=>handleModalCarrito()}>
                                 <CarritoIcon />
                             </a>

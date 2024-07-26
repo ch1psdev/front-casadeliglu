@@ -6,8 +6,7 @@
     padding-bottom: 30px;
     
     @include breakPoint($large){
-        margin-bottom: 3rem;
-        padding-bottom: 0px;
+        padding-bottom: 3rem;
     }
 }
 

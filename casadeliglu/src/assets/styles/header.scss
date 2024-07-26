@@ -234,15 +234,22 @@
                             position: absolute;
                             background: yellow;
                             border-radius: 50px;
-                            width: 15px;
-                            height: 15px;
+                            width: 20px;
+                            height: 20px;
                             font-size: 10px;
                             display: grid;
                             justify-content: center;
                             align-items: center;
                             font-weight: bolder;
-                            top: 2px;
-                            margin-left: 12px;
+                            top: 10px;
+                            margin-left: -20px;
+
+                            @include breakPoint($large){
+                                width: 15px;
+                                height: 15px;
+                                margin-left: 12px;
+                                top: 2px;
+                            }
                         }
                     }
                 }

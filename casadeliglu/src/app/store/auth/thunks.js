@@ -7,7 +7,6 @@ export const loginThunk = ( usuario ) => {
 
         const res = await iniciarSesionService(usuario);
 
-        console.log(res)
         if(res.code == 0){
             await dispatch(login(res.data))
         }

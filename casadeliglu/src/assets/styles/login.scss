@@ -45,6 +45,12 @@
 
     &__group{
         margin-bottom: 20px;
+
+        &__recovery{
+            cursor: pointer;
+            margin-top: 5px;
+            float: right;
+        }
     }
 
     &__button{

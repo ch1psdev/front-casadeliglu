@@ -12,7 +12,8 @@ export const authSlice = createSlice({
             correo: '',
             direccion: '',
             comuna: '',
-            ciudad: ''
+            ciudad: '',
+            rol: null
         },
         token: ''
 },
@@ -31,6 +32,7 @@ export const authSlice = createSlice({
             state.info.comuna = payload.comuna,
             state.info.ciudad = payload.ciudad,
             state.token = payload.token
+            state.rol = payload.rol
         },
         cargarProductos: ( state, payload ) => {
             state.products = payload
@@ -46,7 +48,8 @@ export const authSlice = createSlice({
             state.info.direccion = '',
             state.info.comuna = '',
             state.info.ciudad = '',
-            state.token = ''
+            state.token = '',
+            state.rol = null
         }
     }
 });

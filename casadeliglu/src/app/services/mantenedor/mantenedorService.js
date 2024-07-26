@@ -82,3 +82,24 @@ export const getProductosMantenedorService = async (token) => {
           throw e;
       }
   }
+
+  export const getVentasServices = async (token) => {
+    try{
+      const res = await fetch(`${urlApi}/Venta/obtenerVentas`,{
+          mode: 'cors',
+          method: 'GET',
+          headers:{
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'bearer ' + token
+          }
+      });
+  
+      const data = await res.json();
+
+      return data;
+          
+      }catch(e){
+          throw e;
+      }
+  }
