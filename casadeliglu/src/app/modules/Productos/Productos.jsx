@@ -31,9 +31,9 @@ export const Productos = () => {
     filtrarPorNombre(prd)
   }
 
-  const filtrarPorCategorias = (dato) => {
-    filtrarProductosPorFamilia(dato);
-    setSeleccionados(dato);
+  const onSelectFamilia = (e) =>{
+    filtrarProductosPorFamilia(e.target.value);
+    setSeleccionados(e.target.value);
   }
 
   const eliminarCategoria = () => {
@@ -142,11 +142,11 @@ export const Productos = () => {
                   </div>
                   <div className="productos__categorias__caja__detalle">
                     <h3>Familia</h3>
-                    <select name="selectFamilias" id="selectFamilias" className="form-select">
+                    <select name="selectFamilias" id="selectFamilias" className="form-select" onChange={onSelectFamilia}>
                       <option value="" disabled>Seleccione...</option>
                       {
                         familias.map((data) => (
-                          <option key={data} value="data">{capitalizar(data)}</option>
+                          <option key={data} value={data}>{capitalizar(data)}</option>
                         ))
                       }
                     </select>
