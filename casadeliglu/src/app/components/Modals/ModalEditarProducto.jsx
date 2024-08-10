@@ -248,7 +248,7 @@ export const ModalEditarProducto = ({showModalProducto, setShowModalProducto, ce
                     size="invisible"
                     sitekey={siteKey}
                 />
-                <div className="contenedor__editarProducto__botones">
+                <div className="contenedor__editarProducto__botones mt-4">
                     <button type="submit" className='contenedor__login__button boton'>Guardar</button>
                     <button type="button" className='contenedor__login__button boton-secundario' onClick={()=>cerrarModalProducto()}>Cancelar</button>
                 </div>

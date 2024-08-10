@@ -209,8 +209,10 @@ export const ModalAgregarProducto = ({showModalAgregarProducto, setShowModalAgre
                     sitekey={siteKey}
                 />
 
-                <button type="submit" className='contenedor__login__button boton'>Guardar</button>
-                <button type="button" className='contenedor__login__button boton'>Cancelar</button>
+                <div className="contenedor__editarProducto__botones mt-4">
+                    <button type="submit" className='contenedor__login__button boton'>Guardar</button>
+                    <button type="button" onClick={cerrarModalAgregarProducto} className='contenedor__login__button boton-secundario'>Cancelar</button>
+                </div>
             </form>
             
         </Modal.Body>

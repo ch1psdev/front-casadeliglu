@@ -7,6 +7,7 @@ export const useProductos = () => {
 
     const [listaProductos, setListaProductos] = useState([])
     const [ familias, setFamilias ] = useState([])
+    const [subFamilias, setSubFamilias] = useState([])
     const [productos, setProductos] = useState([])
 
     const { filtro } = useSelector( state => state.productoState)
@@ -73,6 +74,24 @@ export const useProductos = () => {
         setListaProductos(productos);
     }
 
+    const obtenerSubFamilias = (familia) => {
+        const subfamilias = (productos.filter(data => data.familia == familia))
+        
+        let res = new Array();
+
+        for (let i = 0; i < subfamilias.length; i++) {
+            if(!res.includes(subfamilias[i].subFamilia) && subfamilias[i].subFamilia != '' && subfamilias[i].subFamilia != null){
+                res.push(subfamilias[i].subFamilia);
+            }
+        }
+
+    setSubFamilias(res);
+    }
+
+    const filtrarProductosPorSubFamilia = (sub) => {
+        setListaProductos(productos.filter(p => p.subFamilia == sub))
+    }
+
     const ordenarPrecioDesc = () => {
 
         let prods = listaProductos
@@ -123,7 +142,10 @@ export const useProductos = () => {
         familias,
         ordenarPrecioDesc,
         ordenarPrecioAsc,
-        quitarFiltroPorCategoria
+        quitarFiltroPorCategoria,
+        obtenerSubFamilias,
+        subFamilias,
+        filtrarProductosPorSubFamilia
     ]
 
 }

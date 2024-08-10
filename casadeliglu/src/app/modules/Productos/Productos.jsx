@@ -10,14 +10,15 @@ import { usePagination } from "../../hooks/usePagination";
 
 export const Productos = () => {
 
-  const [datosFiltrados, setDatosFiltrados] = useState();
   const [seleccionados, setSeleccionados] = useState('');
   const [showFiltros, setShowFiltros] = useState(false);
 
-  const [listaProductos, filtrarProductosPorFamilia, filtrarPorNombre, familias, ordenarPrecioDesc, ordenarPrecioAsc, quitarFiltroPorCategoria] = useProductos();
+  const [listaProductos, filtrarProductosPorFamilia, filtrarPorNombre, familias, ordenarPrecioDesc, ordenarPrecioAsc, quitarFiltroPorCategoria, obtenerSubFamilias, subFamilias, filtrarProductosPorSubFamilia ] = useProductos();
   const [currentItems, numberOfPages, handlePageClick] = usePagination(listaProductos,16)
 
   const [mostrarLoader, setMostrarLoader] = useState(false);
+
+  const [subFamilyValue, setSubFamilyValue] = useState("");
 
   const handleClose = () => {
     setMostrarLoader(false)
@@ -34,11 +35,8 @@ export const Productos = () => {
   const onSelectFamilia = (e) =>{
     filtrarProductosPorFamilia(e.target.value);
     setSeleccionados(e.target.value);
-  }
-
-  const eliminarCategoria = () => {
-    quitarFiltroPorCategoria();
-    setSeleccionados('')
+    selectSubFamilias(e.target.value)
+    setSubFamilyValue("");
   }
 
   function Items({ current }) {
@@ -63,46 +61,15 @@ export const Productos = () => {
     setShowFiltros(false);
   }
 
-  // const ordenarAlfab = () =>{
-  //   datosFiltrados.sort((a,b)=>{
-  //     const nombreA = a.nombre.toUpperCase();
-  //     const nombreB = b.nombre.toUpperCase();
+  const selectSubFamilias = (familia) =>{
+    
+      return obtenerSubFamilias(familia);
+}
 
-  //     if(nombreA < nombreB){
-  //       return -1;
-  //     }
-
-  //     if(nombreA > nombreB){
-  //       return 1;
-  //     }
-
-  //     return 0;
-  //   });
-
-  //   setShowFiltros(false);
-  // }
-
-  // const ordenarReverse = () => {
-
-  //   const arrayOrdenado = [...datosFiltrados];
-  //   arrayOrdenado.sort((a,b)=>{
-
-  //     const nombreA = a.nombre.toUpperCase();
-  //     const nombreB = b.nombre.toUpperCase();
-
-  //     if(nombreA > nombreB){
-  //       return -1;
-  //     }
-
-  //     if(nombreA < nombreB){
-  //       return 1;
-  //     }
-
-  //     return 0;
-  //   });
-  //   setDatosFiltrados(arrayOrdenado);
-  //   setShowFiltros(false);
-  // }
+const onSelectSubFamilia = (e) => {
+  setSubFamilyValue(e.target.value)
+  filtrarProductosPorSubFamilia(e.target.value)
+}
 
   return (
     <>
@@ -131,18 +98,18 @@ export const Productos = () => {
                     <h3>Categorías</h3>
                   </div>
                   <div className="mt-4 mb-4 productos__categorias__caja__seleccionados">
-                    {
+                    {/* {
                       seleccionados &&
                       
                         <div >
                           <p>{seleccionados}</p>
                           <label onClick={() => eliminarCategoria()}>X</label>
                         </div>
-                    }
+                    } */}
                   </div>
                   <div className="productos__categorias__caja__detalle">
                     <h3>Familia</h3>
-                    <select name="selectFamilias" id="selectFamilias" className="form-select" onChange={onSelectFamilia}>
+                    <select name="selectFamilias" id="selectFamilias" className="form-select" value={seleccionados} onChange={onSelectFamilia}>
                       <option value="" disabled>Seleccione...</option>
                       {
                         familias.map((data) => (
@@ -152,33 +119,17 @@ export const Productos = () => {
                     </select>
                     <br />
                     <h3>Sub-familia</h3>
-                    <select name="selectSubFamilias" id="selectSubFamilias" className="form-select">
+                    <select name="selectSubFamilias" id="selectSubFamilias" className="form-select" value={subFamilyValue} onChange={onSelectSubFamilia}>
                       <option value="" disabled>Seleccione...</option>
+                      {
+                        subFamilias.map((data) => (
+                          
+                          <option key={data} value={data}>{capitalizar(data)}</option>
+                          
+                        ))
+                      }
                     </select>
-                  {/* <div className="accordion" id="accordionPanelsStayOpenExample">
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="panelsStayOpen-headingOne">
-                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                          Familia
-                        </button>
-                      </h2>
-                      <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                        <div className="accordion-body p-0">
-                          <ul className="productos__categorias__caja__detalle__categorias">
-                            {
-                              // familias != undefined &&
-                              (familias != undefined && familias.length > 0) &&
-                              familias.sort().map((data,i)=>(
-                                <li key={i} onClick={() => filtrarPorCategorias(data)}>
-                                    {capitalizar(data)}
-                                </li>
-                              ))
-                            }
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
+               
 
                   </div>
                 </div>
@@ -191,7 +142,7 @@ export const Productos = () => {
                     </form>
                     
                     <div className="productos__filtrar__filtro">
-                      <button onClick={mostrarOpcFiltrar}>Filtrar <FilterIcon/></button>
+                      <button >Filtrar <FilterIcon/></button>
                       {
                         showFiltros &&
                         <div>

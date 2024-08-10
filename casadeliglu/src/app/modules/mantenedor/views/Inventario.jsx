@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { EditarIcon } from "../../../../assets/Icons";
 import Swal from 'sweetalert2';
 import { capitalizar } from "../../../helpers/textos";
+import { useProductos } from "../../../hooks/useProductos";
 
 export const Inventario = () => {
 
@@ -22,9 +23,11 @@ export const Inventario = () => {
       stock: '',
       activo: true
     })
-    const [familias, setFamilias] = useState([])
+    const [families, setFamilias] = useState([])
 
     const token = useSelector(state => state.usuarioState.token);
+
+    const [listaProductos, familias ] = useProductos();
 
     const obtenerProductos = async() =>{
         const res = await getProductosMantenedorService(token);
@@ -192,8 +195,8 @@ export const Inventario = () => {
                     <select name="familia" className="form-select" onChange={handleInput} value={formFiltro.familia}>
                       <option value="" disabled>Seleccione...</option>
                       {
-                        (familias && familias.length > 0) &&
-                        familias.map((data)=>(
+                        (families && families.length > 0) &&
+                        families.map((data)=>(
                           <option value={data} key={data}>{capitalizar(data)}</option>
                         ))
                       }
