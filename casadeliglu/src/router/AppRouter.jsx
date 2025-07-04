@@ -1,25 +1,20 @@
 import React from 'react'
-import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { Home } from '../app/modules/home/Home'
-import { Header } from '../app/components/Header'
 import { Productos } from '../app/modules/Productos/Productos'
 import { Nosotros } from '../app/modules/Nosotros/Nosotros'
 import { Contacto } from '../app/modules/contacto/Contacto'
-import { Footer } from '../app/components/Footer'
-import { Trabajando } from '../app/components/Trabajando'
-import { Login } from '../app/modules/auth/pages/Login'
 import { useSelector } from 'react-redux'
 import { Producto } from '../app/modules/Productos/Producto'
-import { InRoutes } from '../app/routes/InRoutes'
 import { Pagar } from '../app/modules/Pago/Pagar/Pagar'
 import { PagoEnEspera } from '../app/modules/Pago/Pagar/Pages/PagoEnEspera'
 import { PagoFinalizado } from '../app/modules/Pago/Pagar/Pages/PagoFinalizado'
 import { Layout } from '../app/Layouts/Layout'
 import { Miperfil } from '../app/modules/MiPerfil/Miperfil'
 import { Mantenedor } from '../app/modules/mantenedor/views/mantenedor'
-import { PanelRoutes } from '../app/routes/PanelRoutes'
 import { Inventario } from '../app/modules/mantenedor/views/Inventario'
 import { Ventas } from '../app/modules/mantenedor/views/Ventas'
+import { Register } from '../app/modules/auth/register/Register'
 
 export const AppRouter = () => {
 
@@ -36,6 +31,7 @@ export const AppRouter = () => {
                 <Route path='/panel2/inventario' element={<Inventario />}/>
                 <Route path='/panel2/ventas' element={<Ventas />}/>
             </Route>
+          <Route path='/mi-perfil' element={<Layout><Miperfil /></Layout>} />
           </>
         }
         <Route path='/inicio' element={<Layout><Home /></Layout>} />
@@ -46,7 +42,7 @@ export const AppRouter = () => {
         <Route path='/pagar' element={<Layout><Pagar /></Layout>} />
         <Route path='/pagar/procesando' element={<Layout><PagoEnEspera /></Layout>} />
         <Route path='/pagar/resuelto' element={<Layout><PagoFinalizado /></Layout>} />
-        <Route path='/mi-perfil' element={<Layout><Miperfil /></Layout>} />
+        <Route path='/register' element={<Register />} />
 
         <Route path='/' element={<Navigate to='/inicio' />} />
         <Route path='/*' element={<Navigate to='/inicio' />} />

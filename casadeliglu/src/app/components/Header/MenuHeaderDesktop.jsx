@@ -44,7 +44,6 @@ export const MenuHeaderDesktop = () => {
 
     useEffect(() => {
       const res = getMenuProductsService().then((data)=>{
-        console.log(JSON.parse(data).Familias)
         setMenu(JSON.parse(data).Familias)
     })
     }, [])

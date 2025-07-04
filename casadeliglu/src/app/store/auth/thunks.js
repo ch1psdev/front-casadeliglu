@@ -1,15 +1,18 @@
 import { iniciarSesionService } from "../../services/login/loginService";
-import { login } from "./authSlice";
+import { cargarComuna, login } from "./authSlice";
 
 export const loginThunk = ( usuario ) => {
     
     return async( dispatch ) => {
 
-        const res = await iniciarSesionService(usuario);
-
-        if(res.code == 0){
-            await dispatch(login(res.data))
-        }
+        const res = await iniciarSesionService(usuario)
+            .then(({data, success})=>{
+                if(success){
+                    dispatch(login(data))
+                    dispatch(cargarComuna(data.comuna))
+                    return {data, success}
+                }
+            });
 
         return res
 

@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { obtenerFechaYHoraActual } from "../../../helpers/textos";
-import { pagar } from "../../../services/getnet/getnet";
+import { getCostoEnvio, pagar } from "../../../services/getnet/getnet";
 import { useNavigate } from "react-router-dom";
 import { LoaderComponent } from "../../../components/Loader";
 
@@ -9,10 +9,12 @@ export const Envio = () => {
 
   const { total } = useSelector((state) => state.buyState); 
   const compra = useSelector((state) => state.buyState);
+  const {envio} = useSelector((state) => state.usuarioState)
 
   //STATES
   const [radioEnvio, setRadioEnvio] = useState();
   const [mostrarLoader, setMostrarLoader] = useState(false);
+  const [costoEnvio, setCostoEnvio] = useState(2900);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,13 +59,21 @@ export const Envio = () => {
     console.log(res)
 
     if(res.status.status == 'OK'){
-      console.log(res.processUrl)
       window.open(res.processUrl);
       navigate('/pagar/procesando', {state: res.requestId});
     }
 
     setMostrarLoader(false)
   }
+
+  useEffect(() => {
+    setMostrarLoader(true)
+    getCostoEnvio(envio)
+      .then((data) => data)
+      .then((data) => setCostoEnvio(data[0]))
+      .finally(()=> setMostrarLoader(false))
+  }, [])
+  
 
   return (
     <>
@@ -72,11 +82,11 @@ export const Envio = () => {
         <p>
         Su compra será entregada en un <b>máximo de 48 horas.</b> 
         </p>
-        <p><b>Dirección:</b>{compra.direccion}</p>
+        <p><b>Dirección: </b>{compra.direccion}</p>
       </div>
       <div className="envio__valor">
-        <p><b>Valor:</b> $ 2.900</p>
-        <input type="radio" name="formaEntrega" id='envio' value={2900} onChange={()=>selectMedioPago()} />
+        <p><b>Valor:</b> $ {costoEnvio}</p>
+        <input type="radio" name="formaEntrega" id='envio' value={costoEnvio} onChange={()=>selectMedioPago()} />
       </div>
     </div>
     <br /> <br />

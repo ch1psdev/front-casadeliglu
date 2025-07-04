@@ -1,20 +1,21 @@
 import { urlApi } from "../../../config/config"
 
 export const iniciarSesionService = async (usuario) => {
-  try{
-    const res = await fetch(`${urlApi}/Usuario/login`,{
-        mode: 'cors',
-        method: 'POST',
-        headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(usuario)
-    });
+    try{
+        const res = await fetch(`${urlApi}/Auth/login`,{
+            mode: 'cors',
+            method: 'POST',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(usuario)
+        });
 
-    const data = await res.json();
-    return data;
-        
+        let data = res.ok && await res.json()
+
+        return data;
+  
     }catch(e){
         throw e;
     }
@@ -22,7 +23,7 @@ export const iniciarSesionService = async (usuario) => {
 
 export const recoveryPasswordService = async (datos) => {
     try{
-      const res = await fetch(`${urlApi}/Usuario/recuperarClave`,{
+      const res = await fetch(`${urlApi}/Auth/recuperarClave`,{
           mode: 'cors',
           method: 'POST',
           headers:{
@@ -45,7 +46,7 @@ export const recoveryPasswordService = async (datos) => {
 
   export const codeValidatorService = async (datos) => {
     try{
-      const res = await fetch(`${urlApi}/Usuario/validarCodigo`,{
+      const res = await fetch(`${urlApi}/Auth/validarCodigo`,{
           mode: 'cors',
           method: 'POST',
           headers:{
@@ -65,7 +66,7 @@ export const recoveryPasswordService = async (datos) => {
 
   export const changePasswordService = async (datos) => {
     try{
-      const res = await fetch(`${urlApi}/Usuario/cambiarClave`,{
+      const res = await fetch(`${urlApi}/Auth/cambiarClave`,{
           mode: 'cors',
           method: 'POST',
           headers:{

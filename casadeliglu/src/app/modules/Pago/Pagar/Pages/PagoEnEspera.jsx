@@ -5,8 +5,9 @@ import { consultarPago, getNumeroCompra } from "../../../../services/getnet/getn
 import { vaciarCarrito } from "../../../../store/shop/shopSlice"
 import { limpiarCompra } from "../../../../store/buy/buySlice"
 import iglu_header from '../../../../../assets/img/iglu_header.png'
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import html2canvas from "html2canvas"
+import { cargarComuna } from "../../../../store/auth/authSlice"
 
 export const PagoEnEspera = () => {
 
@@ -16,6 +17,8 @@ export const PagoEnEspera = () => {
     const [resPago, setResPago] = useState();
     const [espera, setEspera] = useState(true);
     const dispatch = useDispatch();
+
+    const {comuna} = useSelector((state) => state.usuarioState.info);
 
     const verEstadoSolicitud = async() =>{
         const res = consultarPago(location.state).then((data)=>{
@@ -63,6 +66,7 @@ export const PagoEnEspera = () => {
         if(resPago?.data?.status?.reason=='00'){
           dispatch(vaciarCarrito())
           dispatch(limpiarCompra())
+          dispatch(cargarComuna(comuna))
         }
       }, [resPago])
     

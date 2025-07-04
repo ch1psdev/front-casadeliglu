@@ -7,7 +7,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { encryptDecrypt, endcodeBase64, validaCorreo } from "../../../helpers/validations";
 import sha256 from "sha256";
 import { loginThunk } from "../../../store/auth/thunks";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Modal } from "react-bootstrap";
 import { LoaderComponent } from "../../../components/Loader";
 import visible from '../../../../assets/icons/visible.svg';
@@ -27,8 +27,6 @@ export const Login = ({show, handleCloseLogin, irRegistro}) => {
     const [errorPass, setErrorPass] = useState(false);
     const [mostrarLoader, setMostrarLoader] = useState(false);
     const [recuperarClave, setRecuperarClave] = useState('');
-    const [codigoEnviado, setCodigoEnviado] = useState(false);
-    const [codigoRecuperacion, setCodigoRecuperacion] = useState('');
     const [codigo, setCodigo] = useState('');
     const [errorCodigo, setErrorCodigo] = useState({
         state: false,
@@ -113,19 +111,24 @@ export const Login = ({show, handleCloseLogin, irRegistro}) => {
             captcha: token 
         }
 
-        const res = await dispatch(loginThunk(input))
+        const res = dispatch(loginThunk(input))
 
-        if(res.code == 0){
-            notify('Sesión iniciada correctamente!');
-            handleCloseLogin();
-        }else{
-            Swal.fire({
-                title: res.data,
-                icon: 'error',
-                confirmButtonText: 'Aceptar',
-                confirmButtonColor: '#0C2695'
-              })
-        }
+        res.then( data => {
+            console.log(data)
+            if(data.success){
+                notify('Sesión iniciada correctamente!');
+                handleCloseLogin();
+            }else{
+                Swal.fire({
+                    title: data.data,
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#0C2695'
+                })
+            }
+        })
+
+        
         setMostrarLoader(false);
         
     }
@@ -182,9 +185,8 @@ export const Login = ({show, handleCloseLogin, irRegistro}) => {
                         icon: 'error',
                         confirmButtonText: 'Aceptar',
                         confirmButtonColor: '#0C2695'
-                        })    
+                    })    
                 }
-                
             }).catch((error)=>{
                 Swal.fire({
                     title: 'Ha ocurrido un error, inténtalo más tarde.',
@@ -349,7 +351,7 @@ export const Login = ({show, handleCloseLogin, irRegistro}) => {
                         />
 
                         <button type="submit" className='contenedor__login__button boton'>Iniciar sesión</button>
-                        <Link className="contenedor__login__registrar" onClick={irRegistro}>
+                        <Link className="contenedor__login__registrar" onClick={irRegistro} to={'/register'}>
                             Regístrate aquí
                         </Link>
                     </form>

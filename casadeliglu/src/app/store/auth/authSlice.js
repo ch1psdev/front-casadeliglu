@@ -15,12 +15,11 @@ export const authSlice = createSlice({
             ciudad: '',
             rol: null
         },
-        token: ''
+        token: '',
+        envio: ''
 },
     reducers: {
-        // login: ( state ) => {
-        //     state.status="login"
-        // },
+
         login: ( state, {payload} ) => {
             console.log(payload);
             state.status = "identificado"
@@ -38,6 +37,10 @@ export const authSlice = createSlice({
             state.products = payload
         },
 
+        cargarComuna: ( state, { payload } ) => {
+            state.envio = payload
+        },
+
         logout: ( state ) => {
             state.status = 'logout'
             state.products = null,
@@ -50,9 +53,10 @@ export const authSlice = createSlice({
             state.info.ciudad = '',
             state.token = '',
             state.rol = null
+            state.envio = ''
         }
     }
 });
 
-export const { login, cargarProductos, logout } = authSlice.actions;
+export const { login, cargarProductos, cargarComuna, logout } = authSlice.actions;
 export default authSlice.reducer;

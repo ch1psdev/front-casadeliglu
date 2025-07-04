@@ -6,7 +6,7 @@ import { postUpdateProductoService } from "../../services/mantenedor/mantenedorS
 import { useSelector } from "react-redux";
 import Swal from 'sweetalert2';
 
-export const ModalEditarProducto = ({showModalProducto, setShowModalProducto, cerrarModalProducto, producto}) => {
+export const ModalEditarProducto = ({showModalProducto, cerrarModalProducto, producto, familias, subFamilias, obtenerSubFamilias}) => {
 
     const token = useSelector(state => state.usuarioState.token);
     const recaptchaRef = createRef();
@@ -27,7 +27,10 @@ export const ModalEditarProducto = ({showModalProducto, setShowModalProducto, ce
         setFormProducto({
             ...formProducto,
             [e.target.name]: e.target.value
-        })}
+        })
+    
+        e.target.name === 'familia' && obtenerSubFamilias(e.target.value)
+    }
     
 
     const editarProducto = async(e) => {
@@ -131,7 +134,6 @@ export const ModalEditarProducto = ({showModalProducto, setShowModalProducto, ce
                 
             }
           })
-        // const res = await postUpdateProductoService(token, inputProducto);
         
     }
 
@@ -183,32 +185,50 @@ export const ModalEditarProducto = ({showModalProducto, setShowModalProducto, ce
                         value={formProducto?.nombre} 
                         onChange={handleInput}  
                     />
-                    {/* <span className={`${errorCorreo ? 'd-block' : 'd-none'} spanInput`}>El correo ingresado no es válido</span> */}
                 </div>
 
                 <div className='form-group contenedor__login__group'>
                     <label htmlFor="familia" className='contenedor__login__group__texto'>Familia</label>
                     <input 
-                        name='familia' 
-                        type='text' 
-                        className='contenedor__login__group__campo form-control'
-                        value={formProducto?.familia} 
-                        onChange={handleInput}  
+                        type="text" 
+                        name="familia" 
+                        className='contenedor__login__group__campo form-control' 
+                        value={formProducto.familia} 
+                        onChange={handleInput} 
+                        list="listaFamilias" 
+                        placeholder="Seleccione..." 
                     />
+                    <datalist id="listaFamilias">
+                        {
+                            familias.length > 0 &&
+                                familias.map((data) => (
+                                    <option key={data} value={data}></option>
+                                ))
+
+                        }
+                    </datalist>
                 </div>
-                {/* <span className={`${errorPass ? 'd-block' : 'd-none'} spanInput`}>La contraseña ingresada no es válida</span> */}
 
                 <div className='form-group contenedor__login__group'>
                     <label htmlFor="subFamilia" className='contenedor__login__group__texto'>Sub-familia</label>
                     <input 
-                        name='subFamilia' 
-                        type='text' 
-                        className='contenedor__login__group__campo form-control'
-                        value={formProducto?.subFamilia} 
-                        onChange={handleInput}  
+                        type="text" 
+                        name="subFamilia" 
+                        className='contenedor__login__group__campo form-control' 
+                        value={formProducto.subFamilia} 
+                        onChange={handleInput} 
+                        list="listaSubFamilias" 
+                        placeholder="Seleccione..." 
                     />
+                    <datalist id="listaSubFamilias">
+                        {
+                            subFamilias.length > 0 &&
+                            subFamilias.map((data) => (
+                                <option key={data} value={data}></option>
+                            ))
+                        }
+                    </datalist>
                 </div>
-                {/* <span className={`${errorPass ? 'd-block' : 'd-none'} spanInput`}>La contraseña ingresada no es válida</span> */}
 
                 <div className='form-group contenedor__login__group'>
                     <label htmlFor="precioBruto" className='contenedor__login__group__texto'>Precio</label>
@@ -220,7 +240,6 @@ export const ModalEditarProducto = ({showModalProducto, setShowModalProducto, ce
                         onChange={handleInput}  
                     />
                 </div>
-                {/* <span className={`${errorPass ? 'd-block' : 'd-none'} spanInput`}>La contraseña ingresada no es válida</span> */}
 
                 <div className='form-group contenedor__login__group'>
                     <label htmlFor="stock" className='contenedor__login__group__texto'>Stock</label>

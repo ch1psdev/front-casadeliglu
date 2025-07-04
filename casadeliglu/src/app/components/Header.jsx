@@ -63,7 +63,6 @@ export const Header = ({handleModalCarrito}) => {
 
     const irRegistro = () => {
         setShowModalLogin(false);
-        setMostrarRegistro(true);
     }
 
     const calcularContadorProductos = () =>{
@@ -205,7 +204,6 @@ export const Header = ({handleModalCarrito}) => {
             </div>
         </div>
 
-        <Register pshow={mostrarRegistro} setMostrarRegistro={setMostrarRegistro} />
         <Login show={showModalLogin} handleCloseLogin={handleCloseLogin} irRegistro={irRegistro} />
         
         {

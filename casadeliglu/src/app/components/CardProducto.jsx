@@ -60,32 +60,57 @@ export const CardProducto = ({producto}) => {
     <>
       {
         producto!=undefined &&
-        <div className="card card-producto">
-          {
-            producto.foto ? 
-            (
-              <img src={producto.foto} className="card-img-top" alt="foto producto" />
-              
-            ):(
-              <img src={not_found} alt="foto producto" className='card-img-top' />
-            )
-          }
-          <div className="card-body">
-            <div className='card__cuerpo__textos'>
-              <span className='card-categoria manito' onClick={irCategoria}>{producto.familia}</span>
-              <h5 className="card-title manito" onClick={irProducto}><abbr title={producto.nombre}>{abreviar(producto.nombre)}</abbr></h5>
-              <p className="card-text">$ {producto.precioBruto}</p>
-            </div>
-            <div className='card__opciones manito'>
-              <div className='card__opc__ver' onClick={irProducto}>
-                <p>Ver</p>
+        <>
+          <div className="card card-producto d-none d-md-grid">
+            {
+              producto.foto ? 
+              (
+                <img src={producto.foto} className="card-img-top" alt="foto producto" />
+                
+              ):(
+                <img src={not_found} alt="foto producto" className='card-img-top' />
+              )
+            }
+            <div className="card-body">
+              <div className='card__cuerpo__textos'>
+                <span className='card-categoria manito' onClick={irCategoria}>{producto.familia}</span>
+                <h5 className="card-title manito" onClick={irProducto}><abbr title={producto.nombre}>{abreviar(producto.nombre)}</abbr></h5>
+                <p className="card-text">$ {producto.precioBruto}</p>
               </div>
-              <div className='card__img__cart' onClick={addProducto}>
-                <AddCart />
+              <div className='card__opciones manito'>
+                <div className='card__opc__ver' onClick={irProducto}>
+                  <p>Ver</p>
+                </div>
+                <div className='card__img__cart' onClick={addProducto}>
+                  <AddCart />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+
+          <div className='d-grid d-md-none card__mobile'>
+              <div className="card__mobile__foto">
+                {
+                  producto.foto ? 
+                  (
+                    <img src={producto.foto} className="card-img-top" alt="foto producto" />
+                    
+                  ):(
+                    <img src={not_found} alt="foto producto" className='card-img-top' />
+                  )
+                }
+              </div>
+              <div className='card__mobile__content'>
+                <h1>{producto.nombre}</h1>
+                <p className='card-categoria'>{producto.familia}</p>
+                <p className='card__mobile__content__precio'>$ {producto.precioBruto}</p>
+                <div>
+                  <a onClick={irProducto}>Ver</a>
+                  <button onClick={addProducto}>Agregar al carro</button>
+                </div>
+              </div>
+          </div>
+        </>
       }
       <ToastContainer closeOnClick />
     </>

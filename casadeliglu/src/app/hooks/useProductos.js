@@ -44,20 +44,13 @@ export const useProductos = () => {
     //Obtiene todas las familias de los productos y las guarda en familias sin repetirse
     const obtenerFamilias = (productos) => {
         const auxFamilias = productos.map(data => data.familia);
-        
-        let res = new Array();
-
-        for (let i = 0; i < auxFamilias.length; i++) {
-            if(!res.includes(auxFamilias[i])){
-                res.push(auxFamilias[i]);
-            }
-        }
-
+        const res = Array.from(new Set(auxFamilias));
         setFamilias(res)
     }
 
     //Fitra los productos por Familia de productos
     const filtrarProductosPorFamilia = (familia) => {
+        console.log(familia)
         setListaProductos(productos.filter(p => p.familia == familia))
     }
 

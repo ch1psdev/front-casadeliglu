@@ -44,7 +44,7 @@ export const Productos = () => {
       <>
         {current &&
           current.map((item, i) => (
-            <div key={i}>
+            <div key={i} className="lista-productos">
               <CardProducto producto={item} />
             </div>
           ))}
@@ -98,14 +98,6 @@ const onSelectSubFamilia = (e) => {
                     <h3>Categorías</h3>
                   </div>
                   <div className="mt-4 mb-4 productos__categorias__caja__seleccionados">
-                    {/* {
-                      seleccionados &&
-                      
-                        <div >
-                          <p>{seleccionados}</p>
-                          <label onClick={() => eliminarCategoria()}>X</label>
-                        </div>
-                    } */}
                   </div>
                   <div className="productos__categorias__caja__detalle">
                     <h3>Familia</h3>

@@ -32,7 +32,6 @@ export const buySlice = createSlice({
             state.direccion = payload.payload.direccion
         },
         agregarInfoDevice: (state, payload ) =>{
-            console.log(payload)
             state.ipAddress = payload.payload.ipAddress,
             state.userAgent = payload.payload.userAgent
         },

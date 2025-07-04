@@ -77,7 +77,7 @@ export const ModalCarrito = ({showModalCarrito, handleCloseModalCarrito}) => {
                     <CloseIcon />
                 </a>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{overflow: 'scroll'}}>
                 <div className="modal__carrito__carrito">
                     <h1>Carro de compras</h1>
                     <span>Cantidad de productos: {products.length}</span>
@@ -85,7 +85,7 @@ export const ModalCarrito = ({showModalCarrito, handleCloseModalCarrito}) => {
                         products.length == 0 ? (
                         <div>Su carro está vacío</div>
                         ) : (
-                        <div>
+                        <div >
                             {
                             products.map((data, i) => (
                                 <div key={i} className="carrito__productos">

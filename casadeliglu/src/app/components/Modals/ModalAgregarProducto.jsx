@@ -3,10 +3,10 @@ import { Modal } from "react-bootstrap";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useSelector } from "react-redux";
 import { siteKey } from "../../../config/config";
-import { postAddProductoService, postUpdateProductoService } from "../../services/mantenedor/mantenedorService";
+import { postAddProductoService } from "../../services/mantenedor/mantenedorService";
 import Swal from 'sweetalert2';
 
-export const ModalAgregarProducto = ({showModalAgregarProducto, setShowModalAgregarProducto, cerrarModalAgregarProducto}) => {
+export const ModalAgregarProducto = ({showModalAgregarProducto, cerrarModalAgregarProducto, familias, subFamilias, obtenerSubFamilias}) => {
 
     const token = useSelector(state => state.usuarioState.token);
     const recaptchaRef = createRef();
@@ -28,6 +28,8 @@ export const ModalAgregarProducto = ({showModalAgregarProducto, setShowModalAgre
             ...formProducto,
             [e.target.name]: e.target.value
         })
+
+        e.target.name === 'familia' && obtenerSubFamilias(e.target.value)
     }
 
     const handleFoto = (e) => {
@@ -103,8 +105,10 @@ export const ModalAgregarProducto = ({showModalAgregarProducto, setShowModalAgre
             foto: ''
         })
         setFotoProducto(null)
+        console.log(familias)
+        
     }, [])
-    
+
     
   return (
     <>
@@ -126,7 +130,6 @@ export const ModalAgregarProducto = ({showModalAgregarProducto, setShowModalAgre
                                 value={formProducto?.codigo} 
                                 onChange={handleInput}  
                             />
-                            {/* <span className={`${errorCorreo ? 'd-block' : 'd-none'} spanInput`}>El correo ingresado no es válido</span> */}
                         </div>
 
                         <div className='form-group mantenedor__agregarProducto__contenido__campos'>
@@ -138,32 +141,50 @@ export const ModalAgregarProducto = ({showModalAgregarProducto, setShowModalAgre
                                 value={formProducto?.nombre} 
                                 onChange={handleInput}  
                             />
-                            {/* <span className={`${errorCorreo ? 'd-block' : 'd-none'} spanInput`}>El correo ingresado no es válido</span> */}
                         </div>
 
                         <div className='form-group mantenedor__agregarProducto__contenido__campos'>
                             <label htmlFor="familia" className='contenedor__login__group__texto'>Familia</label>
                             <input 
-                                name='familia' 
-                                type='text' 
-                                className='contenedor__login__group__campo form-control'
-                                value={formProducto?.familia} 
-                                onChange={handleInput}  
+                                type="text" 
+                                name="familia" 
+                                className='contenedor__login__group__campo form-control' 
+                                value={formProducto.familia} 
+                                onChange={handleInput} 
+                                list="listaFamilias" 
+                                placeholder="Seleccione..." 
                             />
+                            <datalist id="listaFamilias">
+                                {
+                                    familias.length > 0 &&
+                                        familias.map((data) => (
+                                            <option key={data} value={data}></option>
+                                        ))
+
+                                }
+                            </datalist>
                         </div>
-                        {/* <span className={`${errorPass ? 'd-block' : 'd-none'} spanInput`}>La contraseña ingresada no es válida</span> */}
 
                         <div className='form-group mantenedor__agregarProducto__contenido__campos'>
                             <label htmlFor="subFamilia" className='contenedor__login__group__texto'>Sub-familia</label>
                             <input 
-                                name='subFamilia' 
-                                type='text' 
-                                className='contenedor__login__group__campo form-control'
-                                value={formProducto?.subFamilia} 
-                                onChange={handleInput}  
+                                type="text" 
+                                name="subFamilia" 
+                                className='contenedor__login__group__campo form-control' 
+                                value={formProducto.subFamilia} 
+                                onChange={handleInput} 
+                                list="listaSubFamilias" 
+                                placeholder="Seleccione..." 
                             />
+                            <datalist id="listaSubFamilias">
+                                {
+                                    subFamilias.length > 0 &&
+                                    subFamilias.map((data) => (
+                                        <option key={data} value={data}></option>
+                                    ))
+                                }
+                            </datalist>
                         </div>
-                        {/* <span className={`${errorPass ? 'd-block' : 'd-none'} spanInput`}>La contraseña ingresada no es válida</span> */}
                     </div>
 
                     <div className="mantenedor__agregarProducto__contenido__segundo">
@@ -177,7 +198,6 @@ export const ModalAgregarProducto = ({showModalAgregarProducto, setShowModalAgre
                                 onChange={handleInput}  
                             />
                         </div>
-                        {/* <span className={`${errorPass ? 'd-block' : 'd-none'} spanInput`}>La contraseña ingresada no es válida</span> */}
 
                         <div className='form-group mantenedor__agregarProducto__contenido__campos'>
                             <label htmlFor="stock" className='contenedor__login__group__texto'>Stock</label>

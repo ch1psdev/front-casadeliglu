@@ -261,6 +261,12 @@ input[type=radio]:checked + .banner__radio{
     }
 }
 
+@media screen and (max-width: $small) {
+    .lista-productos{
+        width: 100%;
+    }
+}
+
 @import './productos';
 @import './components/miga.scss';
 @import './header';
@@ -280,3 +286,4 @@ input[type=radio]:checked + .banner__radio{
 @import './components/loader';
 @import './components/modules/producto';
 @import './components/modules/mantenedor/inventario';
+@import './components/card';

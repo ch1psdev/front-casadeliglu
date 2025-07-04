@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actualizarCompra, agregarDatosPersonales } from "../../../store/buy/buySlice";
+import { agregarDatosPersonales } from "../../../store/buy/buySlice";
 import { useEffect } from "react";
-import { capitalizar } from "../../../helpers/textos";
+import { cargarComuna } from "../../../store/auth/authSlice";
 
 export const FormPagar = ({setPaso}) => {
 
@@ -24,8 +24,6 @@ export const FormPagar = ({setPaso}) => {
       const [errorNombre, setErrorNombre] = useState(false);
       const [errorApellidos, setErrorApellidos] = useState(false);
       const [errorDireccion, setErrorDireccion] = useState(false);
-      const [errorComuna, setErrorComuna] = useState(false);
-      const [errorCiudad, setErrorCiudad] = useState(false);
       const [errorContacto, setErrorContacto] = useState(false);
       const [errorCorreo, setErrorCorreo] = useState(false);
 
@@ -33,6 +31,45 @@ export const FormPagar = ({setPaso}) => {
         setInputForm({
             ...inputForm,
             [e.target.name]: e.target.value
+        })
+    }
+
+    function initMap(){
+        var input = document.getElementById('direccion');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.setComponentRestrictions({
+            'country': 'CL'
+        });
+
+        autocomplete.addListener('place_changed', function() {
+
+            var place = autocomplete.getPlace();
+
+            let city = '';
+            let commune = '';
+
+            if (place.address_components) {
+                place.address_components.forEach(component => {
+                    const types = component.types;
+                    if (types.includes('administrative_area_level_2')) {
+                    city = component.long_name;
+                    }
+                    if (types.includes('locality') || types.includes('neighborhood')) {
+                    commune = component.long_name;
+                    }
+                });
+            }
+
+            setInputForm({
+                ...inputForm,
+                direccion: place.formatted_address,
+                comuna: commune,
+                ciudad: city
+            })
+
+            dispatch(cargarComuna(commune))
+            
         })
     }
 
@@ -46,8 +83,6 @@ export const FormPagar = ({setPaso}) => {
             !inputForm.nombre ? setErrorNombre(true) : setErrorNombre(false);
             !inputForm.apellidos ? setErrorApellidos(true) : setErrorApellidos(false)
             !inputForm.direccion ? setErrorDireccion(true) : setErrorDireccion(false);
-            !inputForm.comuna ? setErrorComuna(true) : setErrorComuna(false);
-            !inputForm.ciudad ? setErrorCiudad(true) : setErrorCiudad(false);
             !inputForm.numeroContacto ? setErrorContacto(true) : setErrorContacto(false);
             !inputForm.correo ? setErrorCorreo(true) : setErrorCorreo(false);
 
@@ -65,14 +100,16 @@ export const FormPagar = ({setPaso}) => {
             ...inputPago,
             nombre: usuario.info.nombre,
             apellidos: usuario.info.apellido,
-            direccion: capitalizar(usuario.info.direccion) + ', ' + capitalizar(usuario.info.comuna) + ', ' + capitalizar(usuario.info.ciudad),
+            direccion: usuario.info.direccion,
             comuna: usuario.info.comuna,
             ciudad: usuario.info.ciudad,
             numeroContacto: usuario.info.contacto.toString(),
             correo: usuario.info.correo,
         }))
         }
-      }, [usuario])
+
+        document.querySelector('#direccion').value = usuario.info.direccion
+      }, [usuario.status])
 
   return (
     <>
@@ -112,32 +149,7 @@ export const FormPagar = ({setPaso}) => {
                         className={`form-control ${errorDireccion ? 'input-error' : ''}`} 
                         id="direccion" 
                         name="direccion"
-                        onChange={handleInput}
-                        value={inputForm.direccion}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="comuna"><span className="formPagoCampos__obligatorio">*</span>Comuna</label>
-                    <input 
-                        type="text" 
-                        className={`form-control ${errorComuna ? 'input-error' : ''}`}  
-                        id="comuna" 
-                        name="comuna"
-                        onChange={handleInput}
-                        value={inputForm.comuna}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="ciudad"><span className="formPagoCampos__obligatorio">*</span>Ciudad</label>
-                    <input 
-                        type="text" 
-                        className={`form-control ${errorCiudad ? 'input-error' : ''}`}  
-                        id="ciudad" 
-                        name="ciudad"
-                        onChange={handleInput}
-                        value={inputForm.ciudad}
+                        onChange={(e)=>initMap()}
                         required
                     />
                 </div>

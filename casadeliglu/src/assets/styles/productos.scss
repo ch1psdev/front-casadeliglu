@@ -4,6 +4,10 @@
     height: 150px;
     align-self: center;
     justify-self: center;
+
+    @media screen and (max-width: $small) {
+        height: 90px;
+    }
 }
 
 .card-body{
@@ -40,8 +44,16 @@
 }
 
 .cards-group{
+    display: grid;
     gap:20px;
-    padding-top: 20px
+    padding-top: 20px;
+    
+    @include breakPoint($medium){
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: center;
+        justify-items: center; 
+    }
 }
 
 .card__opciones{

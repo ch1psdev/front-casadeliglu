@@ -21,18 +21,17 @@ export const Inventario = () => {
       familia: '',
       precio: '',
       stock: '',
-      activo: true
+      activo: null
     })
     const [families, setFamilias] = useState([])
 
     const token = useSelector(state => state.usuarioState.token);
 
-    const [listaProductos, familias ] = useProductos();
+    const [listaProductos, filtrarProductosPorFamilia, filtrarPorNombre, familias, ordenarPrecioDesc, ordenarPrecioAsc, quitarFiltroPorCategoria, obtenerSubFamilias, subFamilias, filtrarProductosPorSubFamilia] = useProductos();
 
     const obtenerProductos = async() =>{
         const res = await getProductosMantenedorService(token);
         if(res.code == 200){
-          console.log(res.data)
           setProductos(res.data)
           setProductosFiltrados(res.data)
         }
@@ -149,13 +148,19 @@ export const Inventario = () => {
           familia: '',
           precio: '',
           stock: '',
-          activo: true
+          activo: null
         })
       }
 
     useEffect(() => {
         obtenerProductos()
+        
     }, [])
+
+    useEffect(() => {
+      console.log(listaProductos, 'lista')
+      console.log(familias, 'FAMILIAS')
+    }, [familias])
 
     useEffect(()=>{
       if(productos){
@@ -209,6 +214,7 @@ export const Inventario = () => {
                 <div className="inventario__tabla__filtros__campos">
                     <label htmlFor="activo">Activo</label>
                     <select name="activo" id="" className="form-select" value={formFiltro.activo} onChange={handleInput}>
+                        <option value={null} disabled>Seleccione...</option>
                         <option value={true}>Si</option>
                         <option value={false}>No</option>
                     </select>
@@ -264,8 +270,25 @@ export const Inventario = () => {
                     </tbody>
                 </table>
         </div>
-        <ModalEditarProducto showModalProducto={showModalProducto} setShowModalProducto={setShowModalProducto} cerrarModalProducto={cerrarModalProducto} producto={producto} />
-        <ModalAgregarProducto showModalAgregarProducto={showModalAgregarProducto} setShowModalAgregarProducto={setShowModalAgregarProducto} cerrarModalAgregarProducto={cerrarModalAgregarProducto} />
+
+        /**MODALS */
+
+        <ModalEditarProducto 
+          showModalProducto={showModalProducto} 
+          cerrarModalProducto={cerrarModalProducto} 
+          producto={producto} 
+          familias={familias}
+          subFamilias={subFamilias} 
+          obtenerSubFamilias={obtenerSubFamilias}
+        />
+        
+        <ModalAgregarProducto 
+          showModalAgregarProducto={showModalAgregarProducto}
+          cerrarModalAgregarProducto={cerrarModalAgregarProducto} 
+          familias={familias}
+          subFamilias={subFamilias} 
+          obtenerSubFamilias={obtenerSubFamilias}
+        />
       </div>
 
     )
